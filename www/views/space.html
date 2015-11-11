@@ -1,8 +1,7 @@
 <div layout="column">
     <div layout="row">
         <div flex="25">
-            <img ng-if="space.image_url" ng-src="{{ space.image_url | urlFile }}" alt="{{space.name}}" style="max-width: 100%;">
-            <img ng-if="!space.image_url" ng-src="imgs/lol.jpeg" alt="{{space.name}}" style="max-width: 100%;">
+            <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}" style="max-width: 100%" alt="{{space.name}}">
         </div>
 
         <section flex="75" layout-padding>
@@ -10,12 +9,14 @@
 
             <p>{{ space.description }}</p>
 
-            <md-button flex="15" class="md-raised" ng-if="$root.isAdmin" title="Réservation"
+            <div layout="row">
+            <md-button flex="15" class="md-primary md-raised" ng-if="$root.isAdmin" title="Réservation"
                        ui-sref="root.spaces.booking({space: space.slug})">Réserver
             </md-button>
-            <md-button flex="15" class="md-raised" ng-if="$root.isAdmin"
+            <md-button flex="15" class="md-primary md-raised" ng-if="$root.isAdmin"
                        ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa  fa-cogs"></i> Modifier
             </md-button>
+            </div>
         </section>
     </div>
 
