@@ -1,0 +1,29 @@
+<div layout="column">
+    <div layout="row">
+        <div flex="25">
+            <img ng-if="space.image_url" ng-src="{{ space.image_url | urlFile }}" alt="{{space.name}}" style="max-width: 100%;">
+            <img ng-if="!space.image_url" ng-src="imgs/lol.jpeg" alt="{{space.name}}" style="max-width: 100%;">
+        </div>
+
+        <section flex="75" layout-padding>
+            <h1>{{ space.name }} ({{space.location}})</h1>
+
+            <p>{{ space.description }}</p>
+
+            <md-button flex="15" class="md-raised" ng-if="$root.isAdmin" title="Réservation"
+                       ui-sref="root.spaces.booking({space: space.slug})">Réserver
+            </md-button>
+            <md-button flex="15" class="md-raised" ng-if="$root.isAdmin"
+                       ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa  fa-cogs"></i> Modifier
+            </md-button>
+        </section>
+    </div>
+
+    <br>
+    <md-divider></md-divider>
+    <br>
+
+    <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+</div>
+
+

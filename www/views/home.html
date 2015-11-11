@@ -1,0 +1,81 @@
+<div layout="column" class="full-height">
+    <section layout="row" flex>
+        <!-- Top toolbar -->
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-theme-indigo">
+                <h1 class="md-toolbar-tools">Menu</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <md-list>
+                    <md-list-item>
+                        <md-button aria-label="Tableau de bord" ng-click="go('root.dashboard')">
+                            <md-icon md-menu-align-target md-font-icon="fa-dashboard" class="fa"></md-icon>
+                            Tableau de bord
+                        </md-button>
+                    </md-list-item>
+
+                    <md-divider></md-divider>
+
+                    <md-list-item>
+                        <md-button aria-label="Espaces" ng-click="go('root.spaces.list')">
+                            <md-icon md-menu-align-target md-font-icon="fa-map-marker" class="fa"></md-icon>
+                            Espaces
+                        </md-button>
+                    </md-list-item>
+
+                    <md-list-item>
+                        <md-button aria-label="Réservations" ng-click="go('root.bookings.list')">
+                            <md-icon md-menu-align-target md-font-icon="fa-calendar" class="fa"></md-icon>
+                            Réservations
+                        </md-button>
+                    </md-list-item>
+
+                    <md-divider></md-divider>
+
+                    <md-list-item>
+                        <md-button aria-label="Statistiques" ng-click="go('root.statistics')">
+                            <md-icon md-menu-align-target md-font-icon="fa-bar-chart" class="fa"></md-icon>
+                            Statistiques
+                        </md-button>
+                    </md-list-item>
+
+                    <md-list-item>
+                        <md-button aria-label="Déconnexion" ng-click="logout()">
+                            <md-icon md-menu-align-target md-font-icon="fa-sign-out" class="fa"></md-icon>
+                            Déconnexion
+                        </md-button>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-sidenav>
+
+        <div layout="column" flex>
+
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span flex hide-sm class="md-headline ng-binding">
+                        Bibliothèque
+                        <md-icon md-menu-align-target md-font-icon="fa-chevron-right" class="fa"></md-icon>
+                        {{ pageTitle }}
+                    </span>
+                </div>
+            </md-toolbar>
+
+            <md-content>
+                <!-- Main content -->
+                <div layout="column" ui-view style="min-height: 87vh" layout-padding layout-margin></div>
+            </md-content>
+
+        </div>
+
+        <!--        <md-toolbar>
+                    <div class="md-toolbar-tools md-body-1" layout="row" layout-align="space-between center">
+                        <p>PontBliothèque</p>
+                        <p >Made with ♥, AngularJS and other hipster technologies</p>
+                        <p>By LT'018</p>
+                    </div>
+                </md-toolbar>-->
+    </section>
+
+</div>
