@@ -15,7 +15,8 @@
     "fullcalendar-scheduler": "latest",
     "highcharts-release": "latest",
     "jquery": "latest",
-    "ui-router": "latest"
+    "ui-router": "latest",
+    "angular-material-data-table": "~0.8.14"
   },
   "overrides": {
     "highcharts-release": {

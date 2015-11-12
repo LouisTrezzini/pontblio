@@ -23,7 +23,8 @@ angular
         'ngMessages',
         'ngResource',
         'ui.router',
-        'ui.calendar'
+        'ui.calendar',
+        'md.data.table'
     ])
     // Setup theme
     .config(function($mdThemingProvider) {
