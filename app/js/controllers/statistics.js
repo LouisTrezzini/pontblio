@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Statistics_Ctrl', function($scope, stats) {
+    .controller('Statistics_Ctrl', function($scope, $window, $timeout, stats) {
         $scope.chartBookingsStatus = {
             chart: {
                 renderTo: 'bookingsStatus',
@@ -125,6 +125,8 @@ angular.module('biblio')
                 data: stats.bookings.aheadplan
             }]
         };
+
+        $timeout(function(){ angular.element($window).triggerHandler('resize') });
     })
     .config(function($stateProvider) {
         $stateProvider
