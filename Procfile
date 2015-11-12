@@ -1,1 +1,1 @@
-web: apache www/
+web: npm start
