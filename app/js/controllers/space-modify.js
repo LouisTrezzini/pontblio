@@ -1,6 +1,7 @@
 angular.module('biblio')
     .controller('Space_Modify_Ctrl', function($scope, $stateParams, $http, $state, space, Alert) {
         $scope.space = space;
+        $scope.submitButton = 'Modifier !';
 
         var spaceSlug = space.name;
 
@@ -30,6 +31,8 @@ angular.module('biblio')
     .controller('Space_Create_Ctrl', function($scope, $stateParams, $http, $state, Alert) {
         $scope.space = {};
 
+        $scope.submitButton = 'Créer !';
+
         $scope.submitSpace = function(space, imageBase64) {
             var params = {
                 'name' : space.name,
@@ -48,32 +51,4 @@ angular.module('biblio')
             });
         };
     })
-    .config(function($stateProvider) {
-        $stateProvider
-            .state('root.spaces.modify', {
-                url: '/spaces/:slug/modify',
-                templateUrl: 'views/space-modify.html',
-                controller: 'Space_Modify_Ctrl',
-                data: {
-                    top: true
-                },
-                resolve: {
-                    space: ['$resource', '$stateParams', function($resource, $stateParams) {
-                        return $resource(apiPrefix + 'spaces/:slug').get({
-                            slug: $stateParams.slug
-                        }).$promise;
-                    }]
-                }
-            });
-    })
-    .config(function($stateProvider) {
-        $stateProvider
-            .state('root.spaces.create', {
-                url: '/create',
-                templateUrl: 'views/space-modify.html',
-                controller: 'Space_Create_Ctrl',
-                data: {
-                    title: 'Édition d\'un espace'
-                }
-            });
-    });
+;

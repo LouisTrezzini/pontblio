@@ -30,6 +30,14 @@ angular.module('biblio')
                     title: 'Espaces de travail'
                 }
             })
+            .state('root.spaces.create', {
+                url: '/create',
+                templateUrl: 'views/space-modify.html',
+                controller: 'Space_Create_Ctrl',
+                data: {
+                    title: 'Création d\'un espace'
+                }
+            })
             .state('root.spaces.simple', {
                 url: '/:slug',
                 templateUrl: 'views/space.html',
@@ -45,6 +53,21 @@ angular.module('biblio')
                     }],
                     bookings: ['$resource', '$stateParams', function ($resource, $stateParams) {
                         return $resource(apiPrefix + 'spaces/:slug/bookings').query({
+                            slug: $stateParams.slug
+                        }).$promise;
+                    }]
+                }
+            })
+            .state('root.spaces.modify', {
+                url: '/:slug/modify',
+                templateUrl: 'views/space-modify.html',
+                controller: 'Space_Modify_Ctrl',
+                data: {
+                    title: 'Édition d\'un espace'
+                },
+                resolve: {
+                    space: ['$resource', '$stateParams', function($resource, $stateParams) {
+                        return $resource(apiPrefix + 'spaces/:slug').get({
                             slug: $stateParams.slug
                         }).$promise;
                     }]

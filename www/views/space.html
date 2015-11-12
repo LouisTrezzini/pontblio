@@ -10,10 +10,10 @@
             <p>{{ space.description }}</p>
 
             <div layout="row">
-            <md-button flex="15" class="md-primary md-raised" ng-if="$root.isAdmin" title="Réservation"
+            <md-button flex="20" class="md-primary md-raised" ng-if="$root.isAdmin" title="Réservation"
                        ui-sref="root.spaces.booking({space: space.slug})">Réserver
             </md-button>
-            <md-button flex="15" class="md-primary md-raised" ng-if="$root.isAdmin"
+            <md-button flex="20" class="md-primary md-raised" ng-if="$root.isAdmin"
                        ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa  fa-cogs"></i> Modifier
             </md-button>
             </div>
