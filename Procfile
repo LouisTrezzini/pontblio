@@ -1,1 +1,1 @@
-web: gulp
+web: apache www/

@@ -83,7 +83,7 @@ gulp.task('serve', function() {
         .src( 'www' )
         .pipe(webserver({
             port: process.env.PORT || '9001',
-            livereload: false,
+            livereload: true,
             directoryListing: false
         }))
     ;
@@ -94,5 +94,5 @@ gulp.task('watch', function() {
     gulp.watch('app/less/*.less', ['build-less']);
 });
 gulp.task('build', ['build-js', 'build-less', 'copy-fonts']);
-gulp.task('start', ['watch', 'serve']);
+gulp.task('start', ['watch']);
 gulp.task('default', ['build', 'start']);
