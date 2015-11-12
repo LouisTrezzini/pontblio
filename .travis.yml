@@ -1,12 +1,13 @@
-# whitelist
 branches:
   only:
-    - master
-    - develop
-
+  - master
+  - develop
 language: node_js
 node_js:
-  - "stable"
-before_script:
-  - npm install -g gulp
-script: gulp
+- stable
+deploy:
+  provider: heroku
+  api_key:
+    secure: VZQyt+dKgcHPVrVFq2ij6fNvn46HpkauAWMTd3stPrpfo2AKqM3NCCi87lJA9bV94p36+ylQQazLJ3rLs1emY4Flp/2psyRVY/fn4K7wxcNbqTphGVWwMoPFSo9NAzhLdkFiqNjk+PkNh46u2AhTnBiO7sjBUxHvOV/CPRx/CGE62nNIfCSfRRVBPnGV8iLDFFUjSoGrZvQzEFPNvcuE6BiB4PH2gn/1jDWz1agmy0o4CKFpplHgGkEkif1OcvihlIzlw2O1MbKqpWLp+Cu05y8TG4LG3H6oxVdrGPognfXTJC1q06YgSc402hiiBjFztJuy9trxvkyrwjnkGwWhwjo3oxDOmMkvf4tK7csE4zC6SmzNPeR7MaE7qQ3rT/84VcikDeolbPPT7yUYcFwfiaEMP9KX4NUQfDZVCUXXSc1Bd2d34NKlXD2xVYRTRk63s0Uemvd3LPzc2DF5Of/mvlN0WHsgodAqo2d+OtgiB8H4I5LG0/jfh0mYvhvreXzi7i9qjt36fyCa+p/dtwFiIKqMLGwr7nIgtGMp5hOtDD+nh9AY0Vmn3pgOXQ+tculnVB3fz9gdHCy8ldw18Qdwvr44xki/QM8btoRfbR99qpLhOgdYZ0dw3NIVnw9MEs8pShts7+2Z4Agq3rIoS40/sfrOQ579c0lNW1bIhJtlaJg=
+  on: develop
+  skip_cleanup: true
