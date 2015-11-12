@@ -82,7 +82,8 @@ gulp.task('serve', function() {
     gulp
         .src( 'www' )
         .pipe(webserver({
-            port: 80,
+            host: '0.0.0.0',
+            port: process.env.PORT || 9001,
             livereload: false,
             directoryListing: false
         }))
