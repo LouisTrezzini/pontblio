@@ -30,7 +30,9 @@ angular
     .config(function($mdThemingProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
-            .accentPalette('red');
+            .accentPalette('red')
+            //.dark()
+        ;
     })
     // Setup routes
     .config(function($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, $locationProvider) {
@@ -38,12 +40,12 @@ angular
         $urlRouterProvider.otherwise('/404');
 
         $stateProvider
-            .state('root.404', {
-                url: '404',
+            .state('404', {
+                url: '/404',
                 templateUrl: 'views/404.html'
             })
-            .state('root.418', {
-                url: '418',
+            .state('418', {
+                url: '/418',
                 templateUrl: 'views/418.html'
             })
         ;
