@@ -18,7 +18,7 @@ angular.module('biblio')
             }
 
             $http.patch(apiPrefix + 'spaces/' + space.slug, params).success(function(){
-                Alert('Modifications prises en compte !');
+                Alert.toast('Modifications prises en compte !');
                 if (spaceSlug == space.name) {
                     $state.go('root.spaces.simple', {slug: space.slug});
                 } else {
@@ -46,7 +46,7 @@ angular.module('biblio')
             }
 
             $http.post(apiPrefix + 'spaces', params).success(function(space){
-                Alert('Espace créé !');
+                Alert.toast('Espace créé !');
                 $state.go('root.spaces.simple', {slug: space.slug});
             });
         };

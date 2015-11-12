@@ -12,7 +12,7 @@ angular.module('biblio')
                 .error(function(data, status, headers, config) {
                     // Supprime tout token en cas de mauvaise identification
                     Permissions.remove();
-                    Alert(data.reason);
+                    Alert.toast(data.reason);
                 })
             ;
         };

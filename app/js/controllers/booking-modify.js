@@ -18,7 +18,7 @@ angular.module('biblio')
             params.endDate = moment(booking.end_date).unix();
 
             $http.patch(apiPrefix + 'bookings/' + booking.slug, params).success(function(){
-                alertify.success('Modification prise en compte !');
+                Alert.toast('Modification prise en compte !');
                 $state.go('root.users.biblio.spaces.simple', {slug: booking.space_slug});
             });
         };
@@ -44,7 +44,7 @@ angular.module('biblio')
             params.endDate = moment(booking.end_date).unix();
 
             $http.post(apiPrefix + 'bookings', params).success(function(){
-                alertify.success('Réservation prise en compte !');
+                Alert.toast('Réservation prise en compte !');
                 $state.go('root.users.biblio.spaces.simple', {slug: booking.space_slug});
             });
         };
