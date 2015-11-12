@@ -71,11 +71,9 @@ gulp.task('lint-js', function() {
 });
 
 gulp.task('copy-fonts', function () {
-    return gulp
-        .src(mainBowerFiles())
-        .pipe(filter(['***.eot', '***.svg', '***.ttf', '***.woff', '***.woff2', '***.otf']))
-        .pipe(gulp.dest('www/fonts/'))
-    ;
+    return gulp.src(mainBowerFiles().concat('www/libs/fontawesome/fonts/*'))
+        .pipe(filter(['**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2', '**/*.otf']))
+        .pipe(gulp.dest('www/fonts/'));
 });
 
 gulp.task('serve', function() {
