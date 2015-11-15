@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Bookings_List_Ctrl', function($rootScope, $scope, $http, $resource, bookings, spaces, Alert) {
+    .controller('Bookings_List_Ctrl', function($rootScope, $scope, $http, $resource, bookings, spaces, Alert, $mdDialog) {
         $scope.bookings = bookings;
         $scope.spaces = {};
         for(var i = 0; i < spaces.length; i++){
@@ -8,25 +8,28 @@ angular.module('biblio')
 
         $scope.delete = function(booking) {
             // On demande confirmation
-            alertify.confirm('Es-tu bien sûr de vouloir supprimer ta réservation du ' + moment.unix(booking.start_date).calendar()
-                //+ ' dans l\'espace ' + $scope.spaces[booking.space_slug].name
-                + ' ?', function(e){
+            var confirm = $mdDialog.confirm()
+                .title('Suppression d\'une réservation')
+                .content('Es-tu bien sûr de vouloir supprimer ta réservation du ' + moment.unix(booking.start_date).calendar() + ' ?')
+                .ariaLabel('Suppression d\'une réservation')
+                .ok('Oui')
+                .cancel('Non')
+                .theme('alert');
 
-                if (e) {
-                    $http.delete(apiPrefix + 'bookings/' + booking.slug)
-                        .success(function(){
-                            Alert('Réservation supprimée !');
-                            $resource(apiPrefix + 'own/bookings').query(function(data){
-                                $scope.bookings = data;
-                            });
-                        })
-                        .error(function(){
-                            alertify.error('Erreur...');
+            $mdDialog.show(confirm).then(function() {
+                $http.delete(apiPrefix + 'bookings/' + booking.slug)
+                    .success(function(){
+                        Alert.alert('Réservation supprimée');
+                        $resource(apiPrefix + 'own/bookings').query(function(data){
+                            $scope.bookings = data;
                         });
-                }
+                    })
+                    .error(function(){
+                        Alert.alert('Impossible de supprimer la réservation');
+                    });
+            }, function() {
+                Alert.toast('Réservation maintenue');
             });
-
-
         };
     })
     .config(function($stateProvider) {

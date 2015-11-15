@@ -44,6 +44,10 @@
                 <md-button flex="15" flex-md="25" class="md-primary md-raised">{{submitButton}}</md-button>
             </div>
         </form>
+
+        <div flex="100" layout="row" layout-align="start center">
+            <md-button flex="15" flex-md="25" class="md-accent md-raised" ng-click="delete()" ng-if="mode!='create'">Supprimer l'espace</md-button>
+        </div>
     </md-content>
 </div>
 <!-- TODO erreurs -->

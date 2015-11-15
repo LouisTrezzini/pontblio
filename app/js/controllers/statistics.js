@@ -1,9 +1,9 @@
 angular.module('biblio')
-    .controller('Statistics_Ctrl', function($scope, $window, $timeout, stats) {
+    .controller('Statistics_Ctrl', function ($scope, $window, $timeout, stats) {
         $scope.chartBookingsStatus = {
             chart: {
                 renderTo: 'bookingsStatus',
-                backgroundColor:'rgba(255, 255, 255, 0)',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
                 type: 'column'
             },
             credits: {
@@ -45,7 +45,7 @@ angular.module('biblio')
         $scope.chartBookingsLocations = {
             chart: {
                 renderTo: 'bookingsModes',
-                backgroundColor:'rgba(255, 255, 255, 0)',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
                 type: 'column'
             },
             credits: {
@@ -87,7 +87,7 @@ angular.module('biblio')
         $scope.chartBookingsAheadPlan = {
             chart: {
                 renderTo: 'bookingsAheadPlan',
-                backgroundColor:'rgba(255, 255, 255, 0)',
+                backgroundColor: 'rgba(255, 255, 255, 0)',
                 type: 'column'
             },
             credits: {
@@ -126,9 +126,11 @@ angular.module('biblio')
             }]
         };
 
-        $timeout(function(){ angular.element($window).triggerHandler('resize') });
+        $timeout(function () {
+            angular.element($window).triggerHandler('resize');
+        });
     })
-    .config(function($stateProvider) {
+    .config(function ($stateProvider) {
         $stateProvider
             .state('root.statistics', {
                 url: '/statistics',
