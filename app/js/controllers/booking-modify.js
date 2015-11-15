@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Booking_Modify_Ctrl', function($scope, $stateParams, $http, $state, booking, spaces) {
+    .controller('Booking_Modify_Ctrl', function ($scope, $stateParams, $http, $state, booking, spaces, Alert) {
         $scope.booking = booking;
         $scope.spaces = spaces;
         $scope.booking.start_date *= 1000;
@@ -7,49 +7,58 @@ angular.module('biblio')
 
         $scope.submitButton = 'Modifier !';
 
-        $scope.submitBooking = function(booking) {
+        $scope.submitBooking = function (booking) {
             var params = {
-                'space' : booking.space_slug,
-                'userCount' : booking.user_count,
-                'reason' : booking.reason
+                'space': booking.space_slug,
+                'userCount': booking.user_count,
+                'reason': booking.reason
             };
 
             params.startDate = moment(booking.start_date).unix();
             params.endDate = moment(booking.end_date).unix();
 
-            $http.patch(apiPrefix + 'bookings/' + booking.slug, params).success(function(){
+            $http.patch(apiPrefix + 'bookings/' + booking.slug, params).success(function () {
                 Alert.toast('Modification prise en compte !');
-                $state.go('root.users.biblio.spaces.simple', {slug: booking.space_slug});
+                $state.go('root.spaces.simple', {slug: booking.space_slug});
+            }).error(function () {
+                Alert.toast('Formulaire mal rempli');
             });
         };
     })
-    .controller('Booking_Create_Ctrl', function($scope, $stateParams, $http, $state, spaces) {
+    .controller('Booking_Create_Ctrl', function ($scope, $stateParams, $http, $state, spaces, Alert) {
         $scope.booking = {};
         $scope.spaces = spaces;
 
         $scope.booking.user_count = 1;
         $scope.submitButton = 'Réserver !';
 
-        if($stateParams.space)
+        if ($stateParams.space)
             $scope.booking.space_slug = $stateParams.space;
 
-        $scope.submitBooking = function(booking) {
+        $scope.submitBooking = function (booking) {
             var params = {
-                'space' : booking.space_slug,
-                'userCount' : booking.user_count,
-                'reason' : booking.reason
+                'space': booking.space_slug,
+                'userCount': booking.user_count,
+                'reason': booking.reason
             };
 
             params.startDate = moment(booking.start_date).unix();
             params.endDate = moment(booking.end_date).unix();
 
-            $http.post(apiPrefix + 'bookings', params).success(function(){
+            $http.post(apiPrefix + 'bookings', params).success(function () {
                 Alert.toast('Réservation prise en compte !');
-                $state.go('root.users.biblio.spaces.simple', {slug: booking.space_slug});
+                $state.go('root.spaces.simple', {slug: booking.space_slug});
+            }).error(function (data) {
+                if (typeof data.errors.errors != 'undefined') {
+                    for(var i = 0; i < data.errors.errors.length; i ++)
+                        Alert.toast(data.errors.errors[i]);
+                }
+                else
+                    Alert.toast('Formulaire mal rempli');
             });
         };
     })
-    .config(['$stateProvider', function($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('root.bookings.create', {
                 url: '/new',
@@ -59,7 +68,7 @@ angular.module('biblio')
                     title: 'Nouvelle réservation'
                 },
                 resolve: {
-                    spaces: function($resource) {
+                    spaces: function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
                     }
                 }
@@ -72,12 +81,12 @@ angular.module('biblio')
                     title: 'Modification d\'une réservation'
                 },
                 resolve: {
-                    booking: function($resource, $stateParams) {
+                    booking: function ($resource, $stateParams) {
                         return $resource(apiPrefix + 'bookings/:slug').get({
                             slug: $stateParams.slug
                         }).$promise;
                     },
-                    spaces: function($resource) {
+                    spaces: function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
                     }
                 }
@@ -90,7 +99,7 @@ angular.module('biblio')
                     title: 'Nouvelle réservation'
                 },
                 resolve: {
-                    spaces: function($resource) {
+                    spaces: function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
                     }
                 }
