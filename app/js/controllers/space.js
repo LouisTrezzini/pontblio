@@ -24,13 +24,14 @@ angular.module('biblio')
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
+                height: 820,
                 lang: 'fr',
                 defaultView : 'agendaWeek',
                 minTime: '08:00:00',
                 maxTime: '23:00:00',
                 slotLabelFormat: 'HH:mm',
-                slotLabelInterval: {minutes: 30},
-                slotDuration: {minutes:15},
+                slotLabelInterval: {hours:1},
+                slotDuration: {minutes:30},
                 allDaySlot: false
 
                 //eventClick: $scope.alertOnEventClick,

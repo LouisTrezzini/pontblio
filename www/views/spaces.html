@@ -1,4 +1,4 @@
-<div layout="column">
+<div layout="column" layout-padding>
     <div layout="row">
         <md-button flex="20" class="md-primary md-raised" ng-class="{'md-accent':modo}" ng-if="$root.isAdmin"
                    ng-click="toggleModo()">Mode modo
@@ -14,19 +14,19 @@
                 <div ui-sref="root.spaces.simple({slug: space.slug})">
                     <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
                          class="md-card-image" alt="{{space.name}}">
+
+                    <md-card-content>
+                        <h3 class="md-title">{{ space.name }}</h3>
+                    </md-card-content>
                 </div>
-                <md-card-content>
-                    <h3 class="md-title">{{ space.name }}</h3>
-                </md-card-content>
             </md-card>
         </div>
 
         <div flex="33" ng-repeat="space in spaces" ng-if="modo">
             <md-card>
-                <div ui-sref="root.spaces.simple({slug: space.slug})">
-                    <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
-                         class="md-card-image" alt="{{space.name}}">
-                </div>
+                <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
+                     class="md-card-image" alt="{{space.name}}">
+
                 <md-card-content layout="row">
                     <md-switch ng-change="toggleSpace(space);" ng-model="space.active"
                                aria-label="{{ space.name }}"></md-switch>

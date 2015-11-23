@@ -6,7 +6,7 @@
                     Espace
                 </label>
                 <md-select ng-model="booking.space_slug">
-                    <md-option ng-repeat="space in spaces" value="{{space.slug}}">{{space.name}}</md-option>
+                    <md-option ng-repeat="space in spaces | filter:{active:true}" value="{{space.slug}}">{{space.name}}</md-option>
                 </md-select>
             </md-input-container>
 
