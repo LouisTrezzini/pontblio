@@ -23,6 +23,7 @@
     "gulp-uglifycss": "latest",
     "gulp-util": "latest",
     "gulp-webserver": "latest",
+    "jshint": "latest",
     "jshint-stylish": "latest",
     "main-bower-files": "latest"
   },
