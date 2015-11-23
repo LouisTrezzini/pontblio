@@ -35,6 +35,6 @@
   },
   "resolutions": {
     "fullcalendar": "~2.4.0",
-    "angular": "1.4.7"
+    "angular": "1.4.8"
   }
 }
