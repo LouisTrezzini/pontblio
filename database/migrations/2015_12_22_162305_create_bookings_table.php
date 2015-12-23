@@ -14,8 +14,8 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
             $table->integer('user_count');
             $table->string('reason');
             $table->boolean('cancelled');
