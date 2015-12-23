@@ -22,6 +22,7 @@ class CreateBookingsTable extends Migration
             $table->boolean('booked_at_bib');
 
             $table->integer('space_id');
+            $table->integer('user_id');
 
             $table->timestamps();
         });

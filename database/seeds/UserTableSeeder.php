@@ -28,7 +28,8 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('tata')
         ]);
 
-        $tata->role = Role::where('name', 'gestion')->first();
+        $tata->role_id = Role::where('name', 'gestion')->first()->id;
+        $tata->save();
 
     }
 }
