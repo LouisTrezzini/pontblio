@@ -18,8 +18,8 @@ angular
     .module('biblio', [
         'angular-jwt',
         'md.data.table',
-        'naif.base64',
         'ngAnimate',
+        'ngFileUpload'
         'ngMaterial',
         'ngMessages',
         'ngResource',

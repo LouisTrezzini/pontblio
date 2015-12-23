@@ -5,7 +5,6 @@
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
-    "angular-base64-upload": "latest",
     "angular-jwt": "latest",
     "angular-material": "latest",
     "angular-material-data-table": "~0.8.14",
@@ -18,7 +17,8 @@
     "highcharts-release": "latest",
     "jquery": "latest",
     "sc-date-time": "~1.1.3",
-    "ui-router": "latest"
+    "ui-router": "latest",
+    "ng-file-upload": "~10.1.14"
   },
   "overrides": {
     "highcharts-release": {
