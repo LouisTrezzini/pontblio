@@ -10,12 +10,12 @@ angular.module('biblio')
         $scope.submitBooking = function (booking) {
             var params = {
                 'space': booking.space_slug,
-                'userCount': booking.user_count,
+                'user_count': booking.user_count,
                 'reason': booking.reason
             };
 
-            params.startDate = moment(booking.start_date).unix();
-            params.endDate = moment(booking.end_date).unix();
+            params.start_date = moment(booking.start_date).unix();
+            params.end_date = moment(booking.end_date).unix();
 
             $http.patch(apiPrefix + 'bookings/' + booking.slug, params).success(function () {
                 Alert.toast('Modification prise en compte !');
@@ -38,12 +38,12 @@ angular.module('biblio')
         $scope.submitBooking = function (booking) {
             var params = {
                 'space': booking.space_slug,
-                'userCount': booking.user_count,
+                'user_count': booking.user_count,
                 'reason': booking.reason
             };
 
-            params.startDate = moment(booking.start_date).unix();
-            params.endDate = moment(booking.end_date).unix();
+            params.start_date = moment(booking.start_date).unix();
+            params.end_date = moment(booking.end_date).unix();
 
             $http.post(apiPrefix + 'bookings', params).success(function () {
                 Alert.toast('Réservation prise en compte !');

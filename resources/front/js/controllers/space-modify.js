@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Space_Modify_Ctrl', function($scope, $stateParams, $http, $state, space, Alert) {
+    .controller('Space_Modify_Ctrl', function($scope, $stateParams, $http, $state, space, Alert, $mdDialog) {
         $scope.space = space;
         $scope.submitButton = 'Modifier !';
         $scope.mode = 'modify';
@@ -10,7 +10,8 @@ angular.module('biblio')
             var params = {
                 'name' : space.name,
                 'description' : nl2br(space.description),
-                'location' : space.location
+                'location' : space.location,
+                'active' : space.active
             };
 
 
@@ -62,7 +63,8 @@ angular.module('biblio')
             var params = {
                 'name' : space.name,
                 'description' : space.description,
-                'location' : space.location
+                'location' : space.location,
+                'active' : space.active
             };
 
 
