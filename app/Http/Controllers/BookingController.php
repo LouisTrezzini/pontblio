@@ -14,21 +14,33 @@ use Validator;
 class BookingController extends Controller
 {
     private static $validationRules = [
-        'name' => 'required',
-        'location' => 'required',
-        'active' => 'boolean'
+        'space' => 'required',
+        'user_count' => 'required',
+        'reason' => 'required',
+        'start_date' => 'required',
+        'end_date' => 'required'
     ];
 
+    //TODO : serialization
     public function index()
     {
         return response()->json(Booking::all());
     }
 
+    public function userBookings()
+    {
+        if($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            return response()->json(Booking::all());
+        } else {
+            return response()->json($this->getAuthUser()->bookings);
+        }
+    }
+
     public function spaceBookings($slug)
     {
-        $spaceId = Space::findBySlugOrFail($slug)->id;
+        $bookingId = Space::findBySlugOrFail($slug)->id;
 
-        return response()->json(Booking::where('space_id', $spaceId)->get());
+        return response()->json(Booking::where('space_id', $bookingId)->get());
     }
 
     public function show($id)
@@ -43,28 +55,39 @@ class BookingController extends Controller
             return response()->json(null, 400);
         }
 
-        $space = new Booking($request->all());
-        $space->save();
+        $booking = new Booking($request->all());
+        $booking->save();
 
-        return response()->json($space, 201);
+        return response()->json($booking, 201);
     }
 
     public function update(Request $request, $id)
     {
+        $booking = Booking::findOrFail($id);
+
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion']) && $this->getAuthUser() !== $booking->booker) {
+            return response()->json(null, 401);
+        }
+
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
             return response()->json(null, 400);
         }
 
-        $space = Booking::findOrFail($id);
-        $space->update($request->all());
+        $booking->update($request->all());
 
-        return response()->json($space, 200);
+        return response()->json($booking, 200);
     }
 
     public function destroy($id)
     {
-        Booking::destroy($id);
+        $booking = Booking::findOrFail($id);
+
+        if (!$this->getAuthUser()->hasRole('gestion') && $this->getAuthUser() !== $booking->booker) {
+            return response()->json(null, 401);
+        }
+
+        $booking->delete();
         return response(null, 204);
     }
 }

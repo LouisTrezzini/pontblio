@@ -18,6 +18,7 @@ Route::group(['prefix' => '/api/'/*, 'middleware' => 'jwt.auth'*/], function () 
     Route::get('statistics/main', 'StatisticsController@main');
     Route::get('statistics/user/{id}', 'StatisticsController@user');
     Route::get('spaces/{slug}/bookings', 'BookingController@spaceBookings');
+    Route::get('own/bookings', 'BookingController@userBookings');
 });
 
 Route::post('/api/login', 'LoginController@login');
