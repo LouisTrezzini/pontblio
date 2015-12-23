@@ -26,7 +26,7 @@ gulp.task('jshint', function() {
 gulp.task('build-less', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'resources/frontless/bootstrap.less'
+        'resources/front/less/bootstrap.less'
     ];
     var files = vendorsFiles.concat(appFiles);
     return gulp
@@ -35,25 +35,25 @@ gulp.task('build-less', function() {
         .pipe(less())
         .pipe(concat('style.min.css'))
         .pipe(gulpif(env === 'prod', uglifycss()))
-        .pipe(gulp.dest('www/'))
+        .pipe(gulp.dest('public/'))
     ;
 });
 
 gulp.task('build-js', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'resources/frontjs/app.js',
-        'resources/frontjs/*.js',
-        'resources/frontjs/**/*.js',
-        'bower_components/fullcalendar/dist/lang/fr.js'
+        'resources/front/js/app.js',
+        'resources/front/js/*.js',
+        'resources/front/js/**/*.js',
+        'public/bower/fullcalendar/dist/lang/fr.js'
     ];
-    var files = ['bower_components/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
+    var files = ['public/bower/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
     return gulp
         .src(files)
         .pipe(filter(['**/*.js']))
         .pipe(concat('app.min.js'))
         .pipe(gulpif(env === 'prod', uglify()))
-        .pipe(gulp.dest('www/'))
+        .pipe(gulp.dest('public/'))
     ;
 });
 
@@ -73,25 +73,13 @@ gulp.task('lint-js', function() {
 gulp.task('copy-fonts', function () {
     return gulp.src(mainBowerFiles().concat('public/bower/font-awesome/fonts/*'))
         .pipe(filter(['**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2', '**/*.otf']))
-        .pipe(gulp.dest('www/fonts/'));
-});
-
-gulp.task('serve', function() {
-    gulp
-        .src( 'www' )
-        .pipe(webserver({
-            host: '0.0.0.0',
-            port: process.env.PORT || 9001,
-            livereload: false,
-            directoryListing: false
-        }))
-    ;
+        .pipe(gulp.dest('public/fonts/'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['resources/frontjs/**/*.js', 'resources/frontjs/*.js'], ['lint-js', 'build-js']);
-    gulp.watch('resources/frontless/*.less', ['build-less']);
+    gulp.watch(['resources/front/js/**/*.js', 'resources/frontjs/*.js'], ['lint-js', 'build-js']);
+    gulp.watch('resources/front/less/*.less', ['build-less']);
 });
 gulp.task('build', ['build-js', 'build-less', 'copy-fonts']);
-gulp.task('start', ['watch', 'serve']);
+gulp.task('start', ['watch']);
 gulp.task('default', ['build', 'start']);
