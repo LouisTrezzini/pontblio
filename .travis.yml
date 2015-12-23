@@ -6,6 +6,12 @@ branches:
 language: php
 node_js:
 - stable
+services:
+- mysql
+
+before_install:
+- cp .env.travis .env
+- mysql -e 'create database pontblio'
 
 install:
 - composer install
