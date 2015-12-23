@@ -9,7 +9,7 @@ angular.module('biblio')
 
         $scope.submitBooking = function (booking) {
             var params = {
-                'space': booking.space_slug,
+                'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
                 'reason': booking.reason
             };
@@ -37,7 +37,7 @@ angular.module('biblio')
 
         $scope.submitBooking = function (booking) {
             var params = {
-                'space': booking.space_slug,
+                'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
                 'reason': booking.reason
             };
@@ -49,9 +49,9 @@ angular.module('biblio')
                 Alert.toast('Réservation prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
             }).error(function (data) {
-                if (typeof data.errors.errors != 'undefined') {
-                    for(var i = 0; i < data.errors.errors.length; i ++)
-                        Alert.toast(data.errors.errors[i]);
+                if (typeof data.errors != 'undefined') {
+                    for(var i = 0; i < data.errors.length; i ++)
+                        Alert.toast(data.errors[i]);
                 }
                 else
                     Alert.toast('Formulaire mal rempli');
