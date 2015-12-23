@@ -6,6 +6,7 @@ language: php
 node_js:
 - stable
 before_script:
+- composer install
 - npm install
 deploy:
   provider: heroku
