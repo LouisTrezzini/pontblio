@@ -42,9 +42,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function hasRole($roles)
     {
-        $this->have_role = $this->getUserRole();
         // Check if the user is a root account
-        if ($this->have_role->name == 'Root') {
+        if ($this->getUserRole()->name == 'root') {
             return true;
         }
         if (is_array($roles)) {
@@ -61,11 +60,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     private function getUserRole()
     {
-        return $this->role()->getResults();
+        return $this->role;
     }
 
     private function checkIfUserHasRole($need_role)
     {
-        return (strtolower($need_role) == strtolower($this->have_role->name)) ? true : false;
+        return (strtolower($need_role) == strtolower($this->role->name)) ? true : false;
     }
 }
