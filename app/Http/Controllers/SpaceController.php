@@ -38,7 +38,7 @@ class SpaceController extends Controller
 
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+            return response()->json(['errors' => $validator->errors() ], 400);
         }
 
         $space = new Space();
@@ -61,7 +61,7 @@ class SpaceController extends Controller
 
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json(null, 400);
+            return response()->json(['errors' => $validator->errors() ], 400);
         }
 
         $space = Space::findBySlugOrFail($slug);

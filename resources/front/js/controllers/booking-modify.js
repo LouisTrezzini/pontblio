@@ -21,7 +21,13 @@ angular.module('biblio')
                 Alert.toast('Modification prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
             }).error(function () {
-                Alert.toast('Formulaire mal rempli');
+                if (typeof data.errors != 'undefined') {
+                    $.each(data.errors, function(index, value) {
+                        Alert.toast(value[0]);
+                    });
+                }
+                else
+                    Alert.toast('Formulaire mal rempli');
             });
         };
     })
@@ -50,8 +56,9 @@ angular.module('biblio')
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
-                    for(var i = 0; i < data.errors.length; i ++)
-                        Alert.toast(data.errors[i]);
+                    $.each(data.errors, function(index, value) {
+                        Alert.toast(value[0]);
+                    });
                 }
                 else
                     Alert.toast('Formulaire mal rempli');

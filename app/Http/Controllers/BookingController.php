@@ -14,7 +14,7 @@ use Validator;
 class BookingController extends Controller
 {
     private static $validationRules = [
-        'space' => 'required',
+        'space_slug' => 'required',
         'user_count' => 'required',
         'reason' => 'required',
         'start_date' => 'required',
@@ -52,10 +52,17 @@ class BookingController extends Controller
     {
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json(null, 400);
+            return response()->json(['errors' => $validator->errors() ], 400);
         }
 
-        $booking = new Booking($request->all());
+        $booking = new Booking();
+
+        $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
+        $booking->user_count = $request->get('user_count');
+        $booking->reason = $request->get('reason');
+        $booking->start_date = $request->get('start_date');
+        $booking->end_date = $request->get('end_date');
+
         $booking->save();
 
         return response()->json($booking, 201);
@@ -71,10 +78,16 @@ class BookingController extends Controller
 
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json(null, 400);
+            return response()->json(['errors' => $validator->errors() ], 400);
         }
 
-        $booking->update($request->all());
+        $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
+        $booking->user_count = $request->get('user_count');
+        $booking->reason = $request->get('reason');
+        $booking->start_date = $request->get('start_date');
+        $booking->end_date = $request->get('end_date');
+
+        $booking->save();
 
         return response()->json($booking, 200);
     }
