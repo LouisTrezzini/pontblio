@@ -32,7 +32,7 @@ class SpaceController extends Controller
 
     public function store(Request $request)
     {
-        if (!JWTAuth::parseToken()->authenticate()->hasRole('gestion')) {
+        if (!$this->getAuthUser()->hasRole('gestion')) {
             return response()->json(null, 401);
         }
 
@@ -55,7 +55,7 @@ class SpaceController extends Controller
 
     public function update(Request $request, $slug)
     {
-        if (!JWTAuth::parseToken()->authenticate()->hasRole('gestion')) {
+        if (!$this->getAuthUser()->hasRole('gestion')) {
             return response()->json(null, 401);
         }
 
@@ -78,6 +78,10 @@ class SpaceController extends Controller
 
     public function destroy($slug)
     {
+        if (!$this->getAuthUser()->hasRole('gestion')) {
+            return response()->json(null, 401);
+        }
+
         $space = Space::findBySlugOrFail($slug);
         $space->delete();
 
