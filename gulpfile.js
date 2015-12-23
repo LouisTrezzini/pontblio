@@ -15,8 +15,8 @@ var env = process.env.GULP_ENV;
 gulp.task('jshint', function() {
     return gulp
         .src([
-            'app/js/**/*.js',
-            'app/js/*.js'
+            'resources/front/js/**/*.js',
+            'resources/front/js/*.js'
         ])
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'))
@@ -26,7 +26,7 @@ gulp.task('jshint', function() {
 gulp.task('build-less', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'app/less/bootstrap.less'
+        'resources/frontless/bootstrap.less'
     ];
     var files = vendorsFiles.concat(appFiles);
     return gulp
@@ -42,9 +42,9 @@ gulp.task('build-less', function() {
 gulp.task('build-js', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'app/js/app.js',
-        'app/js/*.js',
-        'app/js/**/*.js',
+        'resources/frontjs/app.js',
+        'resources/frontjs/*.js',
+        'resources/frontjs/**/*.js',
         'bower_components/fullcalendar/dist/lang/fr.js'
     ];
     var files = ['bower_components/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
@@ -59,9 +59,9 @@ gulp.task('build-js', function() {
 
 gulp.task('lint-js', function() {
     var appFiles = [
-        'app/js/app.js',
-        'app/js/*.js',
-        'app/js/**/*.js',
+        'resources/frontjs/app.js',
+        'resources/frontjs/*.js',
+        'resources/frontjs/**/*.js',
     ];
     return gulp
         .src(appFiles)
@@ -71,7 +71,7 @@ gulp.task('lint-js', function() {
 });
 
 gulp.task('copy-fonts', function () {
-    return gulp.src(mainBowerFiles().concat('bower_components/font-awesome/fonts/*'))
+    return gulp.src(mainBowerFiles().concat('public/bower/font-awesome/fonts/*'))
         .pipe(filter(['**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2', '**/*.otf']))
         .pipe(gulp.dest('www/fonts/'));
 });
@@ -89,8 +89,8 @@ gulp.task('serve', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/js/**/*.js', 'app/js/*.js'], ['lint-js', 'build-js']);
-    gulp.watch('app/less/*.less', ['build-less']);
+    gulp.watch(['resources/frontjs/**/*.js', 'resources/frontjs/*.js'], ['lint-js', 'build-js']);
+    gulp.watch('resources/frontless/*.less', ['build-less']);
 });
 gulp.task('build', ['build-js', 'build-less', 'copy-fonts']);
 gulp.task('start', ['watch', 'serve']);

@@ -1,5 +1,8 @@
-/bower_components/*
-/node_modules/*
-/www/fonts/*
-/www/app.min.js
-/www/style.min.css
+/vendor
+/node_modules
+.env
+
+/public/bower
+/public/app.min.js
+/public/style.min.css
+/public/fonts
