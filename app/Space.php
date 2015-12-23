@@ -16,6 +16,10 @@ class Space extends Model implements SluggableInterface
         'save_to'    => 'slug',
     ];
 
+    protected $casts = [
+        'active' => 'boolean',
+    ];
+
 
     public function bookings() {
         return $this->hasMany('App\Booking');
