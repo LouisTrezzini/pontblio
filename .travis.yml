@@ -2,12 +2,15 @@ branches:
   only:
   - master
   - develop
+
 language: php
 node_js:
 - stable
-before_script:
+
+install:
 - composer install
 - npm install
+
 deploy:
   provider: heroku
   api_key:

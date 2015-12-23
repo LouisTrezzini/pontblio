@@ -32,6 +32,10 @@ class SpaceController extends Controller
 
     public function store(Request $request)
     {
+        if (!JWTAuth::parseToken()->authenticate()->hasRole('gestion')) {
+            return response()->json(null, 401);
+        }
+
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -51,6 +55,10 @@ class SpaceController extends Controller
 
     public function update(Request $request, $slug)
     {
+        if (!JWTAuth::parseToken()->authenticate()->hasRole('gestion')) {
+            return response()->json(null, 401);
+        }
+
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
             return response()->json(null, 400);

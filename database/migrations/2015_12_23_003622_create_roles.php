@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 use App\Role;
 
-class CreateEntrustRoles extends Migration
+class CreateRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,21 @@ class CreateEntrustRoles extends Migration
      */
     public function up()
     {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 40);
+            $table->string('description', 255);
+            $table->timestamps();
+        });
+
         $gestion = new Role();
         $gestion->name         = 'gestion';
-        $gestion->display_name = 'Gestion'; // optional
-        $gestion->description  = 'Gestionnaire du module de réservation'; // optional
+        $gestion->description  = 'Gestionnaire du module de réservation';
         $gestion->save();
 
         $biblio = new Role();
         $biblio->name         = 'biblio';
-        $biblio->display_name = 'Personnel de la bibliothèque'; // optional
-        $biblio->description  = 'Quiconque possédant des droits de modérateur'; // optional
+        $biblio->description  = 'Personnel de la bibliothèque';
         $biblio->save();
     }
 
@@ -34,8 +39,6 @@ class CreateEntrustRoles extends Migration
      */
     public function down()
     {
-        foreach(Role::all() as $role){
-            $role->delete();
-        }
+        Schema::drop('roles');
     }
 }
