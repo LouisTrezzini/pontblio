@@ -50,9 +50,8 @@ class SpaceController extends Controller
         $space->active = $request->get('active', false);
         $space->save();
 
-        if ($request->hasFile('file'))
-        {
-            $image = Image::createFromRequest($request);
+        if ($request->has('image')) {
+            $image = Image::createFromBase64($request->get('image'), $request->get('image_ext'));
             $space->image()->save($image);
 
             $image->save();
@@ -74,17 +73,15 @@ class SpaceController extends Controller
 
         $space = Space::findBySlugOrFail($slug);
 
-        //TODO : patch
-
         $space->name = $request->get('name');
         $space->location = $request->get('location');
         $space->description = $request->get('description', '');
         $space->active = $request->get('active', false);
         $space->save();
 
-        if ($request->hasFile('file'))
-        {
-            $image = Image::createFromRequest($request);
+        if ($request->has('image')) {
+            $image = Image::createFromBase64($request->get('image'), $request->get('image_ext'));
+            $space->image()->delete();
             $space->image()->save($image);
 
             $image->save();
@@ -93,8 +90,7 @@ class SpaceController extends Controller
         return response()->json($space, 200);
     }
 
-    public
-    function destroy($slug)
+    public function destroy($slug)
     {
         if (!$this->getAuthUser()->hasRole('gestion')) {
             return response()->json(null, 401);

@@ -5,9 +5,9 @@
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
-    "angular-jwt": "latest",
+    "angular-base64-upload": "latest",
     "angular-material": "latest",
-    "angular-material-data-table": "~0.8.14",
+    "angular-material-data-table": "latest",
     "angular-messages": "latest",
     "angular-resource": "latest",
     "angular-ui-calendar": "latest",
@@ -16,10 +16,10 @@
     "fullcalendar-scheduler": "latest",
     "highcharts-release": "latest",
     "jquery": "latest",
-    "sc-date-time": "~1.1.3",
+    "sc-date-time": "latest",
     "ui-router": "latest",
-    "ng-file-upload": "~10.1.14",
-    "satellizer": "~0.13.3"
+    "satellizer": "latest",
+    "textAngular": "latest"
   },
   "overrides": {
     "highcharts-release": {

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use JWTAuth;
 
 use Exception;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class Controller extends BaseController
 {
@@ -19,6 +20,10 @@ abstract class Controller extends BaseController
      */
     public function getAuthUser()
     {
-        return JWTAuth::parseToken()->authenticate();
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            throw new NotFoundHttpException;
+        }
+
+        return $user;
     }
 }

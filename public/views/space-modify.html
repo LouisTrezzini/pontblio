@@ -1,10 +1,11 @@
+
 <div>
     <div layout="row" layout-align="space-around center">
         <img flex="50" ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}" class="md-card-image" alt="{{space.name}}">
     </div>
 
     <md-content layout-padding>
-        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitSpace(space)">
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitSpace(space, spacePicture)">
             <md-input-container flex="50" flex-md="25">
                 <label>
                     <i class="fa fa-font"></i> Nom
@@ -21,19 +22,20 @@
 
             <md-input-container flex="50" flex-md="25">
                 <label>
-                    <i class="fa fa-align-justify"></i> Description
+                    <i class="fa fa-file-image-o"></i> Image
                 </label>
-                <textarea redactor ng-model="space.description" placeholder="Description"></textarea>
-            </md-input-container>
+                <input type="file" ng-model="spacePicture" base-sixty-four-input>
 
-            <md-input-container flex="50" flex-md="25" layout-align="center center" layout="row">
-                <md-button flex="80" class="md-primary md-raised" ngf-select="selectImage($files)" >Choisir une image</md-button>
             </md-input-container>
 
             <md-input-container flex="50" flex-md="25">
                 <md-checkbox ng-model="space.active">
                     Espace actif
                 </md-checkbox>
+            </md-input-container>
+
+            <md-input-container flex="100">
+                <div text-angular ng-model="space.description"></div>
             </md-input-container>
 
             <div flex="100" layout="row" layout-align="end center">

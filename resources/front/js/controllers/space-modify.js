@@ -1,30 +1,26 @@
 angular.module('biblio')
-    .controller('Space_Modify_Ctrl', function($scope, $stateParams, $http, $state, space, Alert, $mdDialog, Upload) {
+    .controller('Space_Modify_Ctrl', function($scope, $stateParams, $http, $state, space, Alert, $mdDialog) {
         $scope.space = space;
         $scope.submitButton = 'Modifier !';
         $scope.mode = 'modify';
-        $scope.image = {};
 
         var spaceSlug = space.name;
 
-        $scope.selectImage = function (image) {
-            $scope.image = image;
-        };
-
-        $scope.submitSpace = function(space) {
+        $scope.submitSpace = function(space, imageBase64) {
             var params = {
                 'name' : space.name,
                 'description' : nl2br(space.description),
                 'location' : space.location,
-                'active' : space.active,
-                'file' : $scope.image[0]
+                'active' : space.active
             };
 
-            Upload.upload({
-                method: 'PATCH',
-                url: apiPrefix + 'spaces/' + space.slug,
-                data: params,
-            }).success(function(){
+            if (imageBase64) {
+                params.image = imageBase64.base64;
+                var sub = imageBase64.filename.split('.');
+                params.image_ext = sub[sub.length - 1];
+            }
+
+            $http.patch(apiPrefix + 'spaces/' + space.slug, params).success(function(){
                 Alert.toast('Modifications prises en compte !');
                 if (spaceSlug == space.name) {
                     $state.go('root.spaces.simple', {slug: space.slug});
@@ -58,32 +54,27 @@ angular.module('biblio')
             });
         };
     })
-    .controller('Space_Create_Ctrl', function($scope, $stateParams, $http, $state, Alert, Upload) {
+    .controller('Space_Create_Ctrl', function($scope, $stateParams, $http, $state, Alert) {
         $scope.space = {};
 
         $scope.submitButton = 'Créer !';
         $scope.mode = 'create';
 
-        $scope.image = {};
-
-        $scope.selectImage = function (image) {
-            $scope.image = image;
-        };
-
-        $scope.submitSpace = function(space) {
+        $scope.submitSpace = function(space, imageBase64) {
             var params = {
                 'name' : space.name,
                 'description' : space.description,
                 'location' : space.location,
-                'active' : space.active,
-                'file' : $scope.image[0]
+                'active' : space.active
             };
 
-            Upload.upload({
-                method: 'POST',
-                url: apiPrefix + 'spaces',
-                data: params
-            }).success(function(space){
+            if (imageBase64) {
+                params.image = imageBase64.base64;
+                var sub = imageBase64.filename.split('.');
+                params.image_ext = sub[sub.length - 1];
+            }
+
+            $http.post(apiPrefix + 'spaces', params).success(function(space){
                 Alert.toast('Espace créé !');
                 $state.go('root.spaces.simple', {slug: space.slug});
             });

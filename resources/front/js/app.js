@@ -1,3 +1,4 @@
+var sitePrefix = 'http://pontblio/';
 var apiPrefix = 'http://pontblio/api/';
 
 Highcharts.setOptions({
@@ -17,15 +18,16 @@ Highcharts.setOptions({
 angular
     .module('biblio', [
         'md.data.table',
+        'naif.base64',
         'ngAnimate',
-        'ngFileUpload',
         'ngMaterial',
         'ngMessages',
         'ngResource',
         'scDateTime',
         'ui.calendar',
         'ui.router',
-        'satellizer'
+        'satellizer',
+        'textAngular'
     ])
     // Setup theme
     .config(function($mdThemingProvider) {

@@ -1,5 +1,5 @@
 angular.module('biblio').filter('urlFile', function() {
     return function(input) {
-        return apiPrefix + input;
+        return sitePrefix + input;
     };
 });

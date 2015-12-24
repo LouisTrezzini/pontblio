@@ -26,7 +26,9 @@ gulp.task('jshint', function() {
 gulp.task('build-less', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'resources/front/less/bootstrap.less'
+        'resources/front/less/bootstrap.less',
+        //'public/bower/bootstrap-css-only/css/bootstrap.css',
+        'public/bower/textAngular/dist/textAngular.css',
     ];
     var files = vendorsFiles.concat(appFiles);
     return gulp
@@ -45,7 +47,9 @@ gulp.task('build-js', function() {
         'resources/front/js/app.js',
         'resources/front/js/*.js',
         'resources/front/js/**/*.js',
-        'public/bower/fullcalendar/dist/lang/fr.js'
+        'public/bower/fullcalendar/dist/lang/fr.js',
+        'public/bower/textAngular/dist/textAngular-rangy.min.js',
+        'public/bower/textAngular/dist/textAngular-sanitize.min.js'
     ];
     var files = ['public/bower/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
     return gulp

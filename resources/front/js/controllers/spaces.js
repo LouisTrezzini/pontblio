@@ -1,24 +1,6 @@
 angular.module('biblio')
-    .controller('Space_List_Ctrl', function ($scope, $rootScope, spaces, $http) {
+    .controller('Space_List_Ctrl', function ($scope, $rootScope, spaces) {
         $scope.spaces = spaces;
-        $scope.modo = false;
-
-        $scope.toggleModo = function () {
-            $scope.modo = !$scope.modo;
-        };
-
-        $scope.isLoading = false;
-
-        $scope.toggleSpace = function (space) {
-            if ($scope.isLoading) {
-                return;
-            }
-            $scope.isLoading = true;
-
-            $http.patch(apiPrefix + 'spaces/' + space.slug, {active: space.active}).success(function () {
-                $scope.isLoading = false;
-            });
-        };
     })
     .config(function ($stateProvider) {
         $stateProvider

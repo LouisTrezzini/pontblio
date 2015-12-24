@@ -147,6 +147,7 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -196,7 +197,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class
+        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'IntervImage' => Intervention\Image\Facades\Image::class,
 
     ],
 
