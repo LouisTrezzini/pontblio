@@ -1,7 +1,5 @@
 angular.module('biblio')
-    .run(function($rootScope, $state, $location, Permissions) {
-        Permissions.load();
-
+    .run(function($rootScope, $state, $auth) {
         //FIXME
         $rootScope.isAdmin = true;
 
@@ -10,7 +8,7 @@ angular.module('biblio')
         };
 
         $rootScope.logout = function() {
-            Permissions.remove();
+            $auth.logout();
             $state.go('login');
         };
 

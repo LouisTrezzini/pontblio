@@ -1,20 +1,16 @@
 angular.module('biblio')
-    .controller('Login_Ctrl', function($scope, $rootScope, $http, Permissions, Alert) {
+    .controller('Login_Ctrl', function($scope, $auth, $state) {
         $scope.login = function(username, password) {
-            $http
-                .post(apiPrefix + 'login', {
-                    username: username,
-                    password: password
-                })
-                .success(function(data, status, headers, config) {
-                    Permissions.set(data.token, data.roles, username);
-                })
-                .error(function(data, status, headers, config) {
-                    // Supprime tout token en cas de mauvaise identification
-                    Permissions.remove();
-                    Alert.toast(data.reason);
-                })
-            ;
+            var credentials = {
+                username: username,
+                password: password
+            };
+
+            // Use Satellizer's $auth service to login
+            $auth.login(credentials).then(function (data) {
+                // If login is successful, redirect to the users state
+                $state.go('root.dashboard');
+            });
         };
     })
     .config(function($stateProvider) {

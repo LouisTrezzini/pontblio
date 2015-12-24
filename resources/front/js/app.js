@@ -16,16 +16,16 @@ Highcharts.setOptions({
 
 angular
     .module('biblio', [
-        'angular-jwt',
         'md.data.table',
         'ngAnimate',
-        'ngFileUpload'
+        'ngFileUpload',
         'ngMaterial',
         'ngMessages',
         'ngResource',
         'scDateTime',
         'ui.calendar',
-        'ui.router'
+        'ui.router',
+        'satellizer'
     ])
     // Setup theme
     .config(function($mdThemingProvider) {
@@ -61,59 +61,83 @@ angular
             })
         ;
     })
-    // Setup interceptor
-    .factory('ErrorCodes_Interceptor', function($rootScope, $location, $q, Storage) {
-        return {
-            responseError: function(response) {
-                switch (response.status) {
-                case 401:
-                    Storage.remove('token');
-                    Storage.remove('roles');
-                    $rootScope.isLogged = false;
-                    $location.path('/');
-                    break;
-                case 403:
-                    $location.path('/403');
-                    break;
-                case 404:
-                    $location.path('/404');
-                    break;
-                case 500:
-                    $location.path('/erreur');
-                    break;
-                case 503:
-                    if (response.data.until)
-                        Storage.set('maintenance', response.data.until);
-                    else
-                        Storage.remove('maintenance');
-                    $location.path('/maintenance');
-                    $rootScope.maintenance = true;
-                    break;
+    .config(['$urlRouterProvider', '$authProvider', function($urlRouterProvider, $authProvider) {
+
+        // Satellizer configuration that specifies which API
+        // route the JWT should be retrieved from
+        $authProvider.loginUrl = apiPrefix + 'login';
+
+        // Redirect to the auth state if any other states
+        // are requested other than users
+        $urlRouterProvider.otherwise('/dashboard');
+
+    }])
+    .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$provide', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
+
+        function redirectWhenLoggedOut($q, $injector) {
+            return {
+                responseError: function (rejection) {
+
+                    var $state = $injector.get('$state');
+
+                    var rejectionReasons = ['token_not_provided', 'token_expired', 'token_absent', 'token_invalid'];
+
+                    angular.forEach(rejectionReasons, function (value, key) {
+
+                        if (rejection.data.error === value) {
+                            $state.go('login');
+                        }
+                    });
+
+                    return $q.reject(rejection);
                 }
-                return $q.reject(response);
-            }
-        };
-    })
-    .config(function($httpProvider, jwtInterceptorProvider) {
-        jwtInterceptorProvider.tokenGetter = function(Permissions, Storage, config, jwtHelper, $rootScope, $q) {
-            // On n'envoie pas le token pour les templates
-            if (config.url.substr(config.url.length - 5) == '.html')
-                return null;
+            };
+        }
 
-            if (Storage.get('token') && jwtHelper.isTokenExpired(Storage.get('token'))) {
-                Permissions.remove('token');
-                return $q.reject(config);
-            }
-            return Storage.get('token');
-        };
+        $provide.factory('redirectWhenLoggedOut', redirectWhenLoggedOut);
 
-        $httpProvider.interceptors.push('jwtInterceptor');
-        $httpProvider.interceptors.push('ErrorCodes_Interceptor');
-    })
-    .config(function($httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    })
+        $httpProvider.interceptors.push('redirectWhenLoggedOut');
+    }])
+    // Setup interceptor
+    //.factory('ErrorCodes_Interceptor', function($rootScope, $location, $q, Storage) {
+    //    return {
+    //        responseError: function(response) {
+    //            switch (response.status) {
+    //            case 401:
+    //                Storage.remove('token');
+    //                Storage.remove('roles');
+    //                $rootScope.isLogged = false;
+    //                $location.path('/');
+    //                break;
+    //            case 403:
+    //                $location.path('/403');
+    //                break;
+    //            case 404:
+    //                $location.path('/404');
+    //                break;
+    //            case 500:
+    //                $location.path('/erreur');
+    //                break;
+    //            case 503:
+    //                if (response.data.until)
+    //                    Storage.set('maintenance', response.data.until);
+    //                else
+    //                    Storage.remove('maintenance');
+    //                $location.path('/maintenance');
+    //                $rootScope.maintenance = true;
+    //                break;
+    //            }
+    //            return $q.reject(response);
+    //        }
+    //    };
+    //})
+    //.config(function($httpProvider, jwtInterceptorProvider) {
+    //    $httpProvider.interceptors.push('ErrorCodes_Interceptor');
+    //})
+    //.config(function($httpProvider) {
+    //    $httpProvider.defaults.useXDomain = true;
+    //    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    //})
     .value('scDateTimeConfig', {
         defaultTheme: 'biblio',
         autosave: true,
