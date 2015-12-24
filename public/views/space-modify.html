@@ -4,7 +4,7 @@
     </div>
 
     <md-content layout-padding>
-        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitSpace(space, spacePicture)">
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitSpace(space)">
             <md-input-container flex="50" flex-md="25">
                 <label>
                     <i class="fa fa-font"></i> Nom
@@ -26,12 +26,8 @@
                 <textarea redactor ng-model="space.description" placeholder="Description"></textarea>
             </md-input-container>
 
-            <md-input-container flex="50" flex-md="25">
-                <label>
-                    <i class="fa fa-file-image-o"></i> Image
-                </label>
-                <input type="file" ng-model="spacePicture" base-sixty-four-input>
-
+            <md-input-container flex="50" flex-md="25" layout-align="center center" layout="row">
+                <md-button flex="80" class="md-primary md-raised" ngf-select="selectImage($files)" >Choisir une image</md-button>
             </md-input-container>
 
             <md-input-container flex="50" flex-md="25">

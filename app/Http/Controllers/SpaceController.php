@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use Illuminate\Http\Request;
 
 use App\Space;
@@ -38,7 +39,7 @@ class SpaceController extends Controller
 
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors() ], 400);
+            return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $space = new Space();
@@ -47,8 +48,15 @@ class SpaceController extends Controller
         $space->location = $request->get('location');
         $space->description = $request->get('description', '');
         $space->active = $request->get('active', false);
-
         $space->save();
+
+        if ($request->hasFile('file'))
+        {
+            $image = Image::createFromRequest($request);
+            $space->image()->save($image);
+
+            $image->save();
+        }
 
         return response()->json($space, 201);
     }
@@ -61,22 +69,32 @@ class SpaceController extends Controller
 
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors() ], 400);
+            return response()->json(['errors' => $validator->errors()], 400);
         }
 
         $space = Space::findBySlugOrFail($slug);
+
+        //TODO : patch
 
         $space->name = $request->get('name');
         $space->location = $request->get('location');
         $space->description = $request->get('description', '');
         $space->active = $request->get('active', false);
-
         $space->save();
+
+        if ($request->hasFile('file'))
+        {
+            $image = Image::createFromRequest($request);
+            $space->image()->save($image);
+
+            $image->save();
+        }
 
         return response()->json($space, 200);
     }
 
-    public function destroy($slug)
+    public
+    function destroy($slug)
     {
         if (!$this->getAuthUser()->hasRole('gestion')) {
             return response()->json(null, 401);

@@ -16,11 +16,9 @@ class CreateSpacesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->string('location');
             $table->boolean('active')->default(false);
-
-            $table->integer('image_id')->nullable();
 
             $table->timestamps();
         });

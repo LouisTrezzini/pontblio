@@ -13,19 +13,33 @@ class Space extends Model implements SluggableInterface
 
     protected $sluggable = [
         'build_from' => 'name',
-        'save_to'    => 'slug',
+        'save_to' => 'slug',
     ];
 
     protected $casts = [
         'active' => 'boolean',
+        'id' => 'integer'
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
 
-    public function bookings() {
+    protected $appends = ['image_url'];
+
+    public function bookings()
+    {
         return $this->hasMany('App\Booking');
     }
 
-    public function image() {
-        return $this->hasOne('App\Image');
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return $this->image->path;
+        } else
+            return null;
     }
 }
