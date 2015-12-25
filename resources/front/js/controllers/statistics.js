@@ -38,7 +38,7 @@ angular.module('biblio')
             series: [{
                 name: 'Nombre',
                 colorByPoint: true,
-                data: stats.bookings.types
+                data: stats.types
             }]
         };
 
@@ -80,7 +80,7 @@ angular.module('biblio')
             series: [{
                 name: 'Nombre',
                 colorByPoint: true,
-                data: stats.bookings.modes
+                data: stats.modes
             }]
         };
 
@@ -122,7 +122,7 @@ angular.module('biblio')
             series: [{
                 name: 'Nombre',
                 colorByPoint: true,
-                data: stats.bookings.aheadplan
+                data: stats.aheadplan
             }]
         };
 
@@ -138,7 +138,7 @@ angular.module('biblio')
                 controller: 'Statistics_Ctrl',
                 resolve: {
                     stats: ['$resource', function ($resource) {
-                        return $resource(apiPrefix + 'statistics/booking').get().$promise;
+                        return $resource(apiPrefix + 'statistics/main').get().$promise;
                     }]
                 },
                 data: {
