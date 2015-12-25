@@ -11,7 +11,8 @@ angular.module('biblio')
             var params = {
                 'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
-                'reason': booking.reason,
+                'object': booking.object,
+                'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
             };
@@ -31,7 +32,9 @@ angular.module('biblio')
         };
     })
     .controller('Booking_Create_Ctrl', function ($scope, $stateParams, $http, $state, spaces, Alert) {
-        $scope.booking = {};
+        $scope.booking = {
+            object: 'group',
+        };
         $scope.spaces = spaces;
 
         $scope.booking.user_count = 1;
@@ -44,7 +47,8 @@ angular.module('biblio')
             var params = {
                 'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
-                'reason': booking.reason,
+                'object': booking.object,
+                'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
             };
