@@ -21,9 +21,10 @@
     "gulp-webserver": "latest",
     "jshint": "latest",
     "jshint-stylish": "latest",
-    "main-bower-files": "latest"
+    "main-bower-files": "latest",
+    "yargs": "latest"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp build"
+    "postinstall": "./node_modules/.bin/bower install && ./node_modules/.bin/gulp build --production"
   }
 }

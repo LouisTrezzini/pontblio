@@ -11,6 +11,7 @@ var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var webserver = require('gulp-webserver');
 var env = process.env.GULP_ENV;
+var argv = require('yargs').argv;
 
 gulp.task('jshint', function() {
     return gulp
@@ -36,7 +37,7 @@ gulp.task('build-less', function() {
         .pipe(filter(['**/*.css', '**/*.less']))
         .pipe(less())
         .pipe(concat('style.min.css'))
-        .pipe(gulpif(env === 'prod', uglifycss()))
+        //.pipe(gulpif(env === 'prod', uglifycss()))
         .pipe(gulp.dest('public/'))
     ;
 });
@@ -44,6 +45,7 @@ gulp.task('build-less', function() {
 gulp.task('build-js', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
+        argv.production ? 'resources/front/js/const.js.heroku' : 'resources/front/js/const.js',
         'resources/front/js/app.js',
         'resources/front/js/*.js',
         'resources/front/js/**/*.js',
@@ -56,7 +58,7 @@ gulp.task('build-js', function() {
         .src(files)
         .pipe(filter(['**/*.js']))
         .pipe(concat('app.min.js'))
-        .pipe(gulpif(env === 'prod', uglify()))
+        //.pipe(gulpif(env === 'prod', uglify()))
         .pipe(gulp.dest('public/'))
     ;
 });

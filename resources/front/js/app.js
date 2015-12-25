@@ -1,5 +1,4 @@
-var sitePrefix = 'http://pontblio/';
-var apiPrefix = 'http://pontblio/api/';
+var apiPrefix = sitePrefix + 'api/';
 
 Highcharts.setOptions({
     lang: {
