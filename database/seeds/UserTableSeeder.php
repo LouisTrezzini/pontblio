@@ -19,13 +19,17 @@ class UserTableSeeder extends Seeder
         $trancara = User::create([
             'username' => 'trancara',
             'email' => 'trancara@gmail.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'first_name' => 'Albéric',
+            'last_name' => 'Trancart',
         ]);
 
         $tata = User::create([
-            'username' => 'tata',
+            'username' => 'taquet-c',
             'email' => 'tata@gmail.com',
-            'password' => Hash::make('tata')
+            'password' => Hash::make('tata'),
+            'first_name' => 'Cécile',
+            'last_name' => 'Taquet Gaspérini',
         ]);
 
         $tata->role_id = Role::where('name', 'gestion')->first()->id;
