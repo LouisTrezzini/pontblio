@@ -51,6 +51,11 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
+        if($this->getAuthUser()->blocked){
+            return response()->json(['errors' => ['Utilisateur bloqué. Contactez la bibliothèque.']], 401);
+        }
+
+
         $validator = Validator::make($request->all(), self::$validationRules);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors() ], 400);
@@ -114,7 +119,7 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
 
         if (!$this->getAuthUser()->hasRole('gestion') && $this->getAuthUser() !== $booking->booker) {
-            return response()->json(null, 401);
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
         //Mail::send('booking.delete');

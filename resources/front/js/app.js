@@ -76,10 +76,11 @@ angular
                     var rejectionReasons = ['token_not_provided', 'token_expired', 'token_absent', 'token_invalid'];
 
                     angular.forEach(rejectionReasons, function (value, key) {
-
-                        if (rejection.data.error === value) {
-                            $state.go('login');
-                        }
+                        angular.forEach(rejection.data.errors, function (valueError, keyError) {
+                            if (valueError === value) {
+                                $state.go('login');
+                            }
+                        });
                     });
 
                     return $q.reject(rejection);

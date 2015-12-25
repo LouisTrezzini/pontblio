@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
 
             $table->integer('role_id')->nullable();
 
+            $table->boolean('blocked')->default(false);
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -34,7 +34,7 @@ class SpaceController extends Controller
     public function store(Request $request)
     {
         if (!$this->getAuthUser()->hasRole('gestion')) {
-            return response()->json(null, 401);
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
         $validator = Validator::make($request->all(), self::$validationRules);
@@ -93,7 +93,7 @@ class SpaceController extends Controller
     public function destroy($slug)
     {
         if (!$this->getAuthUser()->hasRole('gestion')) {
-            return response()->json(null, 401);
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
         $space = Space::findBySlugOrFail($slug);

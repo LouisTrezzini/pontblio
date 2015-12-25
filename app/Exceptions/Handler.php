@@ -44,13 +44,13 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {
         if ($e instanceof TokenExpiredException) {
-            return response()->json(['error' => 'token_expired'], 401);
+            return response()->json(['errors' => ['token_expired']], 401);
         } else if ($e instanceof TokenInvalidException) {
-            return response()->json(['error' => 'token_invalid'], 401);
+            return response()->json(['errors' => ['token_invalid']], 401);
         } else if ($e instanceof NotFoundHttpException) {
-            return response()->json(['error' => 'entry_not_found'], 404);
+            return response()->json(['errors' => ['entry_not_found']], 404);
         } else if ($e instanceof JWTException) {
-            return response()->json(['error' => 'token_absent'], 401);
+            return response()->json(['errors' => ['token_absent']], 401);
         }
 
         return parent::render($request, $e);
