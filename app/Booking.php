@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use JWTAuth;
 
 class Booking extends Model
 {
@@ -17,6 +20,7 @@ class Booking extends Model
     ];
 
     protected $visible = [
+        'booker_name',
         'end_date',
         'id',
         'object',
@@ -26,7 +30,7 @@ class Booking extends Model
         'work_type',
     ];
 
-    protected $appends = ['space_slug'];
+    protected $appends = ['booker_name', 'space_slug'];
 
     public function space()
     {
@@ -41,5 +45,19 @@ class Booking extends Model
     public function getSpaceSlugAttribute()
     {
         return $this->space->slug;
+    }
+
+    public function getBookerNameAttribute()
+    {
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            throw new NotFoundHttpException;
+        }
+
+        if($user->hasRole(['biblio', 'gestion'])) {
+            $booker = $this->booker;
+            return $booker->first_name . ' ' . $booker->last_name;
+        }
+        else
+            return 'Occupé';
     }
 }

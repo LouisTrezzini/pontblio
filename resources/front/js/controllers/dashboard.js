@@ -9,7 +9,7 @@ angular.module('biblio')
             $scope.events.push({
                 start: new Date(bookings[i].start_date * 1000),
                 end: new Date(bookings[i].end_date * 1000),
-                title: bookings[i].reason + " (" + bookings[i].user_count + " personnes)",
+                title: bookings[i].booker_name + " (" + bookings[i].user_count + " personne" + (bookings[i].user_count > 1 ? "s" : "" ) + ")",
                 overlap: false,
                 resourceId: bookings[i].space_slug
             });
