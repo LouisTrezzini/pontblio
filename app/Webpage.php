@@ -20,5 +20,9 @@ class Webpage extends Model implements SluggableInterface
         'id' => 'integer'
     ];
 
-    protected $hidden = ['created_at', 'updated_at', 'id'];
+    protected $visible = [
+        'content',
+        'name',
+        'slug',
+    ];
 }

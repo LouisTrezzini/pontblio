@@ -9,19 +9,21 @@ class Booking extends Model
     protected $casts = [
         'booked_at_bib' => 'boolean',
         'cancelled' => 'boolean',
+        'end_date' => 'integer',
         'id' => 'integer',
+        'start_date' => 'integer',
         'user_count' => 'integer',
         'used_id' => 'integer',
     ];
 
-    protected $hidden = [
-        'booked_at_bib',
-        'created_at',
-        'cancelled',
-        'space',
-        'space_id',
-        'updated_at',
-        'user_id',
+    protected $visible = [
+        'end_date',
+        'id',
+        'object',
+        'space_slug',
+        'start_date',
+        'user_count',
+        'work_type',
     ];
 
     protected $appends = ['space_slug'];

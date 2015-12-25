@@ -21,7 +21,14 @@ class Space extends Model implements SluggableInterface
         'id' => 'integer'
     ];
 
-    protected $hidden = ['created_at', 'updated_at', 'image', 'id'];
+    protected $visible = [
+        'active',
+        'description',
+        'image_url',
+        'location',
+        'name',
+        'slug',
+    ];
 
     protected $appends = ['image_url'];
 
