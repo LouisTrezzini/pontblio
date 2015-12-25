@@ -71,13 +71,14 @@ angular
                 responseError: function (rejection) {
 
                     var $state = $injector.get('$state');
+                    var $rootScope = $injector.get('$rootScope');
 
                     var rejectionReasons = ['token_not_provided', 'token_expired', 'token_absent', 'token_invalid'];
 
                     angular.forEach(rejectionReasons, function (value, key) {
                         angular.forEach(rejection.data.errors, function (valueError, keyError) {
                             if (valueError === value) {
-                                $state.go('login');
+                                $rootScope.logout();
                             }
                         });
                     });

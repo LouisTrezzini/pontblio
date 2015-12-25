@@ -1,8 +1,10 @@
 angular.module('biblio')
     .run(function($rootScope, $state, $auth) {
-        //FIXME
         //TODO : population des constantes
-        $rootScope.isAdmin = true;
+        if($auth.isAuthenticated()){
+            $rootScope.isAdmin = $auth.getPayload().role == 'gestion';
+            $rootScope.isModo = $rootScope.isAdmin || $auth.getPayload().role == 'biblio';
+        }
 
         $rootScope.go = function(route) {
             $state.go(route);
@@ -10,6 +12,8 @@ angular.module('biblio')
 
         $rootScope.logout = function() {
             $auth.logout();
+            $rootScope.isAdmin = false;
+            $rootScope.isModo = false;
             $state.go('login');
         };
 
