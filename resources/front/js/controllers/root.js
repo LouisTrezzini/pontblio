@@ -1,6 +1,7 @@
 angular.module('biblio')
     .run(function($rootScope, $state, $auth) {
         //FIXME
+        //TODO : population des constantes
         $rootScope.isAdmin = true;
 
         $rootScope.go = function(route) {
@@ -25,7 +26,7 @@ angular.module('biblio')
             .state('root', {
                 url: '',
                 abstract: true,
-                templateUrl: 'views/home.html',
+                templateUrl: 'views/layout.html',
             })
         ;
     })
