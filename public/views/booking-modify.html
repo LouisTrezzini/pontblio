@@ -14,14 +14,23 @@
                 <label>
                     <i class="fa fa-users"></i> Nombre de personnes
                 </label>
-                <input ng-model="booking.user_count" ng-required min="1" type="number">
+                <input ng-model="booking.user_count" ng-required min="1" max="10" type="number">
             </md-input-container>
 
-            <md-input-container flex="100">
+            <md-input-container flex="50">
+                <md-radio-group ng-model="booking.object" flex="100" layout="row">
+                    <md-radio-button value="solo" flex="50">Travail individuel</md-radio-button>
+                    <md-radio-button value="group" flex="50">Travail de groupe</md-radio-button>
+                </md-radio-group>
+            </md-input-container>
+
+            <md-input-container flex="50">
                 <label>
-                    <i class="fa fa-align-justify"></i> Objet de la réservation
+                    Type de travail
                 </label>
-                <input ng-model="booking.reason" placeholder="Objet de la réservation" ng-required>
+                <md-select ng-model="booking.work_type">
+                    <md-option ng-repeat="type in types" value="{{type.slug}}">{{type.name}}</md-option>
+                </md-select>
             </md-input-container>
 
             <div flex="50">

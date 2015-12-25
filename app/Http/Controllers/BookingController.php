@@ -15,8 +15,9 @@ class BookingController extends Controller
 {
     private static $validationRules = [
         'space_slug' => 'required',
-        'user_count' => 'required',
-        'reason' => 'required',
+        'user_count' => 'required|integer|min:1|max:10',
+        'object' => 'required|in:solo,group',
+        'work_type' => 'required',
         'start_date' => 'required',
         'end_date' => 'required'
     ];
@@ -59,9 +60,17 @@ class BookingController extends Controller
 
         $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
         $booking->user_count = $request->get('user_count');
-        $booking->reason = $request->get('reason');
+
+        $booking->object = $request->get('object');
+        $booking->work_type = $request->get('work_type');
+
         $booking->start_date = $request->get('start_date');
         $booking->end_date = $request->get('end_date');
+
+        $booking->booked_at_bib = $this->getAuthUser()->hasRole(['biblio', 'gestion']);
+
+        //TODO : réserver pour un autre
+        $booking->booker_id = $this->getAuthUser()->id;
 
         $booking->save();
 
@@ -83,11 +92,19 @@ class BookingController extends Controller
 
         $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
         $booking->user_count = $request->get('user_count');
-        $booking->reason = $request->get('reason');
+
+        $booking->object = $request->get('object');
+        $booking->work_type = $request->get('work_type');
+
         $booking->start_date = $request->get('start_date');
         $booking->end_date = $request->get('end_date');
 
         $booking->save();
+
+        if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            //Mail::send('booking.modified');
+
+        }
 
         return response()->json($booking, 200);
     }
@@ -99,6 +116,8 @@ class BookingController extends Controller
         if (!$this->getAuthUser()->hasRole('gestion') && $this->getAuthUser() !== $booking->booker) {
             return response()->json(null, 401);
         }
+
+        //Mail::send('booking.delete');
 
         $booking->delete();
         return response(null, 204);

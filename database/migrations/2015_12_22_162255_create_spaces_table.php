@@ -14,10 +14,12 @@ class CreateSpacesTable extends Migration
     {
         Schema::create('spaces', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('slug')->unique();
+
+            $table->string('name');
             $table->text('description');
             $table->string('location');
+
             $table->boolean('active')->default(false);
 
             $table->timestamps();

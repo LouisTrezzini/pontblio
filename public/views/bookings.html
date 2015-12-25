@@ -19,16 +19,16 @@
             </thead>
             <tbody>
                 <tr ng-repeat="booking in bookings">
-                    <td>{{ booking.start_date*1000 | date:'EEEE d MMMM yyyy'}}</td>
+                    <td>{{ booking.start_date * 1000 | date:'EEEE d MMMM yyyy'}}</td>
 
-                    <td>{{ booking.start_date*1000 | date:'HH:mm'}}</td>
+                    <td>{{ booking.start_date * 1000 | date:'HH:mm'}}</td>
 
-                    <td>{{ booking.end_date*1000 | date:'HH:mm'}}</td>
+                    <td>{{ booking.end_date * 1000 | date:'HH:mm'}}</td>
 
                     <td>{{ spaces[booking.space_slug].name }}</td>
 
                     <td>
-                        <md-button class="md-primary" ui-sref="root.bookings.modify({slug: booking.slug})">
+                        <md-button class="md-primary" ui-sref="root.bookings.modify({id: booking.id})">
                             <md-icon md-font-icon="fa-pencil" aria-label="Modifier la réservation" class="fa"></md-icon>
                         </md-button>
                     </td>

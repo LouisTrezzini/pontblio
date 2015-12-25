@@ -17,7 +17,7 @@ angular.module('biblio')
                 .theme('alert');
 
             $mdDialog.show(confirm).then(function() {
-                $http.delete(apiPrefix + 'bookings/' + booking.slug)
+                $http.delete(apiPrefix + 'bookings/' + booking.id)
                     .success(function(){
                         Alert.alert('Réservation supprimée');
                         $resource(apiPrefix + 'own/bookings').query(function(data){

@@ -11,18 +11,17 @@ angular.module('biblio')
             var params = {
                 'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
-                'reason': booking.reason
+                'reason': booking.reason,
+                'start_date': moment(booking.start_date).unix(),
+                'end_date': moment(booking.end_date).unix(),
             };
 
-            params.start_date = moment(booking.start_date).unix();
-            params.end_date = moment(booking.end_date).unix();
-
-            $http.patch(apiPrefix + 'bookings/' + booking.slug, params).success(function () {
+            $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
                 Alert.toast('Modification prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
             }).error(function () {
                 if (typeof data.errors != 'undefined') {
-                    $.each(data.errors, function(index, value) {
+                    $.each(data.errors, function (index, value) {
                         Alert.toast(value[0]);
                     });
                 }
@@ -45,18 +44,18 @@ angular.module('biblio')
             var params = {
                 'space_slug': booking.space_slug,
                 'user_count': booking.user_count,
-                'reason': booking.reason
+                'reason': booking.reason,
+                'start_date': moment(booking.start_date).unix(),
+                'end_date': moment(booking.end_date).unix(),
             };
 
-            params.start_date = moment(booking.start_date).unix();
-            params.end_date = moment(booking.end_date).unix();
 
             $http.post(apiPrefix + 'bookings', params).success(function () {
                 Alert.toast('Réservation prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
-                    $.each(data.errors, function(index, value) {
+                    $.each(data.errors, function (index, value) {
                         Alert.toast(value[0]);
                     });
                 }
@@ -81,7 +80,7 @@ angular.module('biblio')
                 }
             })
             .state('root.bookings.modify', {
-                url: '/:slug/modify',
+                url: '/:id/modify',
                 templateUrl: 'views/booking-modify.html',
                 controller: 'Booking_Modify_Ctrl',
                 data: {
@@ -89,8 +88,8 @@ angular.module('biblio')
                 },
                 resolve: {
                     booking: function ($resource, $stateParams) {
-                        return $resource(apiPrefix + 'bookings/:slug').get({
-                            slug: $stateParams.slug
+                        return $resource(apiPrefix + 'bookings/:id').get({
+                            id: $stateParams.id
                         }).$promise;
                     },
                     spaces: function ($resource) {
