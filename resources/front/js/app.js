@@ -63,7 +63,6 @@ angular
     })
     .config(['$urlRouterProvider', '$authProvider', function($urlRouterProvider, $authProvider) {
         $authProvider.loginUrl = apiPrefix + 'login';
-        $urlRouterProvider.otherwise('/dashboard');
 
     }])
     .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$provide', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {

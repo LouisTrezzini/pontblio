@@ -1,3 +1,22 @@
-<div class="fr-view" ng-bind-html="home.content">
+<div layout="column" layout-padding>
+    <div layout="row" ng-if="$root.isAdmin">
+        <md-button flex="20" class="md-primary md-raised"  ng-click="edit()" ng-if="!editing">
+            Éditer
+        </md-button>
 
+        <md-button flex="20" class="md-primary md-raised" ng-click="save()" ng-if="editing">
+            Sauvegarder
+        </md-button>
+    </div>
+    <br>
+
+    <div class="fr-view" ng-bind-html="home.content" ng-if="!editing">
+
+    </div>
+
+    <div text-angular ng-model="home.content" ng-if="editing"></div>
 </div>
+
+
+
+

@@ -15,6 +15,7 @@ Route::group(['prefix' => '/api/'/*, 'middleware' => 'jwt.auth'*/], function () 
     Route::resource('bookings', 'BookingController', ['except' => ['create', 'edit']]);
     Route::resource('spaces', 'SpaceController', ['except' => ['create', 'edit']]);
     Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
+    Route::resource('webpages', 'WebpageController', ['only' => ['show', 'update']]);
     Route::get('statistics/main', 'StatisticsController@main');
     Route::get('statistics/user/{id}', 'StatisticsController@user');
     Route::get('spaces/{slug}/bookings', 'BookingController@spaceBookings');
@@ -24,6 +25,6 @@ Route::group(['prefix' => '/api/'/*, 'middleware' => 'jwt.auth'*/], function () 
 Route::post('/api/login', 'LoginController@login');
 Route::get('/api/logout', 'LoginController@logout');
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('index');
 });
