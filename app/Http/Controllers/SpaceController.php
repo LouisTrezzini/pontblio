@@ -63,7 +63,7 @@ class SpaceController extends Controller
     public function update(Request $request, $slug)
     {
         if (!$this->getAuthUser()->hasRole('gestion')) {
-            return response()->json(null, 401);
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
         $validator = Validator::make($request->all(), self::$validationRules);
