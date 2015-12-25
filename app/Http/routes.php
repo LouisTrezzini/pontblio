@@ -25,6 +25,10 @@ Route::group(['prefix' => '/api/'/*, 'middleware' => 'jwt.auth'*/], function () 
 Route::post('/api/login', 'LoginController@login');
 Route::get('/api/logout', 'LoginController@logout');
 
+Route::get('/enums', function () {
+    return response()->json(Config::get('enums'), 200);
+});
+
 Route::get('/', function () {
     return view('index');
 });

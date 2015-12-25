@@ -26,4 +26,29 @@ abstract class Controller extends BaseController
 
         return $user;
     }
+
+    /**
+     * Returns proper syntax for validator filter.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
+    public static function enumValidator($name)
+    {
+        $enum_values = \Config::get('enum')[$name];
+        $result = '';
+        if (!is_null($enum_values)) {
+            foreach ($enum_values as $key => $value) {
+                if ($value === end($enum_values)) {
+                    $result .= $key;
+                } else {
+                    $result .= $key.',';
+                }
+            }
+            return 'in:'.$result;
+        } else {
+            return '';
+        }
+    }
 }

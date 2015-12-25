@@ -12,9 +12,12 @@ use Validator;
 
 class UserController extends Controller
 {
-    private static $validationRules = [
+    private static function validationRules()
+    {
+        return [
 
-    ];
+        ];
+    }
 
     public function index()
     {

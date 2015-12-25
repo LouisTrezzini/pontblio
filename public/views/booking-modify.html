@@ -6,7 +6,9 @@
                     Espace
                 </label>
                 <md-select ng-model="booking.space_slug">
-                    <md-option ng-repeat="space in spaces | filter:{active:true}" value="{{space.slug}}">{{space.name}}</md-option>
+                    <md-option ng-repeat="space in spaces | filter:{active:true}" value="{{ space.slug }}">
+                        {{ space.name }}
+                    </md-option>
                 </md-select>
             </md-input-container>
 
@@ -29,7 +31,7 @@
                     Type de travail
                 </label>
                 <md-select ng-model="booking.work_type">
-                    <md-option ng-repeat="type in types" value="{{type.slug}}">{{type.name}}</md-option>
+                    <md-option ng-repeat="(key, val) in enums.work_type" value="{{ key }}">{{ val }}</md-option>
                 </md-select>
             </md-input-container>
 

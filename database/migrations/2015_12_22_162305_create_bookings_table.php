@@ -16,8 +16,8 @@ class CreateBookingsTable extends Migration
             $table->increments('id');
             $table->integer('user_count');
 
-            $table->enum('object', ['solo', 'group']);
-            $table->enum('work_type', []);
+            $table->enum('object', array_keys(Config::get('enums')['object']));
+            $table->enum('work_type', array_keys(Config::get('enums')['work_type']));
 
             $table->integer('start_date');
             $table->integer('end_date');
@@ -26,7 +26,7 @@ class CreateBookingsTable extends Migration
             $table->boolean('booked_at_bib');
 
             $table->integer('space_id');
-            $table->integer('user_id');
+            $table->integer('booker_id');
 
             $table->timestamps();
         });

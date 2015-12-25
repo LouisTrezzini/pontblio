@@ -15,11 +15,14 @@ use Validator;
 
 class SpaceController extends Controller
 {
-    private static $validationRules = [
-        'name' => 'required',
-        'location' => 'required',
-        'active' => 'boolean'
-    ];
+    private static function validationRules()
+    {
+        return [
+            'name' => 'required',
+            'location' => 'required',
+            'active' => 'boolean'
+        ];
+    }
 
     public function index()
     {
@@ -37,7 +40,7 @@ class SpaceController extends Controller
             return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        $validator = Validator::make($request->all(), self::$validationRules);
+        $validator = Validator::make($request->all(), self::validationRules());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
@@ -66,7 +69,7 @@ class SpaceController extends Controller
             return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        $validator = Validator::make($request->all(), self::$validationRules);
+        $validator = Validator::make($request->all(), self::validationRules());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }

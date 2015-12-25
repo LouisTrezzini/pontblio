@@ -13,14 +13,16 @@ use Validator;
 
 class BookingController extends Controller
 {
-    private static $validationRules = [
-        'space_slug' => 'required',
-        'user_count' => 'required|integer|min:1|max:10',
-        'object' => 'required|in:solo,group',
-        'work_type' => 'required',
-        'start_date' => 'required',
-        'end_date' => 'required'
-    ];
+    private static function validationRules() {
+        return [
+            'space_slug' => 'required',
+            'user_count' => 'required|integer|min:1|max:10',
+            'object' => 'required|'.self::enumValidator('object'),
+            'work_type' => 'required|'.self::enumValidator('work_type'),
+            'start_date' => 'required',
+            'end_date' => 'required'
+        ];
+    }
 
     //TODO : serialization
     public function index()
@@ -56,7 +58,7 @@ class BookingController extends Controller
         }
 
 
-        $validator = Validator::make($request->all(), self::$validationRules);
+        $validator = Validator::make($request->all(), self::validationRules());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors() ], 400);
         }
@@ -87,10 +89,10 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
 
         if (!$this->getAuthUser()->hasRole(['biblio', 'gestion']) && $this->getAuthUser() !== $booking->booker) {
-            return response()->json(null, 401);
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        $validator = Validator::make($request->all(), self::$validationRules);
+        $validator = Validator::make($request->all(), self::validationRules());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors() ], 400);
         }
