@@ -10,8 +10,8 @@ var mainBowerFiles = require('main-bower-files');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var webserver = require('gulp-webserver');
-var env = process.env.GULP_ENV;
-var argv = require('yargs').argv;
+
+var production = !!gutil.env.production;
 
 gulp.task('jshint', function() {
     return gulp
@@ -45,7 +45,7 @@ gulp.task('build-less', function() {
 gulp.task('build-js', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        argv.production ? 'resources/front/js/const.js.heroku' : 'resources/front/js/const.js',
+        production ? 'resources/front/const.heroku.js' : 'resources/front/const.js',
         'resources/front/js/app.js',
         'resources/front/js/*.js',
         'resources/front/js/**/*.js',
