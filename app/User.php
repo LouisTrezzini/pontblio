@@ -28,7 +28,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $casts = [
+        'blocked' => 'boolean',
+        'id' => 'integer'
+    ];
+
+    protected $visible = [
+        'name',
+        'email',
+        'id',
+    ];
 
     public function bookings()
     {
