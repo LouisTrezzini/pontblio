@@ -20,6 +20,7 @@ Route::group(['prefix' => '/api/', 'middleware' => 'pontblio.auth'], function ()
     Route::get('statistics/user/{id}', 'StatisticsController@user');
     Route::get('spaces/{slug}/bookings', 'BookingController@spaceBookings');
     Route::get('own/bookings', 'BookingController@userBookings');
+    Route::post('search/users', 'SearchController@searchUsers');
 });
 
 Route::post('/api/login', 'LoginController@login');

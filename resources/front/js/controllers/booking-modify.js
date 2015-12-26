@@ -7,6 +7,15 @@ angular.module('biblio')
 
         $scope.submitButton = 'Modifier !';
 
+        $scope.searchResults = [];
+
+        $scope.getUsers = function(searchText){
+            $http.post(apiPrefix + 'search/users', {searchText: searchText})
+                .success(function(data){
+                    $scope.searchResults = data;
+                })
+        };
+
         $scope.submitBooking = function (booking) {
             var params = {
                 'space_slug': booking.space_slug,
@@ -15,6 +24,7 @@ angular.module('biblio')
                 'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
+                'booker_username': booking.booker.username,
             };
 
             $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
@@ -43,6 +53,15 @@ angular.module('biblio')
         if ($stateParams.space)
             $scope.booking.space_slug = $stateParams.space;
 
+        $scope.searchResults = [];
+
+        $scope.getUsers = function(searchText){
+            $http.post(apiPrefix + 'search/users', {searchText: searchText})
+            .success(function(data){
+                $scope.searchResults = data;
+            })
+        };
+
         $scope.submitBooking = function (booking) {
             var params = {
                 'space_slug': booking.space_slug,
@@ -51,6 +70,7 @@ angular.module('biblio')
                 'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
+                'booker_username': booking.booker.username,
             };
 
 

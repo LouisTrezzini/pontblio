@@ -49,6 +49,27 @@
                 <time-date-picker ng-model="booking.end_date"></time-date-picker>
             </div>
 
+            <md-input-container flex="50">
+                <label>
+                    Au nom de ...
+                </label>
+                <md-autocomplete
+                        ng-if="$root.isModo"
+                        md-selected-item="booking.booker"
+                        md-search-text="searchText"
+                        md-items="foundUser in searchResults"
+                        md-search-text-change="getUsers(searchText)"
+                        md-item-text="foundUser.name"
+                >
+                    <md-item-template>
+                        <span md-highlight-text="searchText">{{ foundUser.name }}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        No matches found.
+                    </md-not-found>
+                </md-autocomplete>
+            </md-input-container>
+
             <div flex="100" layout="row" layout-align="end center">
                 <md-button flex="15" class="md-primary md-raised">{{submitButton}}</md-button>
             </div>
