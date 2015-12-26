@@ -36,10 +36,10 @@ class UserController extends Controller
             return response()->json(null, 400);
         }
 
-        $space = new User($request->all());
-        $space->save();
+        $user = new User($request->all());
+        $user->save();
 
-        return response()->json($space, 201);
+        return response()->json($user, 201);
     }
 
     public function update(Request $request, $id)
@@ -49,10 +49,10 @@ class UserController extends Controller
             return response()->json(null, 400);
         }
 
-        $space = User::findOrFail($id);
-        $space->update($request->all());
+        $user = User::findOrFail($id);
+        $user->update($request->all());
 
-        return response()->json($space, 200);
+        return response()->json($user, 200);
     }
 
     public function destroy($id)
