@@ -26,12 +26,6 @@ class BookingController extends Controller
         ];
     }
 
-    //TODO : serialization
-    public function index()
-    {
-        return response()->json(Booking::all());
-    }
-
     public function userBookings()
     {
         if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {

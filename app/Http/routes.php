@@ -12,7 +12,7 @@
 */
 
 Route::group(['prefix' => '/api/', 'middleware' => 'pontblio.auth'], function () {
-    Route::resource('bookings', 'BookingController', ['except' => ['create', 'edit']]);
+    Route::resource('bookings', 'BookingController', ['except' => ['index', 'create', 'edit']]);
     Route::resource('spaces', 'SpaceController', ['except' => ['create', 'edit']]);
     Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
     Route::resource('webpages', 'WebpageController', ['only' => ['show', 'update']]);
