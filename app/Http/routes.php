@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => '/api/'/*, 'middleware' => 'jwt.auth'*/], function () {
+Route::group(['prefix' => '/api/', 'middleware' => 'pontblio.auth'], function () {
     Route::resource('bookings', 'BookingController', ['except' => ['create', 'edit']]);
     Route::resource('spaces', 'SpaceController', ['except' => ['create', 'edit']]);
     Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
