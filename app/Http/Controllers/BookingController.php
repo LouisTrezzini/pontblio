@@ -6,11 +6,13 @@ use App\Booking;
 use App\Space;
 use App\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Validator;
+use DB;
 
 class BookingController extends Controller
 {
@@ -53,35 +55,9 @@ class BookingController extends Controller
             return response()->json(['errors' => ['Utilisateur bloqué. Contactez la bibliothèque.']], 401);
         }
 
-
-        $validator = Validator::make($request->all(), self::validationRules());
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
         $booking = new Booking();
 
-        $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
-        $booking->user_count = $request->get('user_count');
-
-        $booking->object = $request->get('object');
-        $booking->work_type = $request->get('work_type');
-
-        $booking->start_date = $request->get('start_date');
-        $booking->end_date = $request->get('end_date');
-
-        $booking->booked_at_bib = $this->getAuthUser()->hasRole(['biblio', 'gestion']);
-
-        if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
-            if ($request->has('booker_username')) {
-                $booker = User::where('username', $request->get('booker_username'))->firstOrFail();
-                $booking->booker_id = $booker->id;
-            } else {
-                return response()->json(['errors' => 'Vous devez réserver au nom de quelqu\'un.'], 400);
-            }
-        } else {
-            $booking->booker_id = $this->getAuthUser()->id;
-        }
+        $booking = $this->bookingValidation($booking, $request);
 
         $booking->save();
 
@@ -92,23 +68,7 @@ class BookingController extends Controller
     {
         $booking = Booking::findOrFail($id);
 
-        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion']) && $this->getAuthUser() !== $booking->booker) {
-            return response()->json(['errors' => 'Accès non autorisé.'], 401);
-        }
-
-        $validator = Validator::make($request->all(), self::validationRules());
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
-
-        $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
-        $booking->user_count = $request->get('user_count');
-
-        $booking->object = $request->get('object');
-        $booking->work_type = $request->get('work_type');
-
-        $booking->start_date = $request->get('start_date');
-        $booking->end_date = $request->get('end_date');
+        $booking = $this->bookingValidation($booking, $request, true);
 
         $booking->save();
 
@@ -124,7 +84,7 @@ class BookingController extends Controller
     {
         $booking = Booking::findOrFail($id);
 
-        if (!$this->getAuthUser()->hasRole('gestion') && $this->getAuthUser() !== $booking->booker) {
+        if (!$this->getAuthUser()->hasRole('gestion') && $this->getAuthUser()->id != $booking->booker_id) {
             return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
@@ -132,5 +92,76 @@ class BookingController extends Controller
 
         $booking->delete();
         return response(null, 204);
+    }
+
+    /**
+     * @param $booking Booking
+     * @param $request Request
+     * @param $editing boolean
+     * @return Booking
+     */
+    private function bookingValidation($booking, $request, $editing = false)
+    {
+        $validator = Validator::make($request->all(), self::validationRules());
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $booking->space_id = Space::findBySlugOrFail($request->get('space_slug'))->id;
+        $booking->user_count = $request->get('user_count');
+
+        $booking->object = $request->get('object');
+        $booking->work_type = $request->get('work_type');
+
+        $booking->start_date = $request->get('start_date');
+        $booking->end_date = $request->get('end_date');
+
+        $booking->booked_at_bib = $this->getAuthUser()->hasRole(['biblio', 'gestion']);
+
+        if(!$editing) {
+            if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+                if ($request->has('booker_username')) {
+                    $booker = User::where('username', $request->get('booker_username'))->firstOrFail();
+                    $booking->booker_id = $booker->id;
+                } else {
+                    throw new BadRequestHttpException('EVous devez réserver au nom de quelqu\'un');
+                }
+            } else {
+                $booking->booker_id = $this->getAuthUser()->id;
+            }
+        }
+
+        if($editing) {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE space_id = ?  AND id <> ?  AND ( start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ? OR (start_date <= ? AND end_date >= ?))';
+            $result = DB::select($query, [
+                $booking->space_id,
+                $booking->id,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+            ]);
+        }
+        else {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE space_id = ? AND ( start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ? OR (start_date <= ? AND end_date >= ?))';
+            $result = DB::select($query, [
+                $booking->space_id,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+            ]);
+        }
+
+        if($result[0]->nb) {
+            throw new BadRequestHttpException('Espace occupé');
+        }
+
+        return $booking;
     }
 }
