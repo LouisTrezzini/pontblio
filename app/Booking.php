@@ -54,8 +54,7 @@ class Booking extends Model
         }
 
         if($user->hasRole(['biblio', 'gestion'])) {
-            $booker = $this->booker;
-            return $booker->first_name . ' ' . $booker->last_name;
+            return $this->booker->name;
         }
         else
             return 'Occupé';
