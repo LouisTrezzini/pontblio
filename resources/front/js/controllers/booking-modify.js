@@ -24,8 +24,11 @@ angular.module('biblio')
                 'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
-                'booker_username': booking.booker.username,
             };
+
+            if(booking.booker) {
+                params.booker_username = booking.booker.username;
+            }
 
             $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
                 Alert.toast('Modification prise en compte !');
@@ -33,7 +36,7 @@ angular.module('biblio')
             }).error(function () {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value[0]);
+                        Alert.toast(value);
                     });
                 }
                 else
@@ -70,8 +73,11 @@ angular.module('biblio')
                 'work_type': booking.work_type,
                 'start_date': moment(booking.start_date).unix(),
                 'end_date': moment(booking.end_date).unix(),
-                'booker_username': booking.booker.username,
             };
+
+            if(booking.booker) {
+                params.booker_username = booking.booker.username;
+            }
 
 
             $http.post(apiPrefix + 'bookings', params).success(function () {
@@ -80,7 +86,7 @@ angular.module('biblio')
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value[0]);
+                        Alert.toast(value);
                     });
                 }
                 else

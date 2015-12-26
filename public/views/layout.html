@@ -40,7 +40,7 @@
 
                     <md-divider></md-divider>
 
-                    <md-list-item>
+                    <md-list-item ng-if="$root.isModo">
                         <md-button flex aria-label="Statistiques" ng-click="go('root.statistics')">
                             <md-icon md-font-icon="fa-bar-chart" class="fa"></md-icon>
                             Statistiques

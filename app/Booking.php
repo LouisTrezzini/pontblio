@@ -53,7 +53,7 @@ class Booking extends Model
             throw new NotFoundHttpException;
         }
 
-        if($user->hasRole(['biblio', 'gestion'])) {
+        if($user->hasRole(['biblio', 'gestion']) || $user->id == $this->booker->id) {
             return $this->booker->name;
         }
         else

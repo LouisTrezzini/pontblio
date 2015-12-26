@@ -49,12 +49,11 @@
                 <time-date-picker ng-model="booking.end_date"></time-date-picker>
             </div>
 
-            <md-input-container flex="50">
+            <md-input-container flex="50" ng-if="$root.isModo">
                 <label>
                     Au nom de ...
                 </label>
                 <md-autocomplete
-                        ng-if="$root.isModo"
                         md-selected-item="booking.booker"
                         md-search-text="searchText"
                         md-items="foundUser in searchResults"

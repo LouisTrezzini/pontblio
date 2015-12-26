@@ -41,7 +41,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function bookings()
     {
-        return $this->hasMany('App\Booking');
+        return $this->hasMany('App\Booking', 'booker_id', 'id');
     }
 
     public function role()
@@ -51,6 +51,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function hasRole($roles)
     {
+        if ($this->getUserRole() === null)
+            return false;
+
         // Check if the user is a root account
         if ($this->getUserRole()->name == 'root') {
             return true;
