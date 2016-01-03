@@ -9,8 +9,6 @@ angular.module('biblio').directive('pbDatetimepicker', function () {
                     .hours($scope.hours)
                     .minutes($scope.minutes)
                     .toDate();
-
-                console.log($scope.result);
             };
 
             if($scope.result) {
