@@ -23,7 +23,8 @@ class LoginController extends Controller
         $user = Auth::user();
 
         $customClaims = [
-            'role' => $user->role ? $user->role->name : ''
+            'role' => $user->role ? $user->role->name : '',
+            'username' => $user->username ? $user->username : '',
         ];
 
         try {

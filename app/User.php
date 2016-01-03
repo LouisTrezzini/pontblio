@@ -36,7 +36,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $visible = [
         'name',
         'email',
-        'id',
+        'username',
+        'id'
     ];
 
     public function bookings()
