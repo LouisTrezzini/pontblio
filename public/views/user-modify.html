@@ -1,0 +1,59 @@
+<div>
+    <md-content layout-padding>
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submit(user)">
+            <md-input-container flex="50">
+                <label>
+                    Nom d'utilisateur
+                </label>
+                <input ng-model="user.username" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Nom
+                </label>
+                <input ng-model="user.name" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Email
+                </label>
+                <input ng-model="user.email" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Département
+                </label>
+                <md-select ng-model="user.departement">
+                    <md-option ng-repeat="(key, val) in enums.departement" value="{{ key }}">{{ val }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Cursus
+                </label>
+                <md-select ng-model="user.user_profile">
+                    <md-option ng-repeat="(key, val) in enums.user_profile" value="{{ key }}">{{ val }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Cursus (détails)
+                </label>
+                <md-select ng-model="user.user_profile_details">
+                    <md-option ng-repeat="(key, val) in enums.{{user.user_profile}}" value="{{ key }}">{{ val }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <div flex="100" layout="row" layout-align="end center">
+                <md-button flex="15" class="md-primary md-raised">Sauvegarder</md-button>
+            </div>
+        </form>
+    </md-content>
+</div>
+<!-- TODO erreurs -->
+

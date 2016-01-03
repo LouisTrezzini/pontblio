@@ -20,6 +20,19 @@ class CreateUsersTable extends Migration
 
             $table->string('name')->nullable();
 
+            $table->enum('user_profile', array_keys(Config::get('enums')['user_profile']));
+            $table->enum('user_profile_details', array_keys(
+                array_merge(
+                    Config::get('enums')['user_profile_aue'],
+                    Config::get('enums')['user_profile_inge'],
+                    Config::get('enums')['user_profile_master'],
+                    Config::get('enums')['user_profile_master_spe'],
+                    Config::get('enums')['user_profile_other']
+                )
+            ));
+            $table->enum('departement', array_keys(Config::get('enums')['departement']));
+
+
             $table->integer('role_id')->nullable();
 
             $table->boolean('blocked')->default(false);
