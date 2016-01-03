@@ -14,7 +14,7 @@
 Route::group(['prefix' => '/api/', 'middleware' => 'pontblio.auth'], function () {
     Route::resource('bookings', 'BookingController', ['except' => ['create', 'edit']]);
     Route::resource('spaces', 'SpaceController', ['except' => ['create', 'edit']]);
-    Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
+    Route::resource('users', 'UserController', ['except' => ['index', 'create', 'edit']]);
     Route::resource('webpages', 'WebpageController', ['only' => ['show', 'update']]);
     Route::get('statistics/main', 'StatisticsController@main');
     Route::get('statistics/user/{id}', 'StatisticsController@user');
