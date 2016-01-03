@@ -13,17 +13,6 @@ var webserver = require('gulp-webserver');
 
 var production = !!gutil.env.production;
 
-gulp.task('jshint', function() {
-    return gulp
-        .src([
-            'resources/front/js/**/*.js',
-            'resources/front/js/*.js'
-        ])
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-    ;
-});
-
 gulp.task('build-less', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [

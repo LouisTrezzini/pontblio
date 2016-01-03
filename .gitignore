@@ -1,6 +1,7 @@
 /vendor
 /node_modules
 .env
+npm-debug.log
 
 /public/bower
 /public/app.min.js
