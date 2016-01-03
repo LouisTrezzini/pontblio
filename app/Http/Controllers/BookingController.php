@@ -74,8 +74,9 @@ class BookingController extends Controller
         $booking->save();
 
         if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
-            //Mail::send('booking.modified');
-
+            Mail::send('emails.modification', ['booking' => $booking], function ($mail) use ($booking) {
+                $mail->to($booking->booker->email, $booking->booker->name)->subject('Votre réservation a été modifiée');
+            });
         }
 
         return response()->json($booking, 200);
@@ -89,7 +90,7 @@ class BookingController extends Controller
             return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        Mail::send('emails.cancelled', ['booking' => $booking], function ($mail) use ($booking) {
+        Mail::send('emails.deleted', ['booking' => $booking], function ($mail) use ($booking) {
             $mail->to($booking->booker->email, $booking->booker->name)->subject('Votre réservation a été supprimée');
         });
 
