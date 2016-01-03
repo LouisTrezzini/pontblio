@@ -11,8 +11,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Validator;
 use DB;
+use Mail;
+use Validator;
 
 class BookingController extends Controller
 {
@@ -88,7 +89,9 @@ class BookingController extends Controller
             return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        //Mail::send('booking.delete');
+        Mail::send('emails.cancelled', ['booking' => $booking], function ($mail) use ($booking) {
+            $mail->to($booking->booker->email, $booking->booker->name)->subject('Votre réservation a été supprimée');
+        });
 
         $booking->delete();
         return response(null, 204);
