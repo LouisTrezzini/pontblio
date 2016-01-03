@@ -39,7 +39,7 @@ return [
     'user_profile_other' => [
 
     ],
-    'dept' => [
+    'departement' => [
         'gcc' => 'GCC',
         'gi' => 'GI',
         'gmm' => 'GMM',
