@@ -13,6 +13,7 @@
                     <th name="Heure de début"></th>
                     <th name="Heure de fin"></th>
                     <th name="Espace"></th>
+                    <th name="Utilisateur" ng-if="$root.isModo"></th>
                     <th name="Modifier"></th>
                     <th name="Supprimer"></th>
                 </tr>
@@ -26,6 +27,8 @@
                     <td>{{ booking.end_date * 1000 | date:'HH:mm'}}</td>
 
                     <td>{{ spaces[booking.space_slug].name }}</td>
+
+                    <td ng-if="$root.isModo">{{ booking.booker_name }}</td>
 
                     <td>
                         <md-button class="md-primary" ui-sref="root.bookings.modify({id: booking.id})">
