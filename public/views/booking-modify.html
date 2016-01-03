@@ -35,18 +35,13 @@
                 </md-select>
             </md-input-container>
 
+
             <div flex="50">
-                <label>
-                    Date de début
-                </label>
-                <time-date-picker ng-model="booking.start_date"></time-date-picker>
+                <pb-datetimepicker result="booking.start_date"></pb-datetimepicker>
             </div>
 
             <div flex="50">
-                <label>
-                    Date de fin
-                </label>
-                <time-date-picker ng-model="booking.end_date"></time-date-picker>
+                <pb-datetimepicker result="booking.end_date"></pb-datetimepicker>
             </div>
 
             <md-input-container flex="50" ng-if="$root.isModo">
