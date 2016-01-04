@@ -21,22 +21,24 @@ class Image extends Model
      */
     public static function createFromBase64($base64, $ext)
     {
-        $image = Image::create();
+        return self::createFromData(base64_decode($base64), $ext);
+    }
 
-        //decode base64 string
-        $data = base64_decode($base64);
+    public static function createFromData($data, $ext)
+    {
+        $image = Image::create();
 
         $image->path = 'imgs/uploads/' . $image->id . '.' . $ext;
 
         //TODO : storage
 
-        file_put_contents(public_path() . '/' . $image->path, $data);
+        file_put_contents(public_path($image->path), $data);
 
         $image->save();
 
-        $imgFile = IntervImage::make($image->path);
+        $imgFile = IntervImage::make(public_path($image->path));
         $imgFile->fit(600, 400);
-        $imgFile->save($image->path);
+        $imgFile->save(public_path($image->path));
 
         return $image;
     }
