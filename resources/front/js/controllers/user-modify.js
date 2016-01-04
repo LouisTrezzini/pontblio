@@ -1,17 +1,17 @@
 angular.module('biblio')
-    .controller('Booking_Modify_Ctrl', function ($scope, $stateParams, $http, $state, booking, spaces, Alert) {
+    .controller('User_Modify_Ctrl', function ($scope, $stateParams, $http, $state, user, Alert) {
         $scope.user = user;
 
         $scope.submit = function (user) {
             var params = {
-                'departement': booking.departement,
-                'user_profile': booking.user_profile,
-                'user_profile_details': booking.user_profile_details,
+                'departement': user.departement,
+                'user_profile': user.user_profile,
+                'user_profile_details': user.user_profile_details,
             };
 
-            $http.patch(apiPrefix + 'users/' + booking.username, params).success(function () {
+            $http.patch(apiPrefix + 'users/' + user.username, params).success(function () {
                 Alert.toast('Modification prise en compte !');
-                $state.go('root.spaces.simple', {slug: booking.space_slug});
+                $state.go('root.home');
             }).error(function () {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
@@ -30,20 +30,20 @@ angular.module('biblio')
                 abstract: true,
                 template: '<div ui-view></div>',
                 data: {
-                    title: 'Réservations',
+                    title: 'Utilisateurs',
                 }
             })
             .state('root.users.modify', {
-                url: '/:id/modify',
+                url: '/:username/modify',
                 templateUrl: 'views/user-modify.html',
                 controller: 'User_Modify_Ctrl',
                 data: {
                     title: 'Édition du profil'
                 },
                 resolve: {
-                    user: function ($resource, $stateParams) {
+                    user: function ($resource, $stateParams, $rootScope) {
                         return $resource(apiPrefix + 'users/:username').get({
-                            username: $stateParams.username
+                            username: $stateParams.username ? $stateParams.username : $rootScope.username
                         }).$promise;
                     }
                 }

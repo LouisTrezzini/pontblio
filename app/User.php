@@ -23,11 +23,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = ['name', 'email', 'password'];
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+
     protected $casts = [
         'blocked' => 'boolean',
         'id' => 'integer'
@@ -37,7 +33,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'name',
         'email',
         'username',
-        'id'
+        'id',
+        'user_profile',
+        'user_profile_details',
+        'departement'
     ];
 
     public function bookings()

@@ -15,7 +15,8 @@ class UserController extends Controller
     private static function validationRules()
     {
         return [
-
+            'user_profile' => self::enumValidator('user_profile'),
+            'departement' => self::enumValidator('departement'),
         ];
     }
 
@@ -26,12 +27,20 @@ class UserController extends Controller
 
     public function show($username)
     {
-        return response()->json(User::where('username', $username)->firstOrFail());
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion']) && $this->getAuthUser()->username != $username) {
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
+        }
+
+        return response()->json(User::where('username', $username)->firstOrFail(), 200);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), self::$validationRules);
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
+        }
+
+        $validator = Validator::make($request->all(), self::validationRules());
         if ($validator->fails()) {
             return response()->json(null, 400);
         }
@@ -42,22 +51,37 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $username)
     {
-        $validator = Validator::make($request->all(), self::$validationRules);
-        if ($validator->fails()) {
-            return response()->json(null, 400);
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion']) && $this->getAuthUser()->username != $username) {
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
         }
 
-        $user = User::findOrFail($id);
-        $user->update($request->all());
+        $validator = Validator::make($request->all(), self::validationRules());
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $user = User::where('username', $username)->firstOrFail();
+
+        $user->departement = $request->get('departement');
+        $user->user_profile = $request->get('user_profile');
+        $user->user_profile_details = $request->get('user_profile_details');
+
+        $user->save();
 
         return response()->json($user, 200);
     }
 
-    public function destroy($id)
+    public function destroy($username)
     {
-        User::destroy($id);
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
+        }
+
+        $user = User::where('username', $username)->firstOrFail();
+        $user->destroy();
+
         return response(null, 204);
     }
 }

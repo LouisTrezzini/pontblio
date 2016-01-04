@@ -45,7 +45,7 @@
                     Cursus (détails)
                 </label>
                 <md-select ng-model="user.user_profile_details">
-                    <md-option ng-repeat="(key, val) in enums.{{user.user_profile}}" value="{{ key }}">{{ val }}</md-option>
+                    <md-option ng-repeat="(key, val) in enums[user.user_profile]" value="{{ key }}">{{ val }}</md-option>
                 </md-select>
             </md-input-container>
 
