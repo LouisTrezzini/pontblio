@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Space;
+use App\Image;
 
 class SpaceTableSeeder extends Seeder
 {
@@ -15,6 +16,14 @@ class SpaceTableSeeder extends Seeder
     {
         DB::table('spaces')->delete();
 
+        $files = glob(public_path() . '/imgs/uploads/*'); // get all file names
+        foreach($files as $file){ // iterate files
+            if(is_file($file))
+                unlink($file); // delete file
+        }
+
+        $plaza_image = Image::createFromData(file_get_contents(public_path() . '/imgs/plaza_athene.jpg'), 'jpg');
+
         $plaza = Space::create([
             'name' => 'Plaza Athénée Paris',
             'location' => 'Avenue Montaigne',
@@ -25,6 +34,11 @@ class SpaceTableSeeder extends Seeder
             'active' => true,
         ]);
 
+        $plaza->image()->save($plaza_image);
+        $plaza->save();
+
+        $langham_image = Image::createFromData(file_get_contents(public_path() . '/imgs/langham_place_mongkok.jpg'), 'jpg');
+
         $langham = Space::create([
             'name' => 'Langham Place Hotel',
             'location' => '555 Shanghai Street, Mong Kok, Hong Kong',
@@ -32,5 +46,8 @@ class SpaceTableSeeder extends Seeder
             Chinese restaurant, Ming Court, awarded in the 2009 Hong Kong and Macau edition of the Michelin Guide.',
             'active' => 'false',
         ]);
+
+        $langham->image()->save($langham_image);
+        $langham->save();
     }
 }
