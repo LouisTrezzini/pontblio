@@ -22,6 +22,10 @@ class UserController extends Controller
 
     public function index()
     {
+        if (!$this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            return response()->json(['errors' => 'Accès non autorisé.'], 401);
+        }
+
         return response()->json(User::all());
     }
 
@@ -80,7 +84,7 @@ class UserController extends Controller
         }
 
         $user = User::where('username', $username)->firstOrFail();
-        $user->destroy();
+        $user->delete();
 
         return response(null, 204);
     }
