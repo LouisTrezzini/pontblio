@@ -22,6 +22,9 @@ class SpaceTableSeeder extends Seeder
                 unlink($file); // delete file
         }
 
+        if(!file_exists(public_path() . '/imgs/uploads'))
+            mkdir(public_path() . '/imgs/uploads');
+
         $plaza_image = Image::createFromData(file_get_contents(public_path() . '/imgs/plaza_athene.jpg'), 'jpg');
 
         $plaza = Space::create([
