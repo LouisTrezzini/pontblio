@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
                     Config::get('enums')['user_profile_aue'],
                     Config::get('enums')['user_profile_inge'],
                     Config::get('enums')['user_profile_master'],
-                    Config::get('enums')['user_profile_master_spe'],
+                    Config::get('enums')['user_profile_master_spec'],
                     Config::get('enums')['user_profile_other']
                 )
             ));
