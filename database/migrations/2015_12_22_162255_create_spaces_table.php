@@ -22,6 +22,8 @@ class CreateSpacesTable extends Migration
 
             $table->boolean('active')->default(false);
 
+            $table->integer('image_id')->nullable();
+
             $table->timestamps();
         });
     }
