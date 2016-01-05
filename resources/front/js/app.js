@@ -22,11 +22,12 @@ angular
         'ngMaterial',
         'ngMessages',
         'ngResource',
+        'ngSanitize',
         'scDateTime',
         'ui.calendar',
         'ui.router',
         'satellizer',
-        'textAngular'
+        'ngQuill'
     ])
     // Setup theme
     .config(function($mdThemingProvider) {

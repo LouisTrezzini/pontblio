@@ -10,6 +10,7 @@
     "angular-material-data-table": "latest",
     "angular-messages": "latest",
     "angular-resource": "latest",
+    "angular-sanitize": "latest",
     "angular-ui-calendar": "latest",
     "font-awesome": "latest",
     "fullcalendar": "latest",
@@ -19,7 +20,7 @@
     "sc-date-time": "latest",
     "ui-router": "latest",
     "satellizer": "latest",
-    "angular-redactor": "latest"
+    "ngquill": "latest"
   },
   "overrides": {
     "highcharts-release": {

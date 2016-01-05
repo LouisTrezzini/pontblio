@@ -10,11 +10,10 @@
     </div>
     <br>
 
-    <div class="fr-view" ng-bind-html="home.content" ng-if="!editing">
-
+    <div ng-bind-html="home.content" class="wysiwyg-data" ng-if="!editing">
     </div>
 
-    <div text-angular ng-model="home.content" ng-if="editing"></div>
+    <ng-quill-editor toolbar="true" ng-model="home.content" ng-if="editing"></ng-quill-editor>
 </div>
 
 

@@ -18,7 +18,8 @@ gulp.task('build-less', function() {
     var appFiles = [
         'resources/front/less/bootstrap.less',
         //'public/bower/bootstrap-css-only/css/bootstrap.css',
-        'public/bower/textAngular/dist/textAngular.css',
+        'public/bower/quill/dist/quill.base.css',
+        'public/bower/quill/dist/quill.snow.css',
     ];
     var files = vendorsFiles.concat(appFiles);
     return gulp
