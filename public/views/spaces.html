@@ -1,8 +1,10 @@
 <div layout="column" layout-padding>
     <div layout="row">
-        <md-button flex="20" class="md-primary md-raised" ng-if="$root.isAdmin" ui-sref="root.spaces.create">
-            Créer un espace
-        </md-button>
+        <div flex="20">
+            <md-button class="md-primary md-raised md-large" ng-if="$root.isAdmin" ui-sref="root.spaces.create">
+                Créer un espace
+            </md-button>
+        </div>
     </div>
 
     <div layout="row" layout-wrap>

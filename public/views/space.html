@@ -8,19 +8,21 @@
 
         <h1>{{ space.name }} ({{ space.location }})</h1>
 
-        <div class="fr-view" ng-bind-html="space.description"></div>
+        <div ng-bind-html="bindable"></div>
 
         <br>
 
-        <md-button flex="100" class="md-primary md-raised" title="Réservation"
-                   ui-sref="root.spaces.booking({space: space.slug})">Réserver
-        </md-button>
+        <div flex="100">
+            <md-button class="md-primary md-raised md-large" title="Réservation"
+                       ui-sref="root.spaces.booking({space: space.slug})">Réserver
+            </md-button>
+        </div>
 
-        <br>
-
-        <md-button flex="100" class="md-primary md-raised" ng-if="$root.isAdmin"
-                   ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa  fa-cogs"></i> Modifier
-        </md-button>
+        <div flex="100">
+            <md-button flex="100" class="md-primary md-raised md-large" ng-if="$root.isAdmin"
+                       ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa  fa-cogs"></i> Modifier
+            </md-button>
+        </div>
 
     </div>
 

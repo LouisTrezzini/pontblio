@@ -44,7 +44,11 @@
         </form>
 
         <div flex="100" layout="row" layout-align="start center">
-            <md-button flex="15" flex-md="25" class="md-accent md-raised" ng-click="delete()" ng-if="mode!='create'">Supprimer l'espace</md-button>
+            <div flex="15" flex-md="25">
+                <md-button class="md-accent md-raised md-large" ng-click="delete()" ng-if="mode!='create'">
+                    Supprimer l'espace
+                </md-button>
+            </div>
         </div>
     </md-content>
 </div>

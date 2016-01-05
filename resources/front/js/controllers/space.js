@@ -1,6 +1,8 @@
 angular.module('biblio')
-    .controller('Space_Simple_Ctrl', function ($scope, space, bookings) {
+    .controller('Space_Simple_Ctrl', function ($scope, $sce, space, bookings) {
         $scope.space = space;
+
+        $scope.bindable = $sce.trustAsHtml($scope.space.description);
 
         $scope.events = [];
 

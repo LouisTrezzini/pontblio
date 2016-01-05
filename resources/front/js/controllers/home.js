@@ -1,9 +1,11 @@
 angular.module('biblio')
-    .controller('Home_Ctrl', function ($scope, $rootScope, $http, Alert, home) {
+    .controller('Home_Ctrl', function ($scope, $rootScope, $http, $sce, Alert, home) {
         $scope.home = home;
 
         $scope.editing = false;
         $scope.isLoading = false;
+
+        $scope.bindable = $sce.trustAsHtml($scope.home.content);
 
         $scope.edit = function(){
             $scope.editing = !$scope.editing;
@@ -19,6 +21,7 @@ angular.module('biblio')
                 .success(function (data) {
                     Alert.toast('Page modifiée !');
                     $scope.home = data;
+                    $scope.bindable = $sce.trustAsHtml($scope.home.content);
                     $scope.isLoading = false;
                     $scope.editing = false;
                 })

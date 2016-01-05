@@ -1,16 +1,20 @@
 <div layout="column" layout-padding>
     <div layout="row" ng-if="$root.isAdmin">
-        <md-button flex="20" class="md-primary md-raised"  ng-click="edit()" ng-if="!editing">
-            Éditer
-        </md-button>
+        <div flex="20">
+            <md-button class="md-primary md-raised md-large" ng-click="edit()" ng-if="!editing">
+                Éditer
+            </md-button>
+        </div>
 
-        <md-button flex="20" class="md-primary md-raised" ng-click="save()" ng-if="editing">
-            Sauvegarder
-        </md-button>
+        <div flex="20">
+            <md-button class="md-primary md-raised md-large" ng-click="save()" ng-if="editing">
+                Sauvegarder
+            </md-button>
+        </div>
     </div>
     <br>
 
-    <div ng-bind-html="home.content" class="wysiwyg-data" ng-if="!editing">
+    <div ng-bind-html="bindable" ng-if="!editing">
     </div>
 
     <ng-quill-editor toolbar="true" ng-model="home.content" ng-if="editing"></ng-quill-editor>
