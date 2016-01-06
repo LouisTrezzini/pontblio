@@ -48,6 +48,7 @@ return [
         'none' => 'Pas de détails'
     ],
     'departement' => [
+        'none' => 'Aucun',
         'gcc' => 'GCC',
         'gi' => 'GI',
         'gmm' => 'GMM',
