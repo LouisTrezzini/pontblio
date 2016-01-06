@@ -140,6 +140,10 @@ class BookingController extends Controller
             } else {
                 $booking->booker_id = $this->getAuthUser()->id;
             }
+
+            $booking->departement = $booking->booker->departement;
+            $booking->user_profile = $booking->booker->user_profile;
+            $booking->user_profile_details = $booking->booker->user_profile_details;
         }
 
         if($editing) {
