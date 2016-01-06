@@ -18,20 +18,20 @@ return [
         'user_profile_master_spec' => 'Elève en master spécialisé',
         'user_profile_other' => 'Autre'
     ],
-    'user_profile_none' => ['
-        none' => 'Pas de détails'
+    'user_profile_none' => [
+        null => 'Pas de détails'
     ],
     'user_profile_aue' => [
-        'none' => 'Pas de détails'
+        null => 'Pas de détails'
     ],
     'user_profile_inge' => [
-        'none' => 'Pas de détails',
+        null => 'Pas de détails',
         '1a' => 'Formation d\'ingénieur - 1ère année',
         '2a' => 'Formation d\'ingénieur - 2ème année',
         '3a' => 'Formation d\'ingénieur - 3ème année',
     ],
     'user_profile_master' => [
-        'none' => 'Pas de détails',
+        null => 'Pas de détails',
         'anedp' => 'Master ANEDP - Analyse numérique et équations aux dérivés partielles',
         'dmse' => 'Master DMSE - Durabilité des matériaux et des structures pour l\'énergie',
         'eddee' => 'Master EDDEE - Economie de l\'environnement, du développement durable et de l\'énergie',
@@ -42,13 +42,13 @@ return [
         'maf' => 'Master MAF - Mathématiques appliqués en finance',
     ],
     'user_profile_master_spec' => [
-        'none' => 'Pas de détails'
+        null => 'Pas de détails'
     ],
     'user_profile_other' => [
-        'none' => 'Pas de détails'
+        null => 'Pas de détails'
     ],
     'departement' => [
-        'none' => 'Aucun',
+        null => 'Aucun',
         'gcc' => 'GCC',
         'gi' => 'GI',
         'gmm' => 'GMM',

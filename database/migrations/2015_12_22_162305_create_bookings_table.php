@@ -28,7 +28,7 @@ class CreateBookingsTable extends Migration
             $table->integer('space_id');
             $table->integer('booker_id');
 
-            $table->enum('user_profile', array_keys(Config::get('enums')['user_profile']));
+            $table->enum('user_profile', array_keys(Config::get('enums')['user_profile']))->nullable();
             $table->enum('user_profile_details', array_keys(
                 array_merge(
                     Config::get('enums')['user_profile_aue'],
@@ -37,8 +37,8 @@ class CreateBookingsTable extends Migration
                     Config::get('enums')['user_profile_master_spec'],
                     Config::get('enums')['user_profile_other']
                 )
-            ));
-            $table->enum('departement', array_keys(Config::get('enums')['departement']));
+            ))->nullable();
+            $table->enum('departement', array_keys(Config::get('enums')['departement']))->nullable();
 
             $table->timestamps();
         });
