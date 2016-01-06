@@ -45,12 +45,15 @@
                     Cursus (détails)
                 </label>
                 <md-select ng-model="user.user_profile_details">
-                    <md-option ng-repeat="(key, val) in enums[user.user_profile]" value="{{ key }}">{{ val }}</md-option>
+                    <md-option ng-repeat="(key, val) in enums[user.user_profile]" value="{{ key }}">{{ val }}
+                    </md-option>
                 </md-select>
             </md-input-container>
 
             <div flex="100" layout="row" layout-align="end center">
-                <md-button flex="15" class="md-primary md-raised">Sauvegarder</md-button>
+                <div flex="15" flex-md="25">
+                    <md-button type="submit" class="md-primary md-raised">Sauvegarder</md-button>
+                </div>
             </div>
         </form>
     </md-content>

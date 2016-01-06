@@ -1,7 +1,7 @@
-
 <div>
     <div layout="row" layout-align="space-around center">
-        <img flex="50" ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}" class="md-card-image" alt="{{space.name}}">
+        <img flex="50" ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
+             class="md-card-image" alt="{{space.name}}">
     </div>
 
     <md-content layout-padding>
@@ -39,7 +39,9 @@
             </md-input-container>
 
             <div flex="100" layout="row" layout-align="end center">
-                <md-button flex="15" flex-md="25" class="md-primary md-raised">{{submitButton}}</md-button>
+                <div flex="15" flex-md="25">
+                    <md-button type="submit" class="md-primary md-raised">{{submitButton}}</md-button>
+                </div>
             </div>
         </form>
 
