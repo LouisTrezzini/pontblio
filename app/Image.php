@@ -34,8 +34,6 @@ class Image extends Model
 
         file_put_contents(public_path($image->path), $data);
 
-        $image->save();
-
         $imgFile = IntervImage::make(public_path($image->path));
         $imgFile->fit(600, 400);
         $imgFile->save(public_path($image->path));

@@ -55,7 +55,7 @@ class SpaceTableSeeder extends Seeder
             'location' => '555 Shanghai Street, Mong Kok, Hong Kong',
             'description' => 'The hotel has 665 guest rooms and four restaurants, including the two-Michelin-starred
             Chinese restaurant, Ming Court, awarded in the 2009 Hong Kong and Macau edition of the Michelin Guide.',
-            'active' => 'false',
+            'active' => false,
         ]);
 
         $langham->image()->save($langham_image);
