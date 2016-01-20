@@ -34,10 +34,7 @@ class SpaceTableSeeder extends Seeder
         $plaza = Space::create([
             'name' => 'Plaza Athénée Paris',
             'location' => 'Avenue Montaigne',
-            'description' =>
-                'Le Plaza Athénée est un palace situé au 25, avenue Montaigne, une des artères bordant
-                le « Triangle d\'or », dans le quartier des Champs-Élysées du 8e arrondissement de Paris.
-                Il appartient au groupe Dorchester Collection.',
+            'description' => 'Le Plaza Athénée est un palace situé au 25, avenue Montaigne, une des artères bordant le «Triangle d\'or», dans le quartier des Champs-Élysées du 8e arrondissement de Paris. Il appartient au groupe Dorchester Collection.',
             'active' => true,
         ]);
 
@@ -53,8 +50,7 @@ class SpaceTableSeeder extends Seeder
         $langham = Space::create([
             'name' => 'Langham Place Hotel',
             'location' => '555 Shanghai Street, Mong Kok, Hong Kong',
-            'description' => 'The hotel has 665 guest rooms and four restaurants, including the two-Michelin-starred
-            Chinese restaurant, Ming Court, awarded in the 2009 Hong Kong and Macau edition of the Michelin Guide.',
+            'description' => 'The hotel has 665 guest rooms and four restaurants, including the two-Michelin-starred Chinese restaurant, Ming Court, awarded in the 2009 Hong Kong and Macau edition of the Michelin Guide.',
             'active' => false,
         ]);
 
