@@ -1,13 +1,13 @@
 <div layout="column" layout-padding>
     <div layout="row" ng-if="$root.isAdmin">
-        <div flex="20">
-            <md-button class="md-primary md-raised md-large" ng-click="edit()" ng-if="!editing">
+        <div flex="20" ng-if="!editing">
+            <md-button class="md-primary md-raised md-large" ng-click="edit()">
                 Éditer
             </md-button>
         </div>
 
-        <div flex="20">
-            <md-button class="md-primary md-raised md-large" ng-click="save()" ng-if="editing">
+        <div flex="20" ng-if="editing">
+            <md-button class="md-primary md-raised md-large" ng-click="save()">
                 Sauvegarder
             </md-button>
         </div>
