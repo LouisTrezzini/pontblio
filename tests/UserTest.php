@@ -5,7 +5,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\User;
-use JWTAuth;
 
 class UserTest extends TestCase
 {
@@ -40,9 +39,7 @@ class UserTest extends TestCase
     {
         $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
 
-        $this->post('/api/users', [
-
-        ], [
+        $this->post('/api/users', [], [
             'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])
             ->seeStatusCode(405);
@@ -72,13 +69,6 @@ class UserTest extends TestCase
     public function testDestroy()
     {
         $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
-
-//        $this->delete('/api/users/taquet-c', [
-//
-//        ], [
-//            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
-//        ])
-//            ->seeStatusCode(204);
 
         $this->delete('/api/users/lalala', [
 
