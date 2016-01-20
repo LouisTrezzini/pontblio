@@ -135,7 +135,7 @@ class BookingController extends Controller
                     $booker = User::where('username', $request->get('booker_username'))->firstOrFail();
                     $booking->booker_id = $booker->id;
                 } else {
-                    throw new BadRequestHttpException('EVous devez réserver au nom de quelqu\'un');
+                    throw new BadRequestHttpException('Vous devez réserver au nom de quelqu\'un');
                 }
             } else {
                 $booking->booker_id = $this->getAuthUser()->id;
