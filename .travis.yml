@@ -12,6 +12,7 @@ services:
 before_install:
 - cp .env.travis .env
 - mysql -e 'create database pontblio'
+- php -m
 
 install:
 - composer install
