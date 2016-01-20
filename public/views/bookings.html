@@ -1,46 +1,48 @@
 <div layout="column" layout-padding>
     <div layout="row" layout-align="end center">
-        <md-button flex="20" flex-md="50" flex-sm="100" class="md-primary md-raised" ui-sref="root.bookings.create">
-            Nouvelle réservation
-        </md-button>
+        <div flex="20" flex-md="50" flex-sm="100">
+            <md-button class="md-primary md-raised md-large" ui-sref="root.bookings.create">
+                Nouvelle réservation
+            </md-button>
+        </div>
     </div>
 
     <md-table-container>
         <table md-table>
             <thead md-head>
-                <tr md-row>
-                    <th md-column>Date</th>
-                    <th md-column>Heure de début</th>
-                    <th md-column>Heure de fin</th>
-                    <th md-column>Espace</th>
-                    <th md-column ng-if="$root.isModo">Utilisateur</th>
-                    <th md-column>Modifier</th>
-                    <th md-column>Supprimer</th>
-                </tr>
+            <tr md-row>
+                <th md-column>Date</th>
+                <th md-column>Heure de début</th>
+                <th md-column>Heure de fin</th>
+                <th md-column>Espace</th>
+                <th md-column ng-if="$root.isModo">Utilisateur</th>
+                <th md-column>Modifier</th>
+                <th md-column>Supprimer</th>
+            </tr>
             </thead>
             <tbody md-body>
-                <tr md-row ng-repeat="booking in bookings">
-                    <td md-cell>{{ booking.start_date * 1000 | date:'EEEE d MMMM yyyy'}}</td>
+            <tr md-row ng-repeat="booking in bookings">
+                <td md-cell>{{ booking.start_date * 1000 | date:'EEEE d MMMM yyyy'}}</td>
 
-                    <td md-cell>{{ booking.start_date * 1000 | date:'HH:mm'}}</td>
+                <td md-cell>{{ booking.start_date * 1000 | date:'HH:mm'}}</td>
 
-                    <td md-cell>{{ booking.end_date * 1000 | date:'HH:mm'}}</td>
+                <td md-cell>{{ booking.end_date * 1000 | date:'HH:mm'}}</td>
 
-                    <td md-cell>{{ spaces[booking.space_slug].name }}</td>
+                <td md-cell>{{ spaces[booking.space_slug].name }}</td>
 
-                    <td md-cell ng-if="$root.isModo">{{ booking.booker_name }}</td>
+                <td md-cell ng-if="$root.isModo">{{ booking.booker_name }}</td>
 
-                    <td md-cell>
-                        <md-button class="md-primary" ui-sref="root.bookings.modify({id: booking.id})">
-                            <md-icon md-font-icon="fa-pencil" aria-label="Modifier la réservation" class="fa"></md-icon>
-                        </md-button>
-                    </td>
-                    <td md-cell>
-                        <md-button class="md-primary" ng-click="delete(booking)">
-                            <md-icon md-font-icon="fa-trash" aria-label="Supprimer la réservation" class="fa"></md-icon>
-                        </md-button>
-                    </td>
-                </tr>
+                <td md-cell>
+                    <md-button class="md-primary" ui-sref="root.bookings.modify({id: booking.id})">
+                        <md-icon md-font-icon="fa-pencil" aria-label="Modifier la réservation" class="fa"></md-icon>
+                    </md-button>
+                </td>
+                <td md-cell>
+                    <md-button class="md-primary" ng-click="delete(booking)">
+                        <md-icon md-font-icon="fa-trash" aria-label="Supprimer la réservation" class="fa"></md-icon>
+                    </md-button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </md-table-container>
