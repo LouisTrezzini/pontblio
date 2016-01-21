@@ -24,15 +24,6 @@
 
             <md-input-container flex="50">
                 <label>
-                    Département
-                </label>
-                <md-select ng-model="user.departement">
-                    <md-option ng-repeat="(key, val) in enums.departement" value="{{ key }}">{{ val }}</md-option>
-                </md-select>
-            </md-input-container>
-
-            <md-input-container flex="50">
-                <label>
                     Cursus
                 </label>
                 <md-select ng-model="user.user_profile">
@@ -47,6 +38,15 @@
                 <md-select ng-model="user.user_profile_details">
                     <md-option ng-repeat="(key, val) in enums[user.user_profile]" value="{{ key }}">{{ val }}
                     </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50" ng-if="user.user_profile == 'user_profile_inge'">
+                <label>
+                    Département
+                </label>
+                <md-select ng-model="user.departement">
+                    <md-option ng-repeat="(key, val) in enums.departement" value="{{ key }}">{{ val }}</md-option>
                 </md-select>
             </md-input-container>
 
