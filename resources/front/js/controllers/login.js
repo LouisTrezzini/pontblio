@@ -8,8 +8,10 @@ angular.module('biblio')
 
             // Use Satellizer's $auth service to login
             $auth.login(credentials).then(function (data) {
-                $rootScope.isAdmin = $auth.getPayload().role == 'gestion';
-                $rootScope.isModo = $rootScope.isAdmin || $auth.getPayload().role == 'biblio';
+                var payload = $auth.getPayload();
+                $rootScope.isAdmin = payload.role == 'gestion';
+                $rootScope.isModo = $rootScope.isAdmin || payload.role == 'biblio';
+                $rootScope.username = payload.username;
 
                 // If login is successful, redirect to the users state
                 $state.go('root.home');

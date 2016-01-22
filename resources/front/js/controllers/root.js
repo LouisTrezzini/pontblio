@@ -23,6 +23,7 @@ angular.module('biblio')
             $auth.logout();
             $rootScope.isAdmin = false;
             $rootScope.isModo = false;
+            $rootScope.username = null;
             $state.go('login');
         };
 
