@@ -17,10 +17,9 @@
     "fullcalendar-scheduler": "latest",
     "highcharts-release": "latest",
     "jquery": "latest",
-    "sc-date-time": "latest",
-    "ui-router": "latest",
+    "ngquill": "latest",
     "satellizer": "latest",
-    "ngquill": "latest"
+    "ui-router": "latest"
   },
   "overrides": {
     "highcharts-release": {
@@ -37,6 +36,6 @@
   },
   "resolutions": {
     "fullcalendar": ">=2.5.0",
-    "angular": "1.4.8"
+    "angular": "1.4.9"
   }
 }

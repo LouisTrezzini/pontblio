@@ -23,7 +23,6 @@ angular
         'ngMessages',
         'ngResource',
         'ngSanitize',
-        'scDateTime',
         'ui.calendar',
         'ui.router',
         'satellizer',
