@@ -87,7 +87,7 @@ angular.module('biblio')
                     }]
                 }
             })
-            .state('root.spaces.list', {
+            .state('root.home', {
                 url: '',
                 templateUrl: 'views/spaces.html',
                 data: {

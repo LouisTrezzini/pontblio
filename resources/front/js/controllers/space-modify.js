@@ -25,7 +25,7 @@ angular.module('biblio')
                 if (spaceSlug == space.name) {
                     $state.go('root.spaces.simple', {slug: space.slug});
                 } else {
-                    $state.go('root.spaces.list');
+                    $state.go('root.home');
                 }
 
             });
@@ -45,7 +45,7 @@ angular.module('biblio')
                 $http.delete(apiPrefix + 'spaces/' + $scope.space.slug)
                     .success(function(){
                         Alert.alert('Espace supprimé');
-                        $state.go('root.spaces.list');
+                        $state.go('root.home');
                     })
                     .error(function(){
                         Alert.alert('Impossible de supprimer cet espace');
