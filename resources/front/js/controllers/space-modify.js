@@ -42,12 +42,13 @@ angular.module('biblio')
                 .theme('alert');
 
             $mdDialog.show(confirm).then(function() {
-                $http.delete(apiPrefix + 'spaces/' + booking.slug)
+                $http.delete(apiPrefix + 'spaces/' + $scope.space.slug)
                     .success(function(){
                         Alert.alert('Espace supprimé');
+                        $state.go('root.spaces.list');
                     })
                     .error(function(){
-                        Alert.alert('Impossible de supprimer la réservation');
+                        Alert.alert('Impossible de supprimer cet espace');
                     });
             }, function() {
                 Alert.toast('Espace conservé');
