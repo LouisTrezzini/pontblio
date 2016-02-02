@@ -75,6 +75,6 @@ class UserTest extends TestCase
         ], [
             'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])
-            ->seeStatusCode(404);
+            ->seeStatusCode(405);
     }
 }
