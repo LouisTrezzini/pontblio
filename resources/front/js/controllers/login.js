@@ -14,7 +14,7 @@ angular.module('biblio')
                 $rootScope.username = payload.username;
 
                 // If login is successful, redirect to the users state
-                $state.go('root.home');
+                $state.go('root.spaces.list');
             });
         };
     })

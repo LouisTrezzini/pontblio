@@ -1,6 +1,38 @@
 angular.module('biblio')
-    .controller('Space_List_Ctrl', function ($scope, $rootScope, spaces) {
+    .controller('Space_List_Ctrl', function ($scope, $rootScope, $http, $sce, Alert, home, spaces) {
         $scope.spaces = spaces;
+
+        $scope.home = home;
+
+        $scope.editing = false;
+        $scope.isLoading = false;
+
+        $scope.bindable = $sce.trustAsHtml($scope.home.content);
+
+        $scope.edit = function(){
+            $scope.editing = !$scope.editing;
+        };
+
+        $scope.save = function () {
+            if ($scope.isLoading)
+                return;
+
+            $scope.isLoading = true;
+
+            $http.patch(apiPrefix + 'webpages/home', $scope.home)
+                .success(function (data) {
+                    Alert.toast('Page modifiée !');
+                    $scope.home = data;
+                    $scope.bindable = $sce.trustAsHtml($scope.home.content);
+                    $scope.isLoading = false;
+                    $scope.editing = false;
+                })
+                .error(function (data) {
+                    Alert.toast('Erreur...');
+                    $scope.isLoading = false;
+                })
+            ;
+        };
     })
     .config(function ($stateProvider) {
         $stateProvider
@@ -59,10 +91,13 @@ angular.module('biblio')
                 url: '',
                 templateUrl: 'views/spaces.html',
                 data: {
-                    title: 'Espaces de travail'
+                    title: 'Accueil'
                 },
                 controller: 'Space_List_Ctrl',
                 resolve: {
+                    home: ['$resource', function ($resource) {
+                        return $resource(apiPrefix + 'webpages/home').get().$promise;
+                    }],
                     spaces: ['$resource', function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
                     }]

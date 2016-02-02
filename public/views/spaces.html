@@ -1,11 +1,32 @@
 <div layout="column" layout-padding>
-    <div layout="row">
+    <div layout="row" ng-if="$root.isAdmin">
         <div flex="20">
-            <md-button class="md-primary md-raised md-large" ng-if="$root.isAdmin" ui-sref="root.spaces.create">
+            <md-button class="md-primary md-raised md-large" ui-sref="root.spaces.create">
                 Créer un espace
             </md-button>
         </div>
+
+        <div flex="5"></div>
+
+        <div flex="20" ng-if="!editing">
+            <md-button class="md-primary md-raised md-large" ng-click="edit()">
+                Éditer
+            </md-button>
+        </div>
+
+        <div flex="5"></div>
+
+        <div flex="20" ng-if="editing">
+            <md-button class="md-primary md-raised md-large" ng-click="save()">
+                Sauvegarder
+            </md-button>
+        </div>
     </div>
+
+    <div ng-bind-html="bindable" ng-if="!editing">
+    </div>
+
+    <ng-quill-editor class="editor" toolbar="true" ng-model="home.content" ng-if="editing"></ng-quill-editor>
 
     <div layout="row" layout-wrap>
         <div flex="33" ng-repeat="space in spaces" ng-if="$root.isAdmin || space.active">
