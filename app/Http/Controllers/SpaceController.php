@@ -56,8 +56,6 @@ class SpaceController extends Controller
         if ($request->has('image')) {
             $image = Image::createFromBase64($request->get('image'), $request->get('image_ext'));
             $space->image()->save($image);
-
-            $image->save();
         }
 
         return response()->json($space, 201);
@@ -83,7 +81,7 @@ class SpaceController extends Controller
         $space->save();
 
         if ($request->has('image')) {
-            $image = Image::createFromBase64($request->get('image'), $space->slug, $request->get('image_ext'));
+            $image = Image::createFromBase64($request->get('image'), $request->get('image_ext'));
             $space->image()->delete();
             $space->image()->save($image);
 

@@ -19,16 +19,18 @@ class Image extends Model
      * @param Request $request
      * @return \App\Image
      */
-    public static function createFromBase64($base64, $name, $ext)
+    public static function createFromBase64($base64, $ext)
     {
-        return self::createFromData(base64_decode($base64), $name, $ext);
+        return self::createFromData(base64_decode($base64), $ext);
     }
 
-    public static function createFromData($data, $name, $ext)
+    public static function createFromData($data, $ext)
     {
-        $image = new Image();
+        $image = Image::create();
 
-        $image->path = 'imgs/uploads/' . $name . '.' . $ext;
+        $image->path = 'imgs/uploads/' . $image->id . '.' . $ext;
+
+        $image->save();
 
         //TODO : storage
 

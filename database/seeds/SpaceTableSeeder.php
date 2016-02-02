@@ -27,7 +27,6 @@ class SpaceTableSeeder extends Seeder
 
         $plaza_image = Image::createFromData(
             file_get_contents(public_path() . '/imgs/plaza_athene.jpg'),
-            'plaza-athenee-paris',
             'jpg'
         );
 
@@ -43,7 +42,6 @@ class SpaceTableSeeder extends Seeder
 
         $langham_image = Image::createFromData(
             file_get_contents(public_path() . '/imgs/langham_place_mongkok.jpg'),
-            'langham-place-hotel',
             'jpg'
         );
 
