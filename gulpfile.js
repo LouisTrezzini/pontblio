@@ -10,6 +10,7 @@ var mainBowerFiles = require('main-bower-files');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var webserver = require('gulp-webserver');
+var replace = require('gulp-replace');
 
 var production = !!gutil.env.production;
 
@@ -25,6 +26,7 @@ gulp.task('build-less', function() {
     return gulp
         .src(files)
         .pipe(filter(['**/*.css', '**/*.less']))
+        .pipe(replace('screen\\0','screen'))
         .pipe(less())
         .pipe(concat('style.min.css'))
         //.pipe(gulpif(env === 'prod', uglifycss()))

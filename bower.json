@@ -6,7 +6,7 @@
     "angular": "latest",
     "angular-animate": "latest",
     "angular-base64-upload": "latest",
-    "angular-material": "v1.0.0-rc7",
+    "angular-material": "latest",
     "angular-material-data-table": "latest",
     "angular-messages": "latest",
     "angular-resource": "latest",
