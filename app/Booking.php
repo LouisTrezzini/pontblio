@@ -9,6 +9,10 @@ use JWTAuth;
 
 class Booking extends Model
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     protected $casts = [
         'booked_at_bib' => 'boolean',
         'cancelled' => 'boolean',

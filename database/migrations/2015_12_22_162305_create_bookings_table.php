@@ -41,6 +41,7 @@ class CreateBookingsTable extends Migration
             $table->enum('departement', array_keys(Config::get('enums')['departement']))->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
