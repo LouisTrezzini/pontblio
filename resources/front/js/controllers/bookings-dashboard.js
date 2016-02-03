@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Dashboard_Ctrl', function ($scope, $rootScope, spaces, bookings) {
+    .controller('Bookings_Dashboard_Ctrl', function ($scope, $rootScope, spaces, bookings) {
         $scope.spaces = spaces;
         $scope.bookings = bookings;
         $scope.resources = [];
@@ -28,7 +28,7 @@ angular.module('biblio')
             calendar: {
                 allDaySlot: false,
                 contentHeight: 800,
-                defaultView: 'timelineDay',
+                defaultView: 'agendaWeek',
                 editable: false,
                 header:{
                     left: 'prev,next today',
@@ -57,10 +57,10 @@ angular.module('biblio')
     })
     .config(function($stateProvider) {
         $stateProvider
-            .state('root.dashboard', {
+            .state('root.bookings.dashboard', {
                 url: '/dashboard',
-                templateUrl: 'views/dashboard.html',
-                controller: 'Dashboard_Ctrl',
+                templateUrl: 'views/bookings-dashboard.html',
+                controller: 'Bookings_Dashboard_Ctrl',
                 resolve: {
                     spaces: ['$resource', function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
@@ -70,7 +70,7 @@ angular.module('biblio')
                     }]
                 },
                 data: {
-                    title: 'Dashboard'
+                    title: 'Réserver'
                 }
             })
         ;
