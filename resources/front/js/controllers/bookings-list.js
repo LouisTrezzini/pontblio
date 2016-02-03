@@ -45,7 +45,7 @@ angular.module('biblio')
             .state('root.bookings.list', {
                 url: '',
                 controller: 'Bookings_List_Ctrl',
-                templateUrl: 'views/bookings.html',
+                templateUrl: 'views/bookings-list.html',
                 resolve: {
                     bookings: function ($resource) {
                         return $resource(apiPrefix + 'own/bookings').query().$promise;
