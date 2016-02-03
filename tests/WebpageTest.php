@@ -18,6 +18,16 @@ class WebpageTest extends TestCase
             ->seeStatusCode(404);
     }
 
+    public function testStore()
+    {
+        $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
+
+        $this->post('/api/webpages', [], [
+            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
+        ])
+            ->seeStatusCode(404);
+    }
+
     public function testShow()
     {
         $tokenUser = JWTAuth::fromUser(User::where('username', 'trancara')->firstOrFail());
@@ -30,16 +40,6 @@ class WebpageTest extends TestCase
 
         $this->get('/api/webpages/lalala', [
             'HTTP_Authorization' => 'Bearer ' . $tokenUser
-        ])
-            ->seeStatusCode(404);
-    }
-
-    public function testStore()
-    {
-        $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
-
-        $this->post('/api/webpages', [], [
-            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])
             ->seeStatusCode(404);
     }

@@ -18,23 +18,6 @@ class UserTest extends TestCase
             ->seeStatusCode(200);
     }
 
-    public function testShow()
-    {
-        $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
-
-        $this->get('/api/users/taquet-c', [
-                'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
-            ])->seeJson([
-                'id' => 2,
-                'username' => 'taquet-c',
-            ]);
-
-        $this->get('/api/users/lalala', [
-            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
-        ])
-            ->seeStatusCode(404);
-    }
-
     public function testStore()
     {
         $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
@@ -43,6 +26,23 @@ class UserTest extends TestCase
             'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])
             ->seeStatusCode(405);
+    }
+
+    public function testShow()
+    {
+        $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
+
+        $this->get('/api/users/taquet-c', [
+            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
+        ])->seeJson([
+            'id' => 2,
+            'username' => 'taquet-c',
+        ]);
+
+        $this->get('/api/users/lalala', [
+            'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
+        ])
+            ->seeStatusCode(404);
     }
 
     public function testUpdate()

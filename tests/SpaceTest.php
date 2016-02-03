@@ -18,22 +18,6 @@ class SpaceTest extends TestCase
             ->seeStatusCode(200);
     }
 
-    public function testShow()
-    {
-        $tokenUser = JWTAuth::fromUser(User::where('username', 'trancara')->firstOrFail());
-
-        $this->get('/api/spaces/plaza-athenee-paris', [
-            'HTTP_Authorization' => 'Bearer ' . $tokenUser
-        ])->seeJson([
-            'slug' => 'plaza-athenee-paris',
-        ]);
-
-        $this->get('/api/spaces/lalala', [
-            'HTTP_Authorization' => 'Bearer ' . $tokenUser
-        ])
-            ->seeStatusCode(404);
-    }
-
     public function testStore()
     {
         $tokenAdmin = JWTAuth::fromUser(User::where('username', 'taquet-c')->firstOrFail());
@@ -58,6 +42,22 @@ class SpaceTest extends TestCase
             'HTTP_Authorization' => 'Bearer ' . $tokenUser
         ])
             ->seeStatusCode(401);
+    }
+
+    public function testShow()
+    {
+        $tokenUser = JWTAuth::fromUser(User::where('username', 'trancara')->firstOrFail());
+
+        $this->get('/api/spaces/test-space', [
+            'HTTP_Authorization' => 'Bearer ' . $tokenUser
+        ])->seeJson([
+            'slug' => 'test-space',
+        ]);
+
+        $this->get('/api/spaces/lalala', [
+            'HTTP_Authorization' => 'Bearer ' . $tokenUser
+        ])
+            ->seeStatusCode(404);
     }
 
     public function testUpdate()
