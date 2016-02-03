@@ -25,10 +25,6 @@ class SpaceTableSeeder extends Seeder
         if(!file_exists(public_path() . '/imgs/uploads'))
             mkdir(public_path() . '/imgs/uploads');
 
-        $plaza_image = Image::createFromData(
-            file_get_contents(public_path() . '/imgs/plaza_athene.jpg'),
-            'jpg'
-        );
 
         $plaza = Space::create([
             'name' => 'Plaza Athénée Paris',
@@ -37,11 +33,10 @@ class SpaceTableSeeder extends Seeder
             'active' => true,
         ]);
 
+        $plaza_image = new Image();
         $plaza->image()->save($plaza_image);
-        $plaza->save();
-
-        $langham_image = Image::createFromData(
-            file_get_contents(public_path() . '/imgs/langham_place_mongkok.jpg'),
+        $plaza_image->fromData(
+            file_get_contents(public_path() . '/imgs/plaza_athene.jpg'),
             'jpg'
         );
 
@@ -52,7 +47,11 @@ class SpaceTableSeeder extends Seeder
             'active' => false,
         ]);
 
+        $langham_image = new Image();
         $langham->image()->save($langham_image);
-        $langham->save();
+        $langham_image->fromData(
+            file_get_contents(public_path() . '/imgs/langham_place_mongkok.jpg'),
+            'jpg'
+        );
     }
 }
