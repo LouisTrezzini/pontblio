@@ -64,20 +64,16 @@ class BookingController extends Controller
 
         $booking = new Booking();
 
-        $booking = $this->bookingValidation($booking, $request);
+        $response = $this->bookingValidation($booking, $request);
 
-        $booking->save();
-
-        return response()->json($booking, 201);
+        return $response;
     }
 
     public function update(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
 
-        $booking = $this->bookingValidation($booking, $request, true);
-
-        $booking->save();
+        $response = $this->bookingValidation($booking, $request, true);
 
         if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
             Mail::send('emails.modification', ['booking' => $booking], function ($mail) use ($booking) {
@@ -85,7 +81,7 @@ class BookingController extends Controller
             });
         }
 
-        return response()->json($booking, 200);
+        return $response;
     }
 
     public function destroy($id)
@@ -110,7 +106,7 @@ class BookingController extends Controller
      * @param $editing boolean
      * @return Booking
      */
-    private function bookingValidation($booking, $request, $editing = false)
+    private function bookingValidation(&$booking, $request, $editing = false)
     {
         $validator = Validator::make($request->all(), self::validationRules());
 
@@ -176,6 +172,8 @@ class BookingController extends Controller
             throw new BadRequestHttpException('Espace occupé');
         }
 
-        return $booking;
+        $booking->save();
+
+        return response()->json($booking, $editing ? 200 : 201);
     }
 }
