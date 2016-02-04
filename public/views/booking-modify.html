@@ -35,14 +35,36 @@
                 </md-select>
             </md-input-container>
 
+            <md-datepicker ng-model="booking.date" flex="40"></md-datepicker>
 
-            <div flex="50">
-                <pb-datetimepicker result="booking.start_date"></pb-datetimepicker>
-            </div>
+            <md-input-container flex="15">
+                <label>
+                    Heure de début
+                </label>
+                <input ng-model="booking.start_hour" ng-required min="0" max="23" type="number">
+            </md-input-container>
 
-            <div flex="50">
-                <pb-datetimepicker result="booking.end_date"></pb-datetimepicker>
-            </div>
+            <md-input-container flex="15">
+                <label>
+                    Minutes
+                </label>
+                <input ng-model="booking.start_minute" ng-required min="0" max="45" step="15" type="number">
+            </md-input-container>
+
+            <md-input-container flex="15">
+                <label>
+                    Heure de fin
+                </label>
+                <input ng-model="booking.end_hour" ng-required min="0" max="23" type="number">
+            </md-input-container>
+
+            <md-input-container flex="15">
+                <label>
+                    Minutes
+                </label>
+                <input ng-model="booking.end_minute" ng-required min="0" max="45" step="15" type="number">
+            </md-input-container>
+
 
             <md-input-container flex="50" ng-if="$root.isModo">
                 <label>

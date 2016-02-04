@@ -22,9 +22,17 @@ angular.module('biblio')
                 'user_count': booking.user_count,
                 'object': booking.object,
                 'work_type': booking.work_type,
-                'start_date': moment(booking.start_date).unix(),
-                'end_date': moment(booking.end_date).unix(),
             };
+
+            var mom = moment(booking.date);
+
+            mom.hours(booking.start_hour);
+            mom.minutes(booking.start_minute);
+            params.start_date = mom.unix();
+
+            mom.hours(booking.end_hour);
+            mom.minutes(booking.end_minute);
+            params.end_date = mom.unix();
 
             if(booking.booker) {
                 params.booker_username = booking.booker.username;
@@ -71,14 +79,21 @@ angular.module('biblio')
                 'user_count': booking.user_count,
                 'object': booking.object,
                 'work_type': booking.work_type,
-                'start_date': moment(booking.start_date).unix(),
-                'end_date': moment(booking.end_date).unix(),
             };
+
+            var mom = moment(booking.date);
+
+            mom.hours(booking.start_hour);
+            mom.minutes(booking.start_minute);
+            params.start_date = mom.unix();
+
+            mom.hours(booking.end_hour);
+            mom.minutes(booking.end_minute);
+            params.end_date = mom.unix();
 
             if(booking.booker) {
                 params.booker_username = booking.booker.username;
             }
-
 
             $http.post(apiPrefix + 'bookings', params).success(function () {
                 Alert.toast('Réservation prise en compte !');
