@@ -31,6 +31,14 @@ angular.module('biblio')
                     $state.go('root.home');
                 }
 
+            }).error(function (data) {
+                if (typeof data.errors != 'undefined') {
+                    $.each(data.errors, function (index, value) {
+                        Alert.toast(value);
+                    });
+                }
+                else
+                    Alert.toast('Formulaire mal rempli');
             });
         };
 
@@ -84,6 +92,14 @@ angular.module('biblio')
             $http.post(apiPrefix + 'spaces', params).success(function(space){
                 Alert.toast('Espace créé !');
                 $state.go('root.spaces.simple', {slug: space.slug});
+            }).error(function (data) {
+                if (typeof data.errors != 'undefined') {
+                    $.each(data.errors, function (index, value) {
+                        Alert.toast(value);
+                    });
+                }
+                else
+                    Alert.toast('Formulaire mal rempli');
             });
         };
     })
