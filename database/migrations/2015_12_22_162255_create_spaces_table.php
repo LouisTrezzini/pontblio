@@ -20,6 +20,11 @@ class CreateSpacesTable extends Migration
             $table->text('description');
             $table->string('location');
 
+            $table->integer('capacity');
+
+            $table->boolean('whiteboard')->default(false);
+            $table->boolean('screen')->default(false);
+
             $table->boolean('active')->default(false);
 
             $table->timestamps();

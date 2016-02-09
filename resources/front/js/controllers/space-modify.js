@@ -8,10 +8,13 @@ angular.module('biblio')
 
         $scope.submitSpace = function(space, imageBase64) {
             var params = {
-                'name' : space.name,
-                'description' : nl2br(space.description),
+                'active' : space.active,
+                'capacity' : space.capacity,
+                'description' : space.description,
                 'location' : space.location,
-                'active' : space.active
+                'name' : space.name,
+                'screen' : space.screen,
+                'whiteboard' : space.whiteboard,
             };
 
             if (imageBase64) {
@@ -63,10 +66,13 @@ angular.module('biblio')
 
         $scope.submitSpace = function(space, imageBase64) {
             var params = {
-                'name' : space.name,
+                'active' : space.active,
+                'capacity' : space.capacity,
                 'description' : space.description,
                 'location' : space.location,
-                'active' : space.active
+                'name' : space.name,
+                'screen' : space.screen,
+                'whiteboard' : space.whiteboard,
             };
 
             if (imageBase64) {

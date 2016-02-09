@@ -18,9 +18,12 @@ class SpaceController extends Controller
     private static function validationRules()
     {
         return [
-            'name' => 'required',
+            'active' => 'boolean',
+            'capacity' => 'required|integer',
             'location' => 'required',
-            'active' => 'boolean'
+            'name' => 'required',
+            'screen' => 'boolean',
+            'whiteboard' => 'boolean',
         ];
     }
 
