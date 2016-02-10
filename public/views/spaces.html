@@ -37,6 +37,22 @@
 
                     <md-card-content>
                         <h3 class="md-title">{{ space.name }}</h3>
+
+                        <br>
+
+                        <div layout="row">
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-users"></i> {{ space.capacity }}
+                            </span>
+
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-desktop"></i> {{ space.screen ? 'Oui' : 'Non' }}
+                            </span>
+
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-pencil"></i> {{ space.whiteboard ? 'Oui' : 'Non' }}
+                            </span>
+                        </div>
                     </md-card-content>
                 </div>
             </md-card>
