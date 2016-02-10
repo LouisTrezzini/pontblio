@@ -17,8 +17,8 @@ class CreateSpacesTable extends Migration
             $table->string('slug')->unique();
 
             $table->string('name');
-            $table->text('description');
-            $table->string('location');
+            $table->text('description')->default('');
+            $table->string('location')->default('');
 
             $table->integer('capacity');
 
