@@ -31,6 +31,7 @@ class SpaceTest extends TestCase
             'name' => 'Test Space',
             'location' => 'The Moon',
             'active' => true,
+            'capacity' => 10
         ], [
             'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])
