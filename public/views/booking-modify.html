@@ -1,7 +1,7 @@
 <div>
     <md-content layout-padding>
 
-        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitBooking()">
+        <form layout="row" layout-align="start center" layout-padding layout-wrap ng-submit="submitBooking()">
             <md-input-container flex="100">
                 <label>
                     Espace
@@ -13,21 +13,22 @@
                 </md-select>
             </md-input-container>
 
-            <md-input-container flex="50">
+            <md-input-container flex="33">
                 <label>
                     <i class="fa fa-users"></i> Nombre de personnes
                 </label>
-                <input ng-model="booking.user_count" ng-required min="1" pb-max="capacities[booking.space_slug]" type="number">
+                <input ng-model="booking.user_count" ng-required min="1" pb-max="capacities[booking.space_slug]"
+                       type="number">
             </md-input-container>
 
-            <md-input-container flex="50">
+            <md-input-container flex="33">
                 <md-radio-group ng-model="booking.object" flex="100" layout="row">
                     <md-radio-button value="solo" flex="50">Travail individuel</md-radio-button>
                     <md-radio-button value="group" flex="50">Travail de groupe</md-radio-button>
                 </md-radio-group>
             </md-input-container>
 
-            <md-input-container flex="50">
+            <md-input-container flex="33">
                 <label>
                     Type de travail
                 </label>
@@ -36,13 +37,13 @@
                 </md-select>
             </md-input-container>
 
-            <md-datepicker ng-model="booking.date" flex="40"></md-datepicker>
+            <md-datepicker ng-model="booking.date" md-date-filter="" flex="40"></md-datepicker>
 
             <md-input-container flex="15">
                 <label>
                     Heure de début
                 </label>
-                <input ng-model="booking.start_hour" ng-required min="0" max="23" type="number">
+                <input ng-model="booking.start_hour" ng-required min="8" max="22" type="number">
             </md-input-container>
 
             <md-input-container flex="15">
@@ -56,7 +57,7 @@
                 <label>
                     Heure de fin
                 </label>
-                <input ng-model="booking.end_hour" ng-required min="0" max="23" type="number">
+                <input ng-model="booking.end_hour" ng-required min="8" max="22" type="number">
             </md-input-container>
 
             <md-input-container flex="15">
