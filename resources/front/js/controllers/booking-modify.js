@@ -15,6 +15,10 @@ angular.module('biblio')
             $scope.capacities[spaces[i].slug] = spaces[i].capacity;
         }
 
+        $scope.weekdays = function(date){
+            return moment(date).isoWeekday() != 6 && moment(date).isoWeekday() != 7;
+        };
+
         $scope.getUsers = function(searchText){
             $http.post(apiPrefix + 'search/users', {searchText: searchText})
                 .success(function(data){
@@ -77,6 +81,10 @@ angular.module('biblio')
         for(var i = 0; i < spaces.length; i++){
             $scope.capacities[spaces[i].slug] = spaces[i].capacity;
         }
+
+        $scope.weekdays = function(date){
+            return moment(date).isoWeekday() != 6 && moment(date).isoWeekday() != 7;
+        };
 
         $scope.getUsers = function(searchText){
             $http.post(apiPrefix + 'search/users', {searchText: searchText})
