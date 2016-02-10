@@ -1,9 +1,18 @@
 angular.module('biblio')
-    .controller('Booking_Modify_Ctrl', function ($scope, $stateParams, $http, $state, booking, spaces, Alert) {
+    .controller('Booking_Modify_Ctrl', function ($scope, $stateParams, $http, $state, $mdDialog, booking, spaces, Alert) {
         $scope.booking = booking;
         $scope.spaces = spaces;
-        $scope.booking.start_date *= 1000;
-        $scope.booking.end_date *= 1000;
+
+        var startMom = moment($scope.booking.start_date * 1000);
+        var endMom = moment($scope.booking.end_date * 1000);
+
+        $scope.booking.date = startMom.toDate();
+
+        $scope.booking.start_hour = startMom.hours();
+        $scope.booking.start_minute = startMom.minutes();
+
+        $scope.booking.end_hour = endMom.hours();
+        $scope.booking.end_minute = endMom.minutes();
 
         $scope.submitButton = 'Modifier !';
 
