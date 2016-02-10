@@ -1,7 +1,13 @@
 angular.module('biblio')
-    .controller('Bookings_Dashboard_Ctrl', function ($scope, $rootScope, spaces, bookings) {
+    .controller('Bookings_Dashboard_Ctrl', function ($scope, $rootScope, $state, spaces, bookings) {
         $scope.spaces = spaces;
         $scope.bookings = bookings;
+
+        $scope.spacesNames = {};
+        for (var i = 0; i < spaces.length; i++) {
+            $scope.spacesNames[spaces[i].slug] = spaces[i].name;
+        }
+
         $scope.resources = [];
         $scope.events = [];
 
@@ -9,9 +15,10 @@ angular.module('biblio')
             $scope.events.push({
                 start: new Date(bookings[i].start_date * 1000),
                 end: new Date(bookings[i].end_date * 1000),
-                title: bookings[i].booker_name + " (" + bookings[i].user_count + " personne" + (bookings[i].user_count > 1 ? "s" : "" ) + ")",
+                title: '[' + $scope.spacesNames[bookings[i].space_slug] + '] ' + bookings[i].booker_name + " (" + bookings[i].user_count + " personne" + (bookings[i].user_count > 1 ? "s" : "" ) + ")",
                 overlap: false,
-                resourceId: bookings[i].space_slug
+                resourceId: bookings[i].space_slug,
+                bookingId: bookings[i].id
             });
         }
 
@@ -24,6 +31,10 @@ angular.module('biblio')
             }
         }
 
+        $scope.onEventClick = function(calEvent, jsEvent, view) {
+            $state.go('root.bookings.modify', {id: calEvent.bookingId});
+        };
+
         $scope.uiConfig = {
             calendar: {
                 allDaySlot: false,
@@ -33,7 +44,7 @@ angular.module('biblio')
                 header:{
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,timelineDay'
+                    right: 'month,agendaWeek,agendaDay'
                 },
                 lang: 'fr',
                 minTime: '08:00:00',
@@ -46,7 +57,8 @@ angular.module('biblio')
                 slotLabelInterval: {hours: 1},
                 slotDuration: {minutes:15},
                 slotWidth: 15,
-                //eventClick: $scope.alertOnEventClick,
+                weekends: false,
+                eventClick: $scope.onEventClick,
                 //eventDrop: $scope.alertOnDrop,
                 //eventResize: $scope.alertOnResize,
                 //eventRender: $scope.eventRender

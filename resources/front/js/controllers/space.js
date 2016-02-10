@@ -19,7 +19,8 @@ angular.module('biblio')
 
         $scope.uiConfig = {
             calendar: {
-                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                allDaySlot: false,
+                defaultView: 'agendaWeek',
                 editable: false,
                 header: {
                     left: 'prev,next today',
@@ -28,13 +29,13 @@ angular.module('biblio')
                 },
                 height: 820,
                 lang: 'fr',
-                defaultView: 'agendaWeek',
                 minTime: '08:00:00',
                 maxTime: '23:00:00',
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                slotDuration: {minutes: 30},
                 slotLabelFormat: 'HH:mm',
                 slotLabelInterval: {hours: 1},
-                slotDuration: {minutes: 30},
-                allDaySlot: false
+                weekends: false,
 
                 //eventClick: $scope.alertOnEventClick,
                 //eventDrop: $scope.alertOnDrop,
