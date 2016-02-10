@@ -18,16 +18,22 @@ class Space extends Model implements SluggableInterface
 
     protected $casts = [
         'active' => 'boolean',
-        'id' => 'integer'
+        'capacity' => 'integer',
+        'id' => 'integer',
+        'screen' => 'boolean',
+        'whiteboard' => 'boolean',
     ];
 
     protected $visible = [
         'active',
+        'capacity',
         'description',
         'image_url',
         'location',
         'name',
+        'screen',
         'slug',
+        'whiteboard',
     ];
 
     protected $appends = ['image_url'];
