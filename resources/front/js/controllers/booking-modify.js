@@ -9,6 +9,12 @@ angular.module('biblio')
 
         $scope.searchResults = [];
 
+        $scope.capacities = {};
+
+        for(var i = 0; i < spaces.length; i++){
+            $scope.capacities[spaces[i].slug] = spaces[i].capacity;
+        }
+
         $scope.getUsers = function(searchText){
             $http.post(apiPrefix + 'search/users', {searchText: searchText})
                 .success(function(data){
@@ -16,26 +22,26 @@ angular.module('biblio')
                 })
         };
 
-        $scope.submitBooking = function (booking) {
+        $scope.submitBooking = function () {
             var params = {
-                'space_slug': booking.space_slug,
-                'user_count': booking.user_count,
-                'object': booking.object,
-                'work_type': booking.work_type,
+                'space_slug': $scope.booking.space_slug,
+                'user_count': $scope.booking.user_count,
+                'object': $scope.booking.object,
+                'work_type': $scope.booking.work_type,
             };
 
-            var mom = moment(booking.date);
+            var mom = moment($scope.booking.date);
 
-            mom.hours(booking.start_hour);
-            mom.minutes(booking.start_minute);
+            mom.hours($scope.booking.start_hour);
+            mom.minutes($scope.booking.start_minute);
             params.start_date = mom.unix();
 
-            mom.hours(booking.end_hour);
-            mom.minutes(booking.end_minute);
+            mom.hours($scope.booking.end_hour);
+            mom.minutes($scope.booking.end_minute);
             params.end_date = mom.unix();
 
-            if(booking.booker) {
-                params.booker_username = booking.booker.username;
+            if($scope.booking.booker) {
+                params.booker_username = $scope.booking.booker.username;
             }
 
             $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
@@ -44,7 +50,7 @@ angular.module('biblio')
             }).error(function () {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value);
+                        Alert.toast(value[0]);
                     });
                 }
                 else
@@ -66,6 +72,12 @@ angular.module('biblio')
 
         $scope.searchResults = [];
 
+        $scope.capacities = {};
+
+        for(var i = 0; i < spaces.length; i++){
+            $scope.capacities[spaces[i].slug] = spaces[i].capacity;
+        }
+
         $scope.getUsers = function(searchText){
             $http.post(apiPrefix + 'search/users', {searchText: searchText})
             .success(function(data){
@@ -73,35 +85,35 @@ angular.module('biblio')
             })
         };
 
-        $scope.submitBooking = function (booking) {
+        $scope.submitBooking = function () {
             var params = {
-                'space_slug': booking.space_slug,
-                'user_count': booking.user_count,
-                'object': booking.object,
-                'work_type': booking.work_type,
+                'space_slug': $scope.booking.space_slug,
+                'user_count': $scope.booking.user_count,
+                'object': $scope.booking.object,
+                'work_type': $scope.booking.work_type,
             };
 
-            var mom = moment(booking.date);
+            var mom = moment($scope.booking.date);
 
-            mom.hours(booking.start_hour);
-            mom.minutes(booking.start_minute);
+            mom.hours($scope.booking.start_hour);
+            mom.minutes($scope.booking.start_minute);
             params.start_date = mom.unix();
 
-            mom.hours(booking.end_hour);
-            mom.minutes(booking.end_minute);
+            mom.hours($scope.booking.end_hour);
+            mom.minutes($scope.booking.end_minute);
             params.end_date = mom.unix();
 
-            if(booking.booker) {
-                params.booker_username = booking.booker.username;
+            if($scope.booking.booker) {
+                params.booker_username = $scope.booking.booker.username;
             }
 
             $http.post(apiPrefix + 'bookings', params).success(function () {
                 Alert.toast('Réservation prise en compte !');
-                $state.go('root.spaces.simple', {slug: booking.space_slug});
+                $state.go('root.spaces.simple', {slug: $scope.booking.space_slug});
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value);
+                        Alert.toast(value[0]);
                     });
                 }
                 else

@@ -1,7 +1,8 @@
 <div>
     <md-content layout-padding>
-        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitBooking(booking)">
-            <md-input-container flex="50">
+
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitBooking()">
+            <md-input-container flex="100">
                 <label>
                     Espace
                 </label>
@@ -16,7 +17,7 @@
                 <label>
                     <i class="fa fa-users"></i> Nombre de personnes
                 </label>
-                <input ng-model="booking.user_count" ng-required min="1" max="10" type="number">
+                <input ng-model="booking.user_count" ng-required min="1" pb-max="capacities[booking.space_slug]" type="number">
             </md-input-container>
 
             <md-input-container flex="50">
