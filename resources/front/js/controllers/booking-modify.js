@@ -61,6 +61,30 @@ angular.module('biblio')
                     Alert.toast('Formulaire mal rempli');
             });
         };
+
+        $scope.delete = function() {
+            // On demande confirmation
+            var confirm = $mdDialog.confirm()
+                .title('Suppression d\'une réservation')
+                .content('Es-tu bien sûr de vouloir supprimer ta réservation ?')
+                .ariaLabel('Suppression d\'une réservation')
+                .ok('Oui')
+                .cancel('Non')
+                .theme('alert');
+
+            $mdDialog.show(confirm).then(function() {
+                $http.delete(apiPrefix + 'bookings/' + $scope.booking.id)
+                    .success(function(){
+                        Alert.alert('Réservation supprimée');
+                        $state.go('root.home');
+                    })
+                    .error(function(){
+                        Alert.alert('Impossible de supprimer la réservation');
+                    });
+            }, function() {
+                Alert.toast('Réservation maintenue');
+            });
+        };
     })
     .controller('Booking_Create_Ctrl', function ($scope, $stateParams, $http, $state, spaces, Alert) {
         $scope.booking = {

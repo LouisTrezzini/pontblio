@@ -94,6 +94,14 @@
                 </div>
             </div>
         </form>
+
+        <div flex="100" layout="row" layout-align="start center">
+            <div flex="15" flex-md="25">
+                <md-button class="md-accent md-raised md-large" ng-click="delete()" ng-if="mode!='create'">
+                    Supprimer la réservation
+                </md-button>
+            </div>
+        </div>
     </md-content>
 </div>
 <!-- TODO erreurs -->
