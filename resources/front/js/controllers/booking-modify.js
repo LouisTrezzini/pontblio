@@ -15,6 +15,7 @@ angular.module('biblio')
         $scope.booking.end_minute = endMom.minutes();
 
         $scope.submitButton = 'Modifier !';
+        $scope.mode = 'edit';
 
         $scope.searchResults = [];
 
@@ -103,6 +104,7 @@ angular.module('biblio')
 
         $scope.booking.user_count = 1;
         $scope.submitButton = 'Réserver !';
+        $scope.mode = 'create';
 
         if ($stateParams.space)
             $scope.booking.space_slug = $stateParams.space;
