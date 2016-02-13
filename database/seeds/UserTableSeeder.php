@@ -29,6 +29,8 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('tata'),
             'name' => 'Cécile Taquet Gaspérini',
             'departement' => 'vet',
+            'user_profile' => 'user_profile_inge',
+            'user_profile_details' => '2a'
         ]);
 
         $tata->role_id = Role::where('name', 'gestion')->first()->id;
