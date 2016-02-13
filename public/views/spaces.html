@@ -29,7 +29,7 @@
     <ng-quill-editor class="editor" toolbar="true" ng-model="home.content" ng-if="editing"></ng-quill-editor>
 
     <div layout="row" layout-wrap>
-        <div flex="33" ng-repeat="space in spaces" ng-if="$root.isAdmin || space.active">
+        <div flex="25" ng-repeat="space in spaces" ng-if="$root.isAdmin || space.active">
             <md-card>
                 <div ui-sref="root.spaces.simple({slug: space.slug})" style="cursor: pointer">
                     <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"

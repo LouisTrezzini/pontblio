@@ -15,7 +15,7 @@ angular.module('biblio')
         $scope.booking.end_minute = endMom.minutes();
 
         $scope.submitButton = 'Modifier !';
-        $scope.mode = 'edit';
+        $scope.controllerMode = 'edit';
 
         $scope.searchResults = [];
 
@@ -104,10 +104,24 @@ angular.module('biblio')
 
         $scope.booking.user_count = 1;
         $scope.submitButton = 'Réserver !';
-        $scope.mode = 'create';
+        $scope.controllerMode = 'create';
 
         if ($stateParams.space)
             $scope.booking.space_slug = $stateParams.space;
+
+        if($stateParams.date){
+            var startMom = $stateParams.date;
+
+            $scope.booking.date = startMom.toDate();
+
+            $scope.booking.start_hour = startMom.hours();
+            $scope.booking.start_minute = startMom.minutes();
+
+            $scope.booking.end_hour = $scope.booking.start_hour + 1;
+            $scope.booking.end_minute = $scope.booking.start_minute;
+        }
+
+
 
         $scope.searchResults = [];
 
@@ -173,6 +187,10 @@ angular.module('biblio')
                 data: {
                     title: 'Nouvelle réservation'
                 },
+                params: {
+                    date: null,
+                    space: null,
+                },
                 resolve: {
                     spaces: function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
@@ -197,17 +215,5 @@ angular.module('biblio')
                     }
                 }
             })
-            .state('root.spaces.booking', {
-                url: '/:space/booking',
-                templateUrl: 'views/booking-modify.html',
-                controller: 'Booking_Create_Ctrl',
-                data: {
-                    title: 'Nouvelle réservation'
-                },
-                resolve: {
-                    spaces: function ($resource) {
-                        return $resource(apiPrefix + 'spaces').query().$promise;
-                    }
-                }
-            });
+            ;
     }]);

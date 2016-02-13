@@ -35,12 +35,19 @@ angular.module('biblio')
             $state.go('root.bookings.modify', {id: calEvent.bookingId});
         };
 
+        $scope.onDayClick = function(date, jsEvent, view, resourceObj) {
+            $state.go('root.bookings.create', {date: date, space: resourceObj.id});
+        };
+
         $scope.uiConfig = {
             calendar: {
                 allDaySlot: false,
                 contentHeight: 800,
+                dayClick: $scope.onDayClick,
                 defaultView: 'agendaWeek',
                 editable: false,
+                eventClick: $scope.onEventClick,
+                groupByDateAndResource: true,
                 header:{
                     left: 'prev,next today',
                     center: 'title',
@@ -58,10 +65,6 @@ angular.module('biblio')
                 slotDuration: {minutes:15},
                 slotWidth: 15,
                 weekends: false,
-                eventClick: $scope.onEventClick,
-                //eventDrop: $scope.alertOnDrop,
-                //eventResize: $scope.alertOnResize,
-                //eventRender: $scope.eventRender
             }
         };
 

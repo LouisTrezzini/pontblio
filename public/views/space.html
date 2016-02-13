@@ -12,23 +12,21 @@
 
         <br>
 
-        <div flex="100">
+        <div>
             <md-button class="md-primary md-raised md-large" title="Réservation"
-                       ui-sref="root.spaces.booking({space: space.slug})">Réserver
+                       ui-sref="root.spaces.booking({space: space.slug})">
+                Réserver
             </md-button>
         </div>
 
-        <div flex="100">
+        <div>
             <md-button class="md-primary md-raised md-large" ng-if="$root.isAdmin"
-                       ui-sref="root.spaces.modify({slug: space.slug})"><i class="fa fa-cogs"></i> Modifier
+                       ui-sref="root.spaces.modify({slug: space.slug})">
+                <i class="fa fa-cogs"></i> Modifier
             </md-button>
         </div>
 
     </div>
-
-    <br>
-    <md-divider></md-divider>
-    <br>
 
     <div flex="75" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
 </div>
