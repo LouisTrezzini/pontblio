@@ -21,7 +21,7 @@ class BookingController extends Controller
     {
         return [
             'space_slug' => 'required',
-            'user_count' => 'required|integer|min:1|max:10',
+            'user_count' => 'required|integer|min:1',
             'object' => 'required|' . self::enumValidator('object'),
             'work_type' => 'required|' . self::enumValidator('work_type'),
             'start_date' => 'required',
@@ -125,6 +125,10 @@ class BookingController extends Controller
 
         $booking->booked_at_bib = $this->getAuthUser()->hasRole(['biblio', 'gestion']);
 
+        // Assert user count <= capacity
+        if($booking->user_count > $booking->space->capacity)
+            throw new BadRequestHttpException('Capacité maximale atteinte');
+
         if(!$editing) {
             if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
                 if ($request->has('booker_username')) {
@@ -137,11 +141,13 @@ class BookingController extends Controller
                 $booking->booker_id = $this->getAuthUser()->id;
             }
 
+            //Statistics...
             $booking->departement = $booking->booker->departement;
             $booking->user_profile = $booking->booker->user_profile;
             $booking->user_profile_details = $booking->booker->user_profile_details;
         }
 
+        // Is the space available ?
         if($editing) {
             $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE space_id = ?  AND id <> ?  AND ( start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ? OR (start_date <= ? AND end_date >= ?))';
             $result = DB::select($query, [
@@ -171,6 +177,8 @@ class BookingController extends Controller
         if($result[0]->nb) {
             throw new BadRequestHttpException('Espace occupé');
         }
+
+        //~~~
 
         $booking->save();
 

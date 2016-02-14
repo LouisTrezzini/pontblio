@@ -54,10 +54,6 @@ angular.module('biblio')
             mom.minutes($scope.booking.end_minute);
             params.end_date = mom.unix();
 
-            if($scope.booking.booker) {
-                params.booker_username = $scope.booking.booker.username;
-            }
-
             $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
                 Alert.toast('Modification prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
