@@ -14,10 +14,10 @@ angular.module('biblio')
             var maxValidator = function(value) {
                 var max = scope.$eval(attr.pbMax);
                 if (!isEmpty(value) && value > max) {
-                    ctrl.$setValidity('pbMax', false);
-                    return undefined;
+                    ctrl.$setViewValue(max);
+                    ctrl.$render();
+                    return max;
                 } else {
-                    ctrl.$setValidity('pbMax', true);
                     return value;
                 }
             };
