@@ -64,11 +64,6 @@ angular.module('biblio')
                         return $resource(apiPrefix + 'spaces/:slug').get({
                             slug: $stateParams.slug
                         }).$promise;
-                    }],
-                    bookings: ['$resource', '$stateParams', function ($resource, $stateParams) {
-                        return $resource(apiPrefix + 'spaces/:slug/bookings').query({
-                            slug: $stateParams.slug
-                        }).$promise;
                     }]
                 }
             })
