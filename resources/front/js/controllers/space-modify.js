@@ -34,7 +34,7 @@ angular.module('biblio')
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value[0]);
+                        Alert.toast(value);
                     });
                 }
                 else
@@ -95,7 +95,7 @@ angular.module('biblio')
             }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
-                        Alert.toast(value[0]);
+                        Alert.toast(value);
                     });
                 }
                 else
