@@ -17,7 +17,7 @@ class BookingTest extends TestCase
         $this->get('/api/bookings', [
             'HTTP_Authorization' => 'Bearer ' . $tokenUser
         ])
-            ->seeStatusCode(200);
+            ->seeStatusCode(405);
     }
 
     public function testStore()
@@ -30,7 +30,7 @@ class BookingTest extends TestCase
             ->seeStatusCode(400);
 
         $request = $this->post('/api/bookings', [
-            'space_slug' => 'plaza-athenee-paris',
+            'space_slug' => 'bocal',
             'user_count' => '2',
             'object' => 'solo',
             'work_type' => 'skype',
