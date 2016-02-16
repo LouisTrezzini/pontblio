@@ -26,7 +26,7 @@ class SpaceTableSeeder extends Seeder
             mkdir(public_path() . '/imgs/uploads');
 
 
-        $plaza = Space::create([
+/*        $plaza = Space::create([
             'name' => 'Plaza Athénée Paris',
             'location' => 'Avenue Montaigne',
             'description' => 'Le Plaza Athénée est un palace situé au 25, avenue Montaigne, une des artères bordant le «Triangle d\'or», dans le quartier des Champs-Élysées du 8e arrondissement de Paris. Il appartient au groupe Dorchester Collection.',
@@ -54,7 +54,7 @@ class SpaceTableSeeder extends Seeder
         $langham_image->fromData(
             file_get_contents(public_path() . '/imgs/langham_place_mongkok.jpg'),
             'jpg'
-        );
+        );*/
 
         Space::create([
             'name' => 'Bocal',
