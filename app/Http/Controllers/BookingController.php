@@ -38,17 +38,35 @@ class BookingController extends Controller
     public function userBookings()
     {
         if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
-            return response()->json(Booking::all());
+            return response()->json(Booking::interval(
+                mktime(0, 0, 0, date('n'), 1, date('Y')),
+                null
+            )->get());
         } else {
             return response()->json($this->getAuthUser()->bookings);
         }
     }
 
-    public function spaceBookings($slug)
+    public function spaceBookings($slug, $date, $mode)
     {
+        if($mode == 'week') {
+            $from = mktime(0, 0, 0, date('n', $date), date('j', $date) - date('N', $date) + 1, date('Y', $date));
+            $to = $from + 7 * 24 * 3600;
+        } elseif ($mode == 'day') {
+            $from = mktime(0, 0, 0, date('n', $date), date('j', $date), date('Y', $date));
+            $to = $from + 24 * 3600;
+        } elseif ($mode == 'month') {
+            $from = mktime(0, 0, 0, date('n', $date), 1, date('Y', $date));
+            $to = mktime(0, 0, 0, date('n', $date) + 1, 0, date('Y', $date));
+        } else
+            throw new BadRequestHttpException('Invalid mode');
+
         $bookingId = Space::findBySlugOrFail($slug)->id;
 
-        return response()->json(Booking::where('space_id', $bookingId)->get());
+        return response()->json(Booking::interval(
+            $from,
+            $to
+        )->where('space_id', $bookingId)->get());
     }
 
     public function show($id)

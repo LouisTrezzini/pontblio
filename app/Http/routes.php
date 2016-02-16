@@ -18,7 +18,7 @@ Route::group(['prefix' => '/api/', 'middleware' => 'pontblio.auth'], function ()
     Route::resource('webpages', 'WebpageController', ['only' => ['show', 'update']]);
     Route::get('statistics/main', 'StatisticsController@main');
     Route::get('statistics/user/{id}', 'StatisticsController@user');
-    Route::get('spaces/{slug}/bookings', 'BookingController@spaceBookings');
+    Route::get('spaces/{slug}/bookings/{date}/{mode}', 'BookingController@spaceBookings');
     Route::get('own/bookings', 'BookingController@userBookings');
     Route::post('search/users', 'SearchController@searchUsers');
 });

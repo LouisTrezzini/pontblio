@@ -64,4 +64,16 @@ class Booking extends Model
         else
             return 'Occupé';
     }
+
+    public function scopeInterval($query, $from, $to) {
+        // mktime(0, 0, 0, date('n', $from), date('j', $from), date('Y', $from))
+        if(!is_null($from))
+            $query = $query->where('start_date', '>=', $from);
+
+        // mktime(0, 0, 0, date('n', $to), date('j', $to) + 1, date('Y', $to))
+        if(!is_null($to))
+            $query = $query->where('start_date', '<=', $to);
+
+        return $query;
+    }
 }
