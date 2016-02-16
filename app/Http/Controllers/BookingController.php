@@ -129,9 +129,15 @@ class BookingController extends Controller
         if($booking->user_count > $booking->space->capacity)
             throw new BadRequestHttpException('Capacité maximale atteinte');
 
+        // jours ouvrables
+        $dw = date('N', $booking->start_date);
+        if($dw == '6' || $dw == '7')
+            throw new BadRequestHttpException('Impossible de réserver les jours non ouvrables');
+
         // 8 heures maximum
         if($booking->end_date - $booking->start_date > 8 * 3600)
             throw new BadRequestHttpException('Impossible de réserver pour plus de 8 heures');
+
 
         if(!$editing) {
             if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
