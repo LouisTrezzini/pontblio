@@ -20,9 +20,7 @@ angular.module('biblio')
 
                     });
                 }
-            }, null)
-
-
+            }, null);
         };
 
         $scope.uiConfig = {

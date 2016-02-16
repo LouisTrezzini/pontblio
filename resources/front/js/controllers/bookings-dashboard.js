@@ -1,26 +1,9 @@
 angular.module('biblio')
-    .controller('Bookings_Dashboard_Ctrl', function ($scope, $rootScope, $state, spaces, bookings) {
+    .controller('Bookings_Dashboard_Ctrl', function ($scope, $resource, $rootScope, $state, spaces) {
         $scope.spaces = spaces;
-        $scope.bookings = bookings;
-
-        $scope.spacesNames = {};
-        for (var i = 0; i < spaces.length; i++) {
-            $scope.spacesNames[spaces[i].slug] = spaces[i].name;
-        }
-
-        $scope.resources = [];
         $scope.events = [];
 
-        for (var i = 0; i < bookings.length; i++) {
-            $scope.events.push({
-                start: new Date(bookings[i].start_date * 1000),
-                end: new Date(bookings[i].end_date * 1000),
-                title: bookings[i].booker_name + " (" + bookings[i].user_count + ")",
-                overlap: false,
-                resourceId: bookings[i].space_slug,
-                bookingId: bookings[i].id
-            });
-        }
+        $scope.resources = [];
 
         for (var i = 0; i < spaces.length; i++) {
             if(spaces[i].active){
@@ -30,6 +13,33 @@ angular.module('biblio')
                 });
             }
         }
+
+        $scope.spacesNames = {};
+        for (var i = 0; i < spaces.length; i++) {
+            $scope.spacesNames[spaces[i].slug] = spaces[i].name;
+        }
+
+        $scope.init = function (view, element) {
+            $resource(apiPrefix + 'bookings/:date/:mode').query({
+                date: view.start.unix(),
+                mode: view.name.toLowerCase().replace('basic', '').replace('agenda', '')
+            }).$promise.then(function(bookings) {
+                $scope.events.splice(0, $scope.events.length);
+                for (var i = 0; i < bookings.length; i++) {
+                    $scope.events.push({
+                        start: new Date(bookings[i].start_date * 1000),
+                        end: new Date(bookings[i].end_date * 1000),
+                        title: bookings[i].booker_name + " (" + bookings[i].user_count + ")",
+                        overlap: false,
+                        resourceId: bookings[i].space_slug,
+                        bookingId: bookings[i].id
+
+                    });
+                }
+            }, null);
+        };
+
+
 
         $scope.onEventClick = function(calEvent, jsEvent, view) {
             $state.go('root.bookings.modify', {id: calEvent.bookingId});
@@ -64,6 +74,7 @@ angular.module('biblio')
                 slotLabelInterval: {hours: 1},
                 slotDuration: {minutes:15},
                 slotWidth: 15,
+                viewRender: $scope.init,
                 weekends: false,
             }
         };
@@ -79,9 +90,6 @@ angular.module('biblio')
                 resolve: {
                     spaces: ['$resource', function ($resource) {
                         return $resource(apiPrefix + 'spaces').query().$promise;
-                    }],
-                    bookings: ['$resource', function ($resource) {
-                        return $resource(apiPrefix + 'bookings').query().$promise;
                     }]
                 },
                 data: {

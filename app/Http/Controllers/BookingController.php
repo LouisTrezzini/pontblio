@@ -30,9 +30,24 @@ class BookingController extends Controller
     }
 
     //TODO : serialization
-    public function index()
+    public function index($date, $mode)
     {
-        return response()->json(Booking::all());
+        if($mode == 'week') {
+            $from = mktime(0, 0, 0, date('n', $date), date('j', $date) - date('N', $date) + 1, date('Y', $date));
+            $to = $from + 7 * 24 * 3600;
+        } elseif ($mode == 'day') {
+            $from = mktime(0, 0, 0, date('n', $date), date('j', $date), date('Y', $date));
+            $to = $from + 24 * 3600;
+        } elseif ($mode == 'month') {
+            $from = mktime(0, 0, 0, date('n', $date), 1, date('Y', $date));
+            $to = mktime(0, 0, 0, date('n', $date) + 1, 0, date('Y', $date));
+        } else
+            throw new BadRequestHttpException('Invalid mode');
+
+        return response()->json(Booking::interval(
+            $from,
+            $to
+        )->get());
     }
 
     public function userBookings()
@@ -61,12 +76,12 @@ class BookingController extends Controller
         } else
             throw new BadRequestHttpException('Invalid mode');
 
-        $bookingId = Space::findBySlugOrFail($slug)->id;
+        $spaceId = Space::findBySlugOrFail($slug)->id;
 
         return response()->json(Booking::interval(
             $from,
             $to
-        )->where('space_id', $bookingId)->get());
+        )->where('space_id', $spaceId)->get());
     }
 
     public function show($id)
