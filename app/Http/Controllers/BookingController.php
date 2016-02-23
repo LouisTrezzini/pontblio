@@ -167,10 +167,13 @@ class BookingController extends Controller
         if($dw == '6' || $dw == '7')
             throw new BadRequestHttpException('Impossible de réserver les jours non ouvrables');
 
+        // 15 minutes minimum
+        if($booking->end_date - $booking->start_date < 15 * 60)
+            throw new BadRequestHttpException('Impossible de réserver pour moins de 15 minutes');
+
         // 8 heures maximum
         if($booking->end_date - $booking->start_date > 8 * 3600)
             throw new BadRequestHttpException('Impossible de réserver pour plus de 8 heures');
-
 
         if(!$editing) {
             if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
@@ -222,6 +225,60 @@ class BookingController extends Controller
         }
 
         //~~~
+
+        //Deux espaces en même temps ?
+        if($editing) {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE booker_id = ? AND id <> ? AND ( start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ? OR (start_date <= ? AND end_date >= ?))';
+            $result = DB::select($query, [
+                $booking->booker_id,
+                $booking->id,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+            ]);
+        }
+        else {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE booker_id = ? AND ( start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ? OR (start_date <= ? AND end_date >= ?))';
+            $result = DB::select($query, [
+                $booking->booker_id,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+                $booking->start_date,
+                $booking->end_date,
+            ]);
+        }
+
+        if($result[0]->nb) {
+            throw new BadRequestHttpException('Impossible de réserver deux espaces en même temps');
+        }
+
+        // ~~~
+
+        // Pas plus de 10 réservations sur 5 jours
+        if($editing) {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE booker_id = ? AND start_date >= ? AND id <> ?';
+            $result = DB::select($query, [
+                $booking->booker_id,
+                $booking->start_date - 5 * 24 * 3600,
+                $booking->id,
+            ]);
+        }
+        else {
+            $query = 'SELECT COUNT(*) AS nb FROM bookings WHERE booker_id = ? AND start_date >= ?';
+            $result = DB::select($query, [
+                $booking->booker_id,
+                $booking->start_date - 5 * 24 * 3600,
+            ]);
+        }
+
+        if($result[0]->nb >= 10) {
+            throw new BadRequestHttpException('Impossible de réserver plus de 10 fois en 5 jours');
+        }
 
         $booking->save();
 
