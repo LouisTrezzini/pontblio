@@ -1,1 +1,1 @@
-var sitePrefix = 'http://pontblio/';
+var sitePrefix = 'http://dev-pontblio.enpc.fr/';

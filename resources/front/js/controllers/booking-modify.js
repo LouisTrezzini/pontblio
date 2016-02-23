@@ -57,7 +57,7 @@ angular.module('biblio')
             $http.patch(apiPrefix + 'bookings/' + booking.id, params).success(function () {
                 Alert.toast('Modification prise en compte !');
                 $state.go('root.spaces.simple', {slug: booking.space_slug});
-            }).error(function () {
+            }).error(function (data) {
                 if (typeof data.errors != 'undefined') {
                     $.each(data.errors, function (index, value) {
                         Alert.toast(value);
