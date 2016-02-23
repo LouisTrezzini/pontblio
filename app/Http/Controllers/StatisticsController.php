@@ -58,8 +58,8 @@ class StatisticsController extends Controller
             $data = [];
             for($i = 11; $i >= 0; $i--) {
                 $data[] = Booking::interval(
-                            mktime(0, 0, 0, date('n', time()) - $i, 1, date('Y', time())),
-                            mktime(0, 0, 0, date('n', time()) - $i + 1, 0, date('Y', time()))
+                            mktime(0, 0, 0, date('n') - $i, 1, date('Y')),
+                            mktime(0, 0, 0, date('n') - $i + 1, 0, date('Y'))
                         )->where('space_id', $space->id)->count();
             }
 

@@ -29,7 +29,6 @@ class BookingController extends Controller
         ];
     }
 
-    //TODO : serialization
     public function index($date, $mode)
     {
         if($mode == 'week') {
