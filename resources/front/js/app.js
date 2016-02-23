@@ -16,6 +16,7 @@ Highcharts.setOptions({
 
 angular
     .module('biblio', [
+        'highcharts-ng',
         'md.data.table',
         'naif.base64',
         'ngAnimate',

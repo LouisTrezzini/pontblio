@@ -1,134 +1,44 @@
 angular.module('biblio')
     .controller('Statistics_Ctrl', function ($scope, $window, $timeout, stats) {
-        $scope.chartBookingsStatus = {
-            chart: {
-                renderTo: 'bookingsStatus',
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                type: 'column'
-            },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            title: {
-                text: 'Status des réservations'
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
+        $scope.chartSpacesBookings = {
+            options: {
+                chart: {
+                    type: 'column'
+                },
                 title: {
-                    text: 'Nombre'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
+                    text: 'Réservations par espace'
+                },
+                xAxis: {
+                    categories: stats.spaces_bookings.x_axis
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nombre'
                     }
+                },
+                tooltip: {
+                    formatter: function () {
+                        var s = '<b>' + this.x + '</b>',
+                            sum = 0;
+                        $.each(this.points, function (i, point) {
+                            s += '<br/>' + point.series.name + ' : ' +
+                                point.y;
+                            sum += point.y;
+                        });
+                        s += '<br/><b>Total : ' + sum + '</b>'
+                        return s;
+                    },
+                    shared: true
                 }
-            },
-            series: [{
-                name: 'Nombre',
-                colorByPoint: true,
-                data: stats.types
-            }]
-        };
 
-        $scope.chartBookingsLocations = {
-            chart: {
-                renderTo: 'bookingsModes',
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                type: 'column'
             },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            title: {
-                text: 'Mode de réservation'
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'Nombre'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-            series: [{
-                name: 'Nombre',
-                colorByPoint: true,
-                data: stats.modes
-            }]
+            series: stats.spaces_bookings.series,
+            func: function(chart) {
+                $timeout(function() {
+                    chart.reflow();
+                }, 0);
+            }
         };
-
-        $scope.chartBookingsAheadPlan = {
-            chart: {
-                renderTo: 'bookingsAheadPlan',
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                type: 'column'
-            },
-            credits: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            title: {
-                text: 'Temps entre la réservation et la date réservée'
-            },
-            xAxis: {
-                type: 'category'
-            },
-            yAxis: {
-                title: {
-                    text: 'Nombre'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                series: {
-                    borderWidth: 0,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}'
-                    }
-                }
-            },
-            series: [{
-                name: 'Nombre',
-                colorByPoint: true,
-                data: stats.aheadplan
-            }]
-        };
-
-        $timeout(function () {
-            angular.element($window).triggerHandler('resize');
-        });
     })
     .config(function ($stateProvider) {
         $stateProvider

@@ -15,24 +15,12 @@
     "font-awesome": "latest",
     "fullcalendar": "latest",
     "fullcalendar-scheduler": "latest",
-    "highcharts-release": "latest",
+    "highcharts": "latest",
+    "highcharts-ng": "latest",
     "jquery": "latest",
     "ngquill": "latest",
     "satellizer": "latest",
     "ui-router": "latest"
-  },
-  "overrides": {
-    "highcharts-release": {
-      "main": [
-        "highcharts.js",
-        "highcharts-more.js",
-        "modules/solid-gauge.js",
-        "modules/drilldown.js",
-        "modules/treemap.js",
-        "modules/funnel.js",
-        "modules/exporting.js"
-      ]
-    }
   },
   "resolutions": {
     "fullcalendar": ">=2.5.0",
