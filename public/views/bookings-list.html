@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody md-body>
-            <tr md-row ng-repeat="booking in bookings">
+            <tr md-row ng-repeat="booking in bookingsData.data">
                 <td md-cell>{{ booking.start_date * 1000 | date:'EEEE d MMMM yyyy'}}</td>
 
                 <td md-cell>{{ booking.start_date * 1000 | date:'HH:mm'}}</td>
@@ -45,6 +45,14 @@
             </tr>
             </tbody>
         </table>
+
+        <md-table-pagination
+                md-options="[12,24,50]"
+                md-limit="bookingsData.per_page"
+                md-page="bookingsData.current_page"
+                md-total="{{ bookingsData.total }}"
+                md-on-paginate="onPaginate"
+        ></md-table-pagination>
     </md-table-container>
 
 </div>

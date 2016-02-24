@@ -49,16 +49,20 @@ class BookingController extends Controller
         )->get());
     }
 
-    public function userBookings()
+    public function userBookings(Request $request)
     {
+        $perPage = $request->get('per_page', 12);
+
         if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
-            return response()->json(Booking::interval(
+            $query = Booking::interval(
                 mktime(0, 0, 0, date('n'), 1, date('Y')),
                 null
-            )->get());
+            );
         } else {
-            return response()->json($this->getAuthUser()->bookings);
+            $query = Booking::where('booker_id', $this->getAuthUser()->id);
         }
+
+        return response()->json($query->orderBy('start_date')->paginate($perPage));
     }
 
     public function spaceBookings($slug, $date, $mode)
