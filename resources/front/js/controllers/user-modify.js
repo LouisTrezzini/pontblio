@@ -7,6 +7,7 @@ angular.module('biblio')
                 'departement': user.departement,
                 'user_profile': user.user_profile,
                 'user_profile_details': user.user_profile_details,
+                'blocked': user.blocked,
             };
 
             $http.patch(apiPrefix + 'users/' + user.username, params).success(function () {

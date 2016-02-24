@@ -157,23 +157,6 @@ class BookingController extends Controller
 
         $booking->booked_at_bib = $this->getAuthUser()->hasRole(['biblio', 'gestion']);
 
-        // Assert user count <= capacity
-        if($booking->user_count > $booking->space->capacity)
-            throw new BadRequestHttpException('Capacité maximale atteinte');
-
-        // jours ouvrables
-        $dw = date('N', $booking->start_date);
-        if($dw == '6' || $dw == '7')
-            throw new BadRequestHttpException('Impossible de réserver les jours non ouvrables');
-
-        // 15 minutes minimum
-        if($booking->end_date - $booking->start_date < 15 * 60)
-            throw new BadRequestHttpException('Impossible de réserver pour moins de 15 minutes');
-
-        // 8 heures maximum
-        if($booking->end_date - $booking->start_date > 8 * 3600)
-            throw new BadRequestHttpException('Impossible de réserver pour plus de 8 heures');
-
         if(!$editing) {
             if ($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
                 if ($request->has('booker_username')) {
@@ -191,6 +174,26 @@ class BookingController extends Controller
             $booking->user_profile = $booking->booker->user_profile;
             $booking->user_profile_details = $booking->booker->user_profile_details;
         }
+
+        if($booking->booker->blocked)
+            throw new BadRequestHttpException('Votre compte a été bloqué');
+
+        // Assert user count <= capacity
+        if($booking->user_count > $booking->space->capacity)
+            throw new BadRequestHttpException('Capacité maximale atteinte');
+
+        // jours ouvrables
+        $dw = date('N', $booking->start_date);
+        if($dw == '6' || $dw == '7')
+            throw new BadRequestHttpException('Impossible de réserver les jours non ouvrables');
+
+        // 15 minutes minimum
+        if($booking->end_date - $booking->start_date < 15 * 60)
+            throw new BadRequestHttpException('Impossible de réserver pour moins de 15 minutes');
+
+        // 8 heures maximum
+        if($booking->end_date - $booking->start_date > 8 * 3600)
+            throw new BadRequestHttpException('Impossible de réserver pour plus de 8 heures');
 
         // Is the space available ?
         if($editing) {

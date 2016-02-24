@@ -30,13 +30,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     protected $visible = [
-        'name',
+        'blocked',
+        'departement',
         'email',
-        'username',
         'id',
+        'name',
+        'username',
         'user_profile',
         'user_profile_details',
-        'departement'
     ];
 
     public function bookings()

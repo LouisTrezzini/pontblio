@@ -50,6 +50,12 @@
                 </md-select>
             </md-input-container>
 
+            <md-input-container flex="50" flex-md="25" ng-if="$root.isModo">
+                <md-checkbox ng-model="user.blocked">
+                    Bloqué
+                </md-checkbox>
+            </md-input-container>
+
             <div flex="100" layout="row" layout-align="end center">
                 <div flex="15" flex-md="25">
                     <md-button type="submit" class="md-primary md-raised md-large">Sauvegarder</md-button>

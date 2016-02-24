@@ -72,6 +72,10 @@ class UserController extends Controller
         $user->user_profile = $request->get('user_profile');
         $user->user_profile_details = $request->get('user_profile_details');
 
+        if($this->getAuthUser()->hasRole(['biblio', 'gestion'])) {
+            $user->blocked = $request->get('blocked', false);
+        }
+
         $user->save();
 
         return response()->json($user, 200);
