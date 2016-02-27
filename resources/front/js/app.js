@@ -115,30 +115,4 @@ angular
     //.config(function($httpProvider, jwtInterceptorProvider) {
     //    $httpProvider.interceptors.push('ErrorCodes_Interceptor');
     //})
-    .value('scDateTimeConfig', {
-        defaultTheme: 'biblio',
-        autosave: true,
-        defaultMode: 'date',
-        defaultDate: undefined, //should be date object!!
-        displayMode: 'full',
-        defaultOrientation: false,
-        displayTwentyfour: true,
-        compact: false
-    })
-    .value('scDateTimeI18n', {
-        previousMonth: "Mois précédent",
-        nextMonth: "Mois suivant",
-        incrementHours: "Increment Hours",
-        decrementHours: "Decrement Hours",
-        incrementMinutes: "Increment Minutes",
-        decrementMinutes: "Decrement Minutes",
-        switchAmPm: "Switch AM/PM",
-        now: "Maintenant",
-        cancel: "Annuler",
-        save: "Sauvegarder",
-        weekdays: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-        switchTo: 'Switch to',
-        clock: 'Horloge',
-        calendar: 'Calendrier'
-    })
 ;
