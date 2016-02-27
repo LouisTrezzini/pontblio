@@ -1,5 +1,5 @@
 angular.module('biblio')
-    .controller('Space_Simple_Ctrl', function ($scope, $resource,  $sce, space) {
+    .controller('Space_Simple_Ctrl', function ($scope, $resource, $state, $sce, space) {
         $scope.space = space;
         $scope.events = [];
         $scope.bindable = $sce.trustAsHtml($scope.space.description);
@@ -23,11 +23,21 @@ angular.module('biblio')
             }, null);
         };
 
+        $scope.onEventClick = function(calEvent, jsEvent, view) {
+            $state.go('root.bookings.modify', {id: calEvent.bookingId});
+        };
+
+        $scope.onDayClick = function(date, jsEvent, view, resourceObj) {
+            $state.go('root.bookings.create', {date: date, space: $scope.space.slug});
+        };
+
         $scope.uiConfig = {
             calendar: {
                 allDaySlot: false,
+                dayClick: $scope.onDayClick,
                 defaultView: 'agendaWeek',
                 editable: false,
+                eventClick: $scope.onEventClick,
                 header: {
                     left: 'prev,next today',
                     center: 'title',
@@ -38,7 +48,7 @@ angular.module('biblio')
                 minTime: '08:00:00',
                 maxTime: '23:00:00',
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                slotDuration: {minutes: 30},
+                slotDuration: {minutes: 15},
                 slotLabelFormat: 'HH:mm',
                 slotLabelInterval: {hours: 1},
                 viewRender: $scope.init,
