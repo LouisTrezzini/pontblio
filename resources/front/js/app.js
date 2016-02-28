@@ -63,11 +63,11 @@ angular
             })
         ;
     })
-    .config(['$urlRouterProvider', '$authProvider', function($urlRouterProvider, $authProvider) {
+    .config(function($urlRouterProvider, $authProvider) {
         $authProvider.loginUrl = apiPrefix + 'login';
 
-    }])
-    .config(['$stateProvider', '$urlRouterProvider', '$authProvider', '$httpProvider', '$provide', function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
+    })
+    .config(function($stateProvider, $urlRouterProvider, $authProvider, $httpProvider, $provide) {
         $provide.factory('redirectWhenLoggedOut', function ($q, $injector) {
             return {
                 responseError: function (rejection) {
@@ -91,7 +91,7 @@ angular
         });
 
         $httpProvider.interceptors.push('redirectWhenLoggedOut');
-    }])
+    })
     // Setup interceptor
     //.factory('ErrorCodes_Interceptor', function($rootScope, $location, $q, Storage) {
     //    return {
