@@ -34,8 +34,8 @@ class BookingTest extends TestCase
             'user_count' => '2',
             'object' => 'solo',
             'work_type' => 'skype',
-            'start_date' => time(),
-            'end_date' => time() + 3600,
+            'start_date' => mktime(12, 0, 0, date('n'), date('j') - date('N') + 8, date('Y')),
+            'end_date' => mktime(13, 0, 0, date('n'), date('j') - date('N') + 8, date('Y')),
         ], [
             'HTTP_Authorization' => 'Bearer ' . $tokenUser
         ]);

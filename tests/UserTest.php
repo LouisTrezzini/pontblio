@@ -56,13 +56,14 @@ class UserTest extends TestCase
         ], [
             'HTTP_Authorization' => 'Bearer ' . $tokenAdmin
         ])->seeJsonEquals([
-            'id' => 2,
-            'username' => 'taquet-c',
+            'blocked' => false,
+            'departement' => 'vet',
             'email' => 'tata@gmail.com',
+            'id' => 2,
             'name' => 'Cécile Taquet Gaspérini',
+            'username' => 'taquet-c',
             'user_profile' => 'user_profile_inge',
             'user_profile_details' => '2a',
-            'departement' => 'vet'
         ]);
     }
 
