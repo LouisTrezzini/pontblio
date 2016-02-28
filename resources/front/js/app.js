@@ -14,6 +14,8 @@ Highcharts.setOptions({
     }
 });
 
+moment.locale('fr');
+
 angular
     .module('biblio', [
         'highcharts-ng',

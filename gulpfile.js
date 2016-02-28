@@ -41,6 +41,8 @@ gulp.task('build-js', function() {
         'resources/front/js/app.js',
         'resources/front/js/*.js',
         'resources/front/js/**/*.js',
+        'public/bower/moment/locale/fr.js',
+        'public/bower/angular-i18n/angular-locale_fr-fr.js',
         'public/bower/fullcalendar/dist/lang/fr.js',
         'public/bower/textAngular/dist/textAngular-rangy.min.js',
         'public/bower/textAngular/dist/textAngular-sanitize.min.js'
