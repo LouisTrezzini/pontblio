@@ -6,29 +6,25 @@
     "angular": "latest",
     "angular-animate": "latest",
     "angular-base64-upload": "latest",
-    "angular-jwt": "latest",
+    "angular-i18n": "latest",
     "angular-material": "latest",
+    "angular-material-data-table": "latest",
     "angular-messages": "latest",
     "angular-resource": "latest",
+    "angular-sanitize": "latest",
     "angular-ui-calendar": "latest",
     "font-awesome": "latest",
+    "fullcalendar": "latest",
     "fullcalendar-scheduler": "latest",
-    "highcharts-release": "latest",
+    "highcharts": "latest",
+    "highcharts-ng": "latest",
     "jquery": "latest",
-    "ui-router": "latest",
-    "angular-material-data-table": "~0.8.14"
+    "ngquill": "latest",
+    "satellizer": "latest",
+    "ui-router": "latest"
   },
-  "overrides": {
-    "highcharts-release": {
-      "main": [
-        "highcharts.js",
-        "highcharts-more.js",
-        "modules/solid-gauge.js",
-        "modules/drilldown.js",
-        "modules/treemap.js",
-        "modules/funnel.js",
-        "modules/exporting.js"
-      ]
-    }
+  "resolutions": {
+    "fullcalendar": ">=2.5.0",
+    "angular": "^1.5.3"
   }
 }

@@ -1,5 +1,10 @@
-/bower_components/*
-/node_modules/*
-/www/fonts/*
-/www/app.min.js
-/www/style.min.css
+/vendor
+/node_modules
+.env
+npm-debug.log
+
+/public/bower
+/public/app.min.js
+/public/style.min.css
+/public/fonts
+/public/imgs/uploads

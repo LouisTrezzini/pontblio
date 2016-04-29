@@ -1,0 +1,78 @@
+<div>
+    <div layout="row" layout-align="space-around center">
+        <img flex="50" ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
+             class="md-card-image" alt="{{space.name}}">
+    </div>
+
+    <md-content layout-padding>
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submitSpace(space, spacePicture)">
+            <md-input-container flex="50" flex-md="25">
+                <label>
+                    <i class="fa fa-font"></i> Nom
+                </label>
+                <input ng-model="space.name" placeholder="Nom">
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25">
+                <label>
+                    <i class="fa fa-map-marker"></i> Lieu
+                </label>
+                <input ng-model="space.location" placeholder="Lieu">
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25">
+                <label>
+                    <i class="fa fa-file-image-o"></i> Image
+                </label>
+                <input type="file" ng-model="spacePicture" base-sixty-four-input>
+
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    <i class="fa fa-users"></i> Capacité
+                </label>
+                <input ng-model="space.capacity" ng-required min="1" type="number">
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25">
+                <md-checkbox ng-model="space.screen">
+                    Écran
+                </md-checkbox>
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25">
+                <md-checkbox ng-model="space.whiteboard">
+                    Tableau blanc
+                </md-checkbox>
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25">
+                <md-checkbox ng-model="space.active">
+                    Espace actif
+                </md-checkbox>
+            </md-input-container>
+
+            <md-input-container flex="100">
+                <ng-quill-editor toolbar="true" ng-model="space.description"></ng-quill-editor>
+            </md-input-container>
+
+            <div flex="100" layout="row" layout-align="end center">
+                <div flex="15" flex-md="25">
+                    <md-button type="submit" class="md-primary md-raised md-large">
+                        {{submitButton}}
+                    </md-button>
+                </div>
+            </div>
+        </form>
+
+        <div flex="100" layout="row" layout-align="start center">
+            <div flex="15" flex-md="25">
+                <md-button class="md-accent md-raised md-large" ng-click="delete()" ng-if="mode!='create'">
+                    Supprimer l'espace
+                </md-button>
+            </div>
+        </div>
+    </md-content>
+</div>
+<!-- TODO erreurs -->

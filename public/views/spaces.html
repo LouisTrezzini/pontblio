@@ -1,0 +1,62 @@
+<div layout="column" layout-padding>
+    <div layout="row" ng-if="$root.isAdmin">
+        <div flex="20">
+            <md-button class="md-primary md-raised md-large" ui-sref="root.spaces.create">
+                Créer un espace
+            </md-button>
+        </div>
+
+        <div flex="5"></div>
+
+        <div flex="20" ng-if="!editing">
+            <md-button class="md-primary md-raised md-large" ng-click="edit()">
+                Éditer le message
+            </md-button>
+        </div>
+
+        <div flex="5"></div>
+
+        <div flex="20" ng-if="editing">
+            <md-button class="md-primary md-raised md-large" ng-click="save()">
+                Sauvegarder le message
+            </md-button>
+        </div>
+    </div>
+
+    <div ng-bind-html="bindable" ng-if="!editing">
+    </div>
+
+    <ng-quill-editor class="editor" toolbar="true" ng-model="home.content" ng-if="editing"></ng-quill-editor>
+
+    <div layout="row" layout-wrap>
+        <div flex="25" ng-repeat="space in spaces" ng-if="$root.isAdmin || space.active">
+            <md-card>
+                <div ui-sref="root.spaces.simple({slug: space.slug})" style="cursor: pointer">
+                    <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}"
+                         class="md-card-image" alt="{{space.name}}">
+
+                    <md-card-content>
+                        <h3 class="md-title">{{ space.name }}</h3>
+
+                        <br>
+
+                        <div layout="row">
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-users"></i> {{ space.capacity }}
+                            </span>
+
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-desktop"></i> {{ space.screen ? 'Oui' : 'Non' }}
+                            </span>
+
+                            <span flex="33" style="text-align: center;">
+                                <i class="fa fa-pencil"></i> {{ space.whiteboard ? 'Oui' : 'Non' }}
+                            </span>
+                        </div>
+                    </md-card-content>
+                </div>
+            </md-card>
+        </div>
+    </div>
+</div>
+

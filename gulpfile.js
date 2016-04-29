@@ -10,58 +10,58 @@ var mainBowerFiles = require('main-bower-files');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var webserver = require('gulp-webserver');
-var env = process.env.GULP_ENV;
+var replace = require('gulp-replace');
 
-gulp.task('jshint', function() {
-    return gulp
-        .src([
-            'app/js/**/*.js',
-            'app/js/*.js'
-        ])
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'))
-    ;
-});
+var production = !!gutil.env.production;
 
 gulp.task('build-less', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'app/less/bootstrap.less'
+        'resources/front/less/bootstrap.less',
+        //'public/bower/bootstrap-css-only/css/bootstrap.css',
+        'public/bower/quill/dist/quill.base.css',
+        'public/bower/quill/dist/quill.snow.css',
     ];
     var files = vendorsFiles.concat(appFiles);
     return gulp
         .src(files)
         .pipe(filter(['**/*.css', '**/*.less']))
+        .pipe(replace('screen\\0','screen'))
         .pipe(less())
         .pipe(concat('style.min.css'))
-        .pipe(gulpif(env === 'prod', uglifycss()))
-        .pipe(gulp.dest('www/'))
+        //.pipe(gulpif(env === 'prod', uglifycss()))
+        .pipe(gulp.dest('public/'))
     ;
 });
 
 gulp.task('build-js', function() {
     var vendorsFiles = mainBowerFiles();
     var appFiles = [
-        'app/js/app.js',
-        'app/js/*.js',
-        'app/js/**/*.js',
-        'bower_components/fullcalendar/dist/lang/fr.js'
+        production ? 'resources/front/const.heroku.js' : 'resources/front/const.js',
+        'resources/front/js/app.js',
+        'resources/front/js/*.js',
+        'resources/front/js/**/*.js',
+        'public/bower/moment/locale/fr.js',
+        'public/bower/angular-i18n/angular-locale_fr-fr.js',
+        'public/bower/fullcalendar/dist/lang/fr.js',
+        'public/bower/textAngular/dist/textAngular-rangy.min.js',
+        'public/bower/textAngular/dist/textAngular-sanitize.min.js'
     ];
-    var files = ['bower_components/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
+    var files = ['public/bower/jquery/dist/jquery.js'].concat(vendorsFiles.concat(appFiles));
     return gulp
         .src(files)
         .pipe(filter(['**/*.js']))
         .pipe(concat('app.min.js'))
-        .pipe(gulpif(env === 'prod', uglify()))
-        .pipe(gulp.dest('www/'))
+        //.pipe(gulpif(env === 'prod', uglify()))
+        .pipe(gulp.dest('public/'))
     ;
 });
 
 gulp.task('lint-js', function() {
     var appFiles = [
-        'app/js/app.js',
-        'app/js/*.js',
-        'app/js/**/*.js',
+        'resources/frontjs/app.js',
+        'resources/frontjs/*.js',
+        'resources/frontjs/**/*.js',
     ];
     return gulp
         .src(appFiles)
@@ -71,28 +71,14 @@ gulp.task('lint-js', function() {
 });
 
 gulp.task('copy-fonts', function () {
-    return gulp
-        .src(mainBowerFiles())
-        .pipe(filter(['***.eot', '***.svg', '***.ttf', '***.woff', '***.woff2', '***.otf']))
-        .pipe(gulp.dest('www/fonts/'))
-    ;
-});
-
-gulp.task('serve', function() {
-    gulp
-        .src( 'www' )
-        .pipe(webserver({
-            host:             'localhost',
-            port:             '9001',
-            livereload:       true,
-            directoryListing: false
-        }))
-    ;
+    return gulp.src(mainBowerFiles().concat('public/bower/font-awesome/fonts/*'))
+        .pipe(filter(['**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2', '**/*.otf']))
+        .pipe(gulp.dest('public/fonts/'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['app/js/**/*.js', 'app/js/*.js'], ['lint-js', 'build-js']);
-    gulp.watch('app/less/*.less', ['build-less']);
+    gulp.watch(['resources/front/js/**/*.js', 'resources/frontjs/*.js'], ['lint-js', 'build-js']);
+    gulp.watch('resources/front/less/*.less', ['build-less']);
 });
 gulp.task('build', ['build-js', 'build-less', 'copy-fonts']);
 gulp.task('start', ['watch']);

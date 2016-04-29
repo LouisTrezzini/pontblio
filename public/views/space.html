@@ -1,0 +1,34 @@
+<div layout="row">
+    <div layout="column" flex="25" layout-padding>
+
+        <img ng-src="{{ space.image_url ? (space.image_url | urlFile) : 'imgs/lol.jpeg'  }}" class="space-icon"
+             alt="{{space.name}}">
+
+        <br>
+
+        <h1>{{ space.name }} ({{ space.location }})</h1>
+
+        <div ng-bind-html="bindable"></div>
+
+        <br>
+
+        <div>
+            <md-button class="md-primary md-raised md-large" title="Réservation"
+                       ui-sref="root.bookings.create({space: space.slug})">
+                Réserver
+            </md-button>
+        </div>
+
+        <div>
+            <md-button class="md-primary md-raised md-large" ng-if="$root.isAdmin"
+                       ui-sref="root.spaces.modify({slug: space.slug})">
+                <i class="fa fa-cogs"></i> Modifier
+            </md-button>
+        </div>
+
+    </div>
+
+    <div flex="75" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div>
+</div>
+
+

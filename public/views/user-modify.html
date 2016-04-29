@@ -1,0 +1,68 @@
+<div>
+    <md-content layout-padding>
+        <form layout="row" layout-align="start center" layout-wrap ng-submit="submit(user)">
+            <md-input-container flex="50">
+                <label>
+                    Nom d'utilisateur
+                </label>
+                <input ng-model="user.username" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Nom
+                </label>
+                <input ng-model="user.name" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Email
+                </label>
+                <input ng-model="user.email" disabled type="text">
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Cursus
+                </label>
+                <md-select ng-model="user.user_profile">
+                    <md-option ng-repeat="(key, val) in enums.user_profile" value="{{ key }}">{{ val }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50">
+                <label>
+                    Cursus (détails)
+                </label>
+                <md-select ng-model="user.user_profile_details">
+                    <md-option ng-repeat="(key, val) in enums[user.user_profile]" value="{{ key }}">{{ val }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50" ng-if="user.user_profile == 'user_profile_inge'">
+                <label>
+                    Département
+                </label>
+                <md-select ng-model="user.departement">
+                    <md-option ng-repeat="(key, val) in enums.departement" value="{{ key }}">{{ val }}</md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container flex="50" flex-md="25" ng-if="$root.isModo">
+                <md-checkbox ng-model="user.blocked">
+                    Bloqué
+                </md-checkbox>
+            </md-input-container>
+
+            <div flex="100" layout="row" layout-align="end center">
+                <div flex="15" flex-md="25">
+                    <md-button type="submit" class="md-primary md-raised md-large">Sauvegarder</md-button>
+                </div>
+            </div>
+        </form>
+    </md-content>
+</div>
+<!-- TODO erreurs -->
+
